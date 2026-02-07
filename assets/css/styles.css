@@ -729,11 +729,11 @@ footer p {
 /* MEDIA QUERIES (MEDIUM) */
 @media screen and (min-width: 800px) {
   h1 {
-    font-size: 1.75em;
+    font-size: 1.25em;
   }
 
   header img {
-    height: 3.5rem;
+    display: none;
   }
 
   nav {
@@ -755,23 +755,6 @@ footer p {
 
   .menu-footer {
     display: none;
-  }
-
-  header div .desktop-social {
-    display: flex;
-    gap: 1.5em;
-    margin-right: 2em;
-  }
-
-  .desktop-social li a {
-    color: var(--white);
-    transition:
-      color 0.3s ease,
-      transform 0.3s ease;
-  }
-
-  .desktop-social li a:hover {
-    color: var(--gold);
   }
 
   .menu-toggle {
@@ -828,7 +811,7 @@ footer p {
 
   .nav-links h2 {
     padding: 0;
-    font-size: 1.5em;
+    font-size: 1em;
   }
 
   header {
@@ -889,6 +872,10 @@ footer p {
 
 /* MEDIA QUERIES (LARGE) */
 @media screen and (min-width: 1024px) {
+  header img {
+    display: block;
+  }
+
   #services .container div {
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -898,5 +885,37 @@ footer p {
     grid-template-columns: 1fr 1fr;
     gap: 1em;
     align-items: start;
+  }
+}
+
+/* MEDIA QUERIES (EXTRA LARGE) */
+@media screen and (min-width: 1440px) {
+  header img {
+    height: 3rem;
+  }
+
+  h1 {
+    font-size: 1.75em;
+  }
+
+  .nav-links h2 {
+    font-size: 1.5em;
+  }
+
+  header div .desktop-social {
+    display: flex;
+    gap: 1.5em;
+    margin-right: 2em;
+  }
+
+  .desktop-social li a {
+    color: var(--white);
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .desktop-social li a:hover {
+    color: var(--gold);
   }
 }
