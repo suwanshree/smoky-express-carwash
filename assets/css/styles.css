@@ -150,6 +150,7 @@ html {
   font-style: normal;
   background-color: var(--red);
   color: var(--white);
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -278,9 +279,9 @@ header div {
 h1 {
   font-size: 1.5em;
   font-weight: 800;
-  margin-left: 0.5em;
+  margin-left: 1em;
   color: var(--white);
-  line-height: 2.5ch;
+  line-height: 1.8ch;
   text-shadow:
     -1.5px -1.5px 0 #000,
     1.5px -1.5px 0 #000,
@@ -404,9 +405,9 @@ nav li {
 
 h2 {
   opacity: 0;
-  font-size: 1.5em;
+  font-size: 2.5em;
   font-weight: 700;
-  line-height: 3ch;
+  line-height: 2ch;
   transform: translateY(-20px);
   animation: dropFade20 0.8s ease-out forwards;
   will-change: transform, opacity;
@@ -423,7 +424,7 @@ h2 a {
 
 h3 {
   opacity: 0;
-  font-size: 1.15em;
+  font-size: 1.5em;
   font-weight: 700;
   line-height: 2ch;
   transform: translateY(-14px);
@@ -454,7 +455,7 @@ h3 {
 }
 
 p {
-  font-size: 0.9em;
+  font-size: 1.2em;
   line-height: 2.2ch;
 }
 
@@ -735,6 +736,7 @@ footer p {
 @media screen and (min-width: 800px) {
   h1 {
     font-size: 1.25em;
+    margin-left: 0.5em;
   }
 
   header img {
@@ -814,6 +816,10 @@ footer p {
     padding: 0 1em 0 1em;
   }
 
+  nav ul li {
+    padding-top: 2px;
+  }
+
   .nav-links h2 {
     padding: 0;
     font-size: 1em;
@@ -861,7 +867,21 @@ footer p {
   }
 
   .footer-grid .footer-brand div {
-    padding-left: 1.5em;
+    padding-left: 2.7em;
+  }
+
+  .footer-grid .footer-brand a img {
+    transform: translateX(1.2em);
+    transition:
+      filter 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .footer-brand a:hover img {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8))
+      drop-shadow(0 0 20px rgba(255, 223, 0, 0.4));
+
+    transform: translateX(1.2em) scale(1.02);
   }
 
   footer a {
