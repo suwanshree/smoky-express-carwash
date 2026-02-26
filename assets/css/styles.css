@@ -309,7 +309,7 @@ nav {
   height: 100vh;
   background-image: linear-gradient(var(--darkRed), var(--red));
   padding-top: 6rem;
-  transform: translateY(-100%);
+  transform: translateY(-150%);
   transition: transform 0.45s ease;
   z-index: 999;
 }
