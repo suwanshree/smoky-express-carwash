@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       lastScrollY = currentScrollY;
     },
-    { passive: true }
+    { passive: true },
   );
 
   const menuToggle = document.querySelector(".menu-toggle");
@@ -40,6 +40,27 @@ document.addEventListener("DOMContentLoaded", () => {
       nav.classList.remove("nav--open");
       menuToggle.classList.remove("active");
       document.body.style.overflow = "";
+    });
+  });
+
+  const faqItems = document.querySelectorAll(".faq-item");
+
+  faqItems.forEach((item) => {
+    const button = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
+
+    button.addEventListener("click", () => {
+      const isOpen = item.classList.contains("active");
+
+      faqItems.forEach((i) => {
+        i.classList.remove("active");
+        i.querySelector(".faq-answer").style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add("active");
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
     });
   });
 });
