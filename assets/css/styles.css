@@ -832,6 +832,88 @@ footer p {
   margin-top: 0.25em;
 }
 
+/* CONSTRUCTION BANNER */
+
+.construction-banner {
+  width: 100%;
+  background: #ffcc00;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* LARGE */
+@media screen and (min-width: 1150px) {
+  .construction-banner {
+    font-size: 1.05rem;
+    padding: 12px 24px;
+  }
+}
+
+/* EXTRA LARGE */
+@media screen and (min-width: 1740px) {
+  .construction-banner {
+    font-size: 1.1rem;
+    padding: 14px 24px;
+  }
+}
+
+/* CARD CONSTRUCTION OVERLAY */
+
+.card-under-construction {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-under-construction::after {
+  content: "🚧 Coming Soon — Pricing & Details Not Yet Available";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background: rgba(90, 77, 0, 0.9);
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 20px;
+
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.4;
+
+  z-index: 5;
+}
+
+/* blur content behind */
+.card-under-construction > * {
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+/* Disable button interaction */
+.disabled-construction {
+  opacity: 0.6;
+  filter: grayscale(30%);
+  cursor: not-allowed !important;
+}
+
+/* Prevent hover effects */
+.disabled-construction:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* MEDIA QUERIES (LARGE) */
 @media screen and (min-width: 1150px) {
   h1 {

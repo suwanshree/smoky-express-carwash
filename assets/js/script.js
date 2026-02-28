@@ -75,4 +75,37 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  /* CONSTRUCTION OVERLAY FOR ALL CARDS */
+
+  function applyConstructionOverlay() {
+    const articles = document.querySelectorAll(
+      "#services article, #membership article",
+    );
+
+    articles.forEach((article) => {
+      article.classList.add("card-under-construction");
+    });
+  }
+
+  window.addEventListener("load", applyConstructionOverlay);
+  // Disable all buttons site-wide (construction mode)
+  // CONSTRUCTION MODE — disable all buttons
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll("button");
+
+    buttons.forEach((button) => {
+      // true disable
+      button.disabled = true;
+
+      // block pointer interaction completely
+      button.style.pointerEvents = "none";
+
+      // show blocked cursor
+      button.style.cursor = "not-allowed";
+
+      // optional styling class
+      button.classList.add("disabled-construction");
+    });
+  });
 });
