@@ -139,6 +139,7 @@ table {
   --gold: #fdd017;
   --font-brand: "League Spartan", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
+  --header-height: 65px;
 }
 
 /* GLOBAL STYLES (MOBILE FIRST - SMALL) */
@@ -148,7 +149,7 @@ html {
   min-width: 400px;
   font-weight: normal;
   font-style: normal;
-  background-color: var(--red);
+  background-color: var(--darkRed);
   color: var(--white);
   scroll-behavior: smooth;
 }
@@ -165,6 +166,7 @@ h3,
 }
 
 body {
+  padding-top: var(--header-height);
   font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.75;
@@ -206,7 +208,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 0.5em 0.25em;
-  background-color: var(--red);
+  background-color: var(--darkRed);
   box-shadow: 0 2px 2px var(--black);
 }
 
@@ -307,7 +309,7 @@ nav {
   left: 0;
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(var(--darkRed), var(--red));
+  background-image: linear-gradient(#b80000, var(--darkRed));
   padding-top: 6rem;
   transform: translateY(-150%);
   transition: transform 0.45s ease;
@@ -384,7 +386,7 @@ nav li {
 }
 
 .nav-links li:hover a {
-  color: var(--red);
+  color: var(--darkRed);
   cursor: pointer;
 }
 
@@ -514,12 +516,12 @@ main button:hover {
 .button-two {
   width: 80vw;
   color: var(--white);
-  background-color: var(--red);
+  background-color: var(--darkRed);
   transition: all 0.3s ease-in-out;
 }
 
 .button-two:hover {
-  color: var(--red);
+  color: var(--darkRed);
   background-color: var(--white);
   transform: scale(1.03);
   cursor: pointer;
@@ -539,7 +541,7 @@ section > div > p {
 
 #services article {
   color: var(--white);
-  background-color: var(--red);
+  background-color: var(--darkRed);
   padding: 1em 1em 1em 1em;
   margin-bottom: 1em;
   border-radius: 10px;
@@ -556,6 +558,9 @@ section > div > p {
 }
 
 #expertise,
+#privacy,
+#team,
+#free,
 #services {
   color: var(--black);
   background-color: var(--white);
@@ -583,7 +588,7 @@ section > div > p {
 }
 
 .membership-grid article {
-  background: var(--red);
+  background: var(--darkRed);
   color: var(--white);
   padding: 1.5em;
   border-radius: 16px;
@@ -595,7 +600,7 @@ section > div > p {
 
 .membership-grid article.featured {
   transform: scale(1.05);
-  background: #b80000;
+  background: var(--darkRed);
 }
 
 .price {
@@ -722,19 +727,20 @@ form label {
 
 form input[type="text"],
 form input[type="email"],
+form input[type="tel"],
 form textarea {
   width: 100%;
   box-sizing: border-box;
   margin-top: 0.4rem;
   padding: 0.75rem 0.9rem;
-  border: 2px solid var(--red);
+  border: 2px solid var(--darkRed);
   background: var(--white);
   color: var(--black);
 }
 
 form button[type="submit"] {
   width: 100%;
-  background: var(--red);
+  background: var(--darkRed);
   border: none;
   border-radius: 10px;
   color: var(--white);
@@ -805,6 +811,12 @@ footer {
 footer h3 {
   font-weight: 700;
   margin-bottom: 0.5em;
+}
+
+#contact a,
+#free a {
+  color: var(--black);
+  text-decoration: none;
 }
 
 footer a {
@@ -980,6 +992,26 @@ footer p {
       drop-shadow(0 0 20px rgba(255, 223, 0, 0.4));
 
     transform: translateX(1.2em) scale(1.02);
+  }
+
+  #contact a {
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  #contact a:hover {
+    color: var(--darkRed);
+  }
+
+  #free a {
+    transition:
+      color 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  #free a:hover {
+    color: var(--darkRed);
   }
 
   footer a {
