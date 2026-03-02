@@ -83,29 +83,65 @@ As a subscriber, you’ll also receive occasional exclusive offers, discounts, a
 available only to Smoky Express customers. You can opt out at any time.
 </p>
 
-<form action="https://formspree.io/f/mgvnlbpl" method="POST">
+<!-- SUCCESS MESSAGE -->
+    <div id="freewash-success"
+         style="display:none; background:#d4edda; color:#155724;
+                padding:12px; margin-bottom:15px; border-radius:6px;">
+      🎉 Thank you! You will receive your free wash code via text message shortly.
+    </div>
 
-<label>
-Phone Number
-<input type="tel" name="phone" required>
+    <!-- ERROR MESSAGE -->
+    <div id="freewash-error"
+         style="display:none; background:#f8d7da; color:#721c24;
+                padding:12px; margin-bottom:15px; border-radius:6px;">
+      ❌ Something went wrong. Please try again.
+    </div>
+
+<form id="freewash-form"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSfaMUEqFd1rBIQUXk-kzyOSOPg80tTO2fREyzM4MAoyjEkbbw/formResponse"
+          method="POST"
+          target="freewash_iframe">
+
+      <label>
+        Phone Number *
+        <input type="tel" name="entry.205213222" required>
+      </label>
+
+      <label>
+        Optional Name
+        <input type="text" name="entry.2121728326">
+      </label>
+
+      <label style="margin-top:10px;">
+  Do you agree to receive promotional SMS messages and accept our
+  <a href="../privacy-policy/" target="_blank">Privacy Policy</a>? *
 </label>
 
-<label>
-Optional Name
-<input type="text" name="name">
-</label>
+<div style="display:flex; gap:1.5rem; margin-top:0.5rem;">
 
-<p style="font-size:0.9rem; margin-top:10px;">
-By submitting, you agree to receive SMS messages and accept our
-<a href="../privacy-policy/">Privacy Policy</a>.
-</p>
+  <label style="display:flex; align-items:center; gap:0.4rem;">
+    <input type="radio" name="sms-consent" value="yes">
+    Yes
+  </label>
 
-<button type="submit">Get Free Wash Code</button>
-
-</form>
+  <label style="display:flex; align-items:center; gap:0.4rem;">
+    <input type="radio" name="sms-consent" value="no">
+    No
+  </label>
 
 </div>
 
+      <button type="submit" id="freewash-submit" disabled>
+  Get Free Wash Code
+</button>
+
+    </form>
+
+    <iframe name="freewash_iframe"
+            id="freewash_iframe"
+            style="display:none;"></iframe>
+
+  </div>
 </section>
 
 </main>
@@ -148,7 +184,75 @@ By submitting, you agree to receive SMS messages and accept our
                 <p>All Rights Reserved. <a href="../privacy-policy/">Privacy Policy</a></p>
             </div>
         </footer>
+<script>
 
+const consentRadios = document.querySelectorAll('input[name="sms-consent"]');
+const freewashButton = document.getElementById("freewash-submit");
+
+consentRadios.forEach(radio => {
+  radio.addEventListener("change", function() {
+
+    if (this.value === "yes") {
+      freewashButton.disabled = false;
+    } else {
+      freewashButton.disabled = true;
+    }
+
+  });
+});
+
+let freewashSubmitted = false;
+let freewashTimeout;
+
+document.getElementById("freewash-form").addEventListener("submit", function() {
+
+  freewashSubmitted = true;
+
+  document.getElementById("freewash-success").style.display = "none";
+  document.getElementById("freewash-error").style.display = "none";
+
+  const btn = document.getElementById("freewash-submit");
+  btn.disabled = true;
+  btn.innerText = "Sending...";
+
+  freewashTimeout = setTimeout(function() {
+
+    if (freewashSubmitted) {
+
+      document.getElementById("freewash-error").style.display = "block";
+
+      btn.disabled = false;
+      btn.innerText = "Get Free Wash Code";
+
+      freewashSubmitted = false;
+
+    }
+
+  }, 8000);
+
+});
+
+document.getElementById("freewash_iframe").addEventListener("load", function() {
+
+  if (freewashSubmitted) {
+
+    clearTimeout(freewashTimeout);
+
+    document.getElementById("freewash-success").style.display = "block";
+
+    document.getElementById("freewash-form").reset();
+
+    const btn = document.getElementById("freewash-submit");
+    btn.disabled = false;
+    btn.innerText = "Get Free Wash Code";
+
+    freewashSubmitted = false;
+
+  }
+
+});
+
+</script>
 <script src="../assets/js/script.js"></script>
 
 </body>

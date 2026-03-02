@@ -62,46 +62,70 @@
 <main>
 
 <section id="team">
+  <div class="container">
 
-<div class="container">
+    <h2>Join Our Team</h2>
+    <p>Interested in working at Smoky Express Car Wash? Fill out the form below and we will get back to you shortly.</p>
+    <!-- SUCCESS -->
+    <div id="employment-success"
+         style="display:none; background:#d4edda; color:#155724;
+                padding:12px; margin-bottom:15px; border-radius:6px;">
+      ✅ Thank you! Your interest form has been submitted.
+    </div>
 
-<h2>Join Our Team</h2>
+    <!-- ERROR -->
+    <div id="employment-error"
+         style="display:none; background:#f8d7da; color:#721c24;
+                padding:12px; margin-bottom:15px; border-radius:6px;">
+      ❌ Something went wrong. Please try again.
+    </div>
 
-<p>Interested in working at Smoky Express Car Wash? Fill out the form below and we will get back to you shortly.</p>
+    <form id="employment-form"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSdc_C53ma-gAuSNICx8XuRvkFrxTTBt4Cs5FRkDZrIc1XczHQ/formResponse"
+          method="POST"
+          target="employment_iframe">
 
-<form action="https://formspree.io/f/mgvnlbpl" method="POST">
+      <label>
+        Full Name *
+        <input type="text" name="entry.987488692" required>
+      </label>
 
-<label>
-Full Name
-<input type="text" name="name" required>
-</label>
+      <label>
+        Phone Number *
+        <input type="tel" name="entry.1156187762" required>
+      </label>
 
-<label>
-Phone Number
-<input type="tel" name="phone" required>
-</label>
+      <label>
+        Email *
+        <input type="email" name="entry.2062043871" required>
+      </label>
 
-<label>
-Email
-<input type="email" name="email">
-</label>
+      <label>
+        Position Interest *
+        <select name="entry.311136976" required>
+          <option value="">Select Position</option>
+          <option value="Car Wash Attendant">
+            Car Wash Attendant
+          </option>
+        </select>
+      </label>
 
-<label>
-Position Interest
-<input type="text" name="position">
-</label>
+      <label>
+        Message *
+        <textarea name="entry.561330674" rows="4" required></textarea>
+      </label>
 
-<label>
-Message
-<textarea name="message"></textarea>
-</label>
+      <button type="submit" id="employment-submit">
+        Submit Interest Form
+      </button>
 
-<button type="submit">Submit Application</button>
+    </form>
 
-</form>
+    <iframe name="employment_iframe"
+            id="employment_iframe"
+            style="display:none;"></iframe>
 
-</div>
-
+  </div>
 </section>
 
 </main>
@@ -144,7 +168,60 @@ Message
                 <p>All Rights Reserved. <a href="../privacy-policy/">Privacy Policy</a></p>
             </div>
         </footer>
+<script>
 
+let employmentSubmitted = false;
+let employmentTimeout;
+
+document.getElementById("employment-form").addEventListener("submit", function() {
+
+  employmentSubmitted = true;
+
+  document.getElementById("employment-success").style.display = "none";
+  document.getElementById("employment-error").style.display = "none";
+
+  const btn = document.getElementById("employment-submit");
+  btn.disabled = true;
+  btn.innerText = "Submitting...";
+
+  employmentTimeout = setTimeout(function() {
+
+    if (employmentSubmitted) {
+
+      document.getElementById("employment-error").style.display = "block";
+
+      btn.disabled = false;
+      btn.innerText = "Submit Interest Form";
+
+      employmentSubmitted = false;
+
+    }
+
+  }, 8000);
+
+});
+
+document.getElementById("employment_iframe").addEventListener("load", function() {
+
+  if (employmentSubmitted) {
+
+    clearTimeout(employmentTimeout);
+
+    document.getElementById("employment-success").style.display = "block";
+
+    document.getElementById("employment-form").reset();
+
+    const btn = document.getElementById("employment-submit");
+    btn.disabled = false;
+    btn.innerText = "Submit Interest Form";
+
+    employmentSubmitted = false;
+
+  }
+
+});
+
+</script>
 <script src="../assets/js/script.js"></script>
 
 </body>

@@ -253,32 +253,74 @@
             <section id="contact">
                 <div class="container">
                     <h2>Contact Smoky Express Car Wash</h2>
-                    <p>📞 <a href="tel:+14087546910">408-754-6910</a> | ✉️ <a href="mailto:contact@smokyexpresscarwash.com">contact@smokyexpresscarwash.com</a></p>
-                    <p>Looking for a fast car wash near you or have questions about our unlimited wash plans? Contact us today using the form below.</p>
-                    <form action="https://formspree.io/f/mgvnlbpl" method="post">
-                        <label>
-                            Full Name
-                            <input type="text" name="name" required>
-                        </label>
-                        <label>
-                            Email Address
-                            <input type="email" name="email">
-                        </label>
-                        <label>
-                            Vehicle Type
-                            <input type="text" name="company">
-                        </label>
-                        <label>
-                            Service of Interest
-                            <input type="text" name="industry">
-                        </label>
-                        <label>
-                            Message
-                            <textarea name="message" rows="4"></textarea>
-                        </label>
 
-                        <button type="submit">Contact Us</button>
+                    <p>
+                    📞 <a href="tel:+14087546910">408-754-6910</a> |
+                    ✉️ <a href="mailto:contact@smokyexpresscarwash.com">
+                    contact@smokyexpresscarwash.com</a>
+                    </p>
+
+                    <p>
+                    Looking for a fast car wash near you or have questions about our unlimited wash plans?
+                    Contact us today using the form below.
+                    </p>
+
+                    <!-- SUCCESS MESSAGE -->
+                    <div id="contact-success"
+                        style="display:none; background:#d4edda; color:#155724;
+                                padding:12px; margin-bottom:15px; border-radius:6px;">
+                    ✅ Thank you! Your message has been sent successfully.
+                    </div>
+
+                    <!-- ERROR MESSAGE -->
+                    <div id="contact-error"
+                        style="display:none; background:#f8d7da; color:#721c24;
+                                padding:12px; margin-bottom:15px; border-radius:6px;">
+                    ❌ Something went wrong. Please try again or call us directly.
+                    </div>
+
+                    <!-- FORM -->
+                    <form id="contact-form"
+                        action="https://docs.google.com/forms/d/e/1FAIpQLSfPgkr1xeISla_Wp7J3wBIswmGK06QHaF3lC9_2kI3BrPdByg/formResponse"
+                        method="POST"
+                        target="hidden_iframe">
+
+                    <label>
+                        Full Name *
+                        <input type="text" name="entry.1272025401" required>
+                    </label>
+
+                    <label>
+                        Email Address *
+                        <input type="email" name="entry.1305614757" required>
+                    </label>
+
+                    <label>
+                        Vehicle Type
+                        <input type="text" name="entry.1048977808">
+                    </label>
+
+                    <label>
+                        Service of Interest
+                        <input type="text" name="entry.1813534125">
+                    </label>
+
+                    <label>
+                        Message *
+                        <textarea name="entry.527505262" rows="4" required></textarea>
+                    </label>
+
+                    <button type="submit" id="contact-submit">
+                        Contact Us
+                    </button>
+
                     </form>
+
+                    <!-- HIDDEN IFRAME -->
+                    <iframe name="hidden_iframe"
+                            id="hidden_iframe"
+                            style="display:none;"></iframe>
+
                 </div>
             </section>
 
@@ -336,6 +378,61 @@
                 <p>All Rights Reserved. <a href="/privacy-policy/">Privacy Policy</a></p>
             </div>
         </footer>
+        <script>
+            let contactFormSubmitted = false;
+            let contactTimeout;
+
+            // When user clicks submit
+            document.getElementById("contact-form").addEventListener("submit", function() {
+
+            contactFormSubmitted = true;
+
+            // Hide old messages
+            document.getElementById("contact-success").style.display = "none";
+            document.getElementById("contact-error").style.display = "none";
+
+            // Show loading state
+            const btn = document.getElementById("contact-submit");
+            btn.disabled = true;
+            btn.innerText = "Sending...";
+
+            // Fallback timeout (error if no response in 8 seconds)
+            contactTimeout = setTimeout(function() {
+
+                if (contactFormSubmitted) {
+
+                document.getElementById("contact-error").style.display = "block";
+
+                btn.disabled = false;
+                btn.innerText = "Contact Us";
+
+                contactFormSubmitted = false;
+
+                }
+
+            }, 8000);
+
+            });
+
+            // When Google Form responds
+            document.getElementById("hidden_iframe").addEventListener("load", function() {
+                if (contactFormSubmitted) {
+
+                    clearTimeout(contactTimeout);
+
+                    document.getElementById("contact-success").style.display = "block";
+
+                    document.getElementById("contact-form").reset();
+
+                    const btn = document.getElementById("contact-submit");
+                    btn.disabled = false;
+                    btn.innerText = "Contact Us";
+
+                    contactFormSubmitted = false;
+
+                }
+            });
+            </script>
         <script src="assets/js/script.js"></script>
     </body>
 </html>
