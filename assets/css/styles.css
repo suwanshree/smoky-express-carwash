@@ -400,6 +400,7 @@ nav li {
   display: inline-block;
 }
 
+.button-one,
 .special-button a {
   color: var(--black);
   text-decoration: none;
@@ -408,6 +409,7 @@ nav li {
   z-index: 5;
 }
 
+.button-one::before,
 .special-button::before {
   content: "";
   position: absolute;
@@ -424,6 +426,7 @@ nav li {
   z-index: 3;
 }
 
+.button-one:hover::before,
 .special-button:hover::before {
   animation: sweep 0.7s forwards;
 }
@@ -533,11 +536,14 @@ main button:hover {
   width: 80vw;
   color: var(--black);
   background-color: var(--gold);
+  overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
 
 .button-one:hover {
   transform: scale(1.03);
+  color: var(--darkRed);
+  background-color: var(--white);
 }
 
 .button-two {
@@ -780,7 +786,7 @@ form textarea:focus {
 form button[type="submit"] {
   width: 100%;
   background: var(--darkRed);
-  border: none;
+  border: 2px solid var(--darkRed);
   border-radius: 10px;
   color: var(--white);
   font: inherit;
@@ -791,7 +797,8 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-  transform: scale(1.02);
+  color: var(--darkRed);
+  background-color: #fff;
 }
 
 form button[type="submit"]:disabled {
