@@ -74,8 +74,7 @@ in just minutes — leaving your vehicle clean, shiny, and protected.
 </p>
 
 <p>
-Simply enter your <b>phone number</b> below and we’ll instantly send you a unique <b>free wash code</b>.
-Show the code at our location to redeem your complimentary wash.
+Enter your phone number below to receive your <b>FREE wash code</b> instantly by text.
 </p>
 
 <p>
@@ -112,24 +111,27 @@ available only to Smoky Express customers. You can opt out at any time.
         <input type="text" name="entry.2121728326">
       </label>
 
-      <label style="margin-top:10px;">
-  Do you agree to receive promotional SMS messages and accept our
-  <a href="../privacy-policy/" target="_blank">Privacy Policy</a>? *
-</label>
+      <label style="display:flex; align-items:flex-start; gap:0.6rem; margin-top:12px;">
+    <input type="checkbox" id="sms-consent" required>
 
-<div style="display:flex; gap:1.5rem; margin-top:0.5rem;">
-
-  <label style="display:flex; align-items:center; gap:0.4rem;">
-    <input type="radio" name="sms-consent" value="yes">
-    Yes
+    <span style="font-size:0.9rem; line-height:1.4;">
+      I agree to receive recurring automated promotional and personalized marketing
+      text messages from <b>Smoky Express Car Wash</b> at the phone number provided.
+      Consent is not a condition of purchase.
+    </span>
   </label>
 
-  <label style="display:flex; align-items:center; gap:0.4rem;">
-    <input type="radio" name="sms-consent" value="no">
-    No
-  </label>
+  <input type="hidden" name="entry.consent_timestamp" id="consent_timestamp">
 
-</div>
+  <!-- TCPA DISCLOSURE -->
+  <p style="font-size:0.8rem; margin-top:10px; line-height:1.4; opacity:0.9;">
+    Message frequency varies. Message and data rates may apply.
+    Reply <b>STOP</b> to unsubscribe or <b>HELP</b> for help.
+    View our
+    <a href="../privacy-policy/" target="_blank">Privacy Policy</a>
+    and
+    <a href="../terms/" target="_blank">Terms of Service</a>.
+  </p>
 
       <button type="submit" id="freewash-submit" disabled>
   Get Free Wash Code
@@ -186,19 +188,15 @@ available only to Smoky Express customers. You can opt out at any time.
         </footer>
 <script>
 
-const consentRadios = document.querySelectorAll('input[name="sms-consent"]');
+const consentCheckbox = document.getElementById("sms-consent");
 const freewashButton = document.getElementById("freewash-submit");
 
-consentRadios.forEach(radio => {
-  radio.addEventListener("change", function() {
+consentCheckbox.addEventListener("change", function () {
+  freewashButton.disabled = !this.checked;
+});
 
-    if (this.value === "yes") {
-      freewashButton.disabled = false;
-    } else {
-      freewashButton.disabled = true;
-    }
-
-  });
+document.getElementById("freewash-form").addEventListener("submit", function() {
+  document.getElementById("consent_timestamp").value = new Date().toISOString();
 });
 
 let freewashSubmitted = false;

@@ -594,6 +594,7 @@ section > div > p {
 #privacy,
 #team,
 #free,
+#terms,
 #services {
   color: var(--black);
   background-color: var(--white);
@@ -781,6 +782,76 @@ form textarea:focus {
   outline: none;
   border-color: #a11212;
   box-shadow: 0 0 0 2px var(--gold);
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 20px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+
+  flex: none;
+  display: inline-block;
+
+  border: 2px solid var(--charcoal);
+  border-radius: 4px;
+  background: white;
+
+  cursor: pointer;
+  position: relative;
+
+  vertical-align: middle;
+
+  transition: all 0.25s ease;
+}
+
+input[type="checkbox"]:hover {
+  border-color: var(--darkRed);
+  box-shadow: 0 0 0 3px rgba(178, 0, 0, 0.08);
+}
+
+input[type="checkbox"]:checked {
+  background: var(--darkRed);
+  border-color: var(--darkRed);
+}
+
+input[type="checkbox"]:checked {
+  animation: checkboxPop 0.25s ease;
+}
+
+@keyframes checkboxPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+
+  width: 10px;
+  height: 10px;
+
+  transform: scale(0);
+
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+
+  background: white;
+  transition: transform 0.2s ease;
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
 }
 
 form button[type="submit"] {
