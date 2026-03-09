@@ -971,17 +971,17 @@ footer p {
 }
 
 /* LARGE */
-@media screen and (min-width: 1150px) {
+@media screen and (min-width: 1180px) {
   .construction-banner {
-    font-size: 1.05rem;
+    font-size: 1rem;
     padding: 12px 24px;
   }
 }
 
 /* EXTRA LARGE */
-@media screen and (min-width: 1740px) {
+@media screen and (min-width: 1800px) {
   .construction-banner {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     padding: 14px 24px;
   }
 }
@@ -1037,8 +1037,41 @@ footer p {
   box-shadow: none !important;
 }
 
+/* CONTENT CONSTRUCTION OVERLAY */
+
+#construction-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 230, 120, 0.35);
+  backdrop-filter: blur(1.5px);
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: not-allowed;
+}
+
+/* message box */
+
+.construction-overlay-message {
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 20px 28px;
+  border-radius: 8px;
+
+  font-size: 1.1rem;
+  text-align: center;
+  line-height: 1.5;
+
+  max-width: 380px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
 /* MEDIA QUERIES (LARGE) */
-@media screen and (min-width: 1150px) {
+@media screen and (min-width: 1180px) {
   h1 {
     font-size: 1.25em;
     margin-left: 0.5em;
@@ -1246,8 +1279,16 @@ footer p {
   }
 }
 
+@media screen and (min-width: 1400px) {
+  header div .desktop-social {
+    display: flex;
+    gap: 1.5em;
+    margin-right: 2em;
+  }
+}
+
 /* MEDIA QUERIES (EXTRA LARGE) */
-@media screen and (min-width: 1740px) {
+@media screen and (min-width: 1800px) {
   header img {
     height: 3rem;
   }
@@ -1258,12 +1299,6 @@ footer p {
 
   .nav-links h2 {
     font-size: 1.5em;
-  }
-
-  header div .desktop-social {
-    display: flex;
-    gap: 1.5em;
-    margin-right: 2em;
   }
 
   .desktop-social li a {

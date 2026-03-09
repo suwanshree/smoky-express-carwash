@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Suwanshree Acharya">
-<title>Free Wash | Smoky Express Car Wash</title>
+<title>50% Off Wash | Smoky Express Car Wash</title>
 
 <link rel="icon" href="../assets/favicon.ico">
 <link rel="stylesheet" href="../assets/css/fonts.css">
@@ -65,16 +65,16 @@
 
 <div class="container">
 
-<h2>Claim Your Free Car Wash</h2>
+<h2>Get 50% Off Your First Wash</h2>
 
 <p>
-Experience the Smoky Express difference with your first wash completely free.
+Experience the Smoky Express difference with 50% off your first wash.
 Our state-of-the-art express wash system safely removes dirt, grime, and road residue
 in just minutes — leaving your vehicle clean, shiny, and protected.
 </p>
 
 <p>
-Enter your phone number below to receive your <b>FREE wash code</b> instantly by text.
+Enter your phone number below and we'll text you a <b>50% OFF wash code</b> you can use at our location.
 </p>
 
 <p>
@@ -86,7 +86,7 @@ available only to Smoky Express customers. You can opt out at any time.
     <div id="freewash-success"
          style="display:none; background:#d4edda; color:#155724;
                 padding:12px; margin-bottom:15px; border-radius:6px;">
-      🎉 Thank you! You will receive your free wash code via text message shortly.
+      🎉 Thank you! Your 50% off wash code will be sent to you via text message shortly.
     </div>
 
     <!-- ERROR MESSAGE -->
@@ -134,7 +134,7 @@ available only to Smoky Express customers. You can opt out at any time.
   </p>
 
       <button type="submit" id="freewash-submit" disabled>
-  Get Free Wash Code
+  Get 50% Off Code
 </button>
 
     </form>
@@ -220,7 +220,7 @@ document.getElementById("freewash-form").addEventListener("submit", function() {
       document.getElementById("freewash-error").style.display = "block";
 
       btn.disabled = false;
-      btn.innerText = "Get Free Wash Code";
+      btn.innerText = "Get 50% Off Code";
 
       freewashSubmitted = false;
 
@@ -242,7 +242,7 @@ document.getElementById("freewash_iframe").addEventListener("load", function() {
 
     const btn = document.getElementById("freewash-submit");
     btn.disabled = false;
-    btn.innerText = "Get Free Wash Code";
+    btn.innerText = "Get 50% Off Code";
 
     freewashSubmitted = false;
 
@@ -250,6 +250,24 @@ document.getElementById("freewash_iframe").addEventListener("load", function() {
 
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+
+  const main = document.querySelector("main");
+
+  const overlay = document.createElement("div");
+  overlay.id = "construction-overlay";
+
+  overlay.innerHTML = `
+    <div class="construction-overlay-message">
+      🚧 This promotion is not active yet.<br>
+      Please check back soon, we are working hard to get our doors open!
+    </div>
+  `;
+
+  main.style.position = "relative";
+  main.appendChild(overlay);
+
+});
 </script>
 <script src="../assets/js/script.js"></script>
 
