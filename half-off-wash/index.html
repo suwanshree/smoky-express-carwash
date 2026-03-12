@@ -183,7 +183,7 @@
 
   <script>
     const API_BASE_URL = "http://localhost:4000";
-    const BUSINESS_SLUG = "smoky-express";
+    const BUSINESS_SLUG = "smoky-express-car-wash";
     const CAMPAIGN_KEY = "50_off_coupon";
     const DEFAULT_LOCATION_ID = 1;
 
@@ -371,11 +371,16 @@
 
         const data = await response.json().catch(() => ({}));
 
+        if (response.status === 409 && data?.code === "COUPON_ALREADY_CLAIMED") {
+          showError("⚠️ This phone number has already claimed this 50% off offer.");
+          return;
+        }
+
         if (!response.ok) {
           throw new Error(data?.message || data?.error || "❌ Submission failed.");
         }
 
-        showSuccess();
+        showSuccess("🎉 Thank you! Your 50% off offer has been claimed.");
         freewashForm.reset();
         freewashButton.disabled = true;
       } catch (error) {
