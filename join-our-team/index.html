@@ -87,17 +87,26 @@
 
       <label>
         Full Name *
-        <input type="text" name="entry.987488692" required>
+        <input type="text" name="entry.987488692" placeholder="John Doe" required>
       </label>
 
       <label>
         Phone Number *
-        <input type="tel" name="entry.1156187762" required>
+        <input
+          type="tel"
+          id="employment-phone"
+          name="entry.1156187762"
+          inputmode="numeric"
+          autocomplete="tel"
+          maxlength="14"
+          placeholder="(800) 123-4567"
+          required
+        >
       </label>
 
       <label>
         Email *
-        <input type="email" name="entry.2062043871" required>
+        <input type="email" name="entry.2062043871" placeholder="john@doe.com" required>
       </label>
 
       <label>
@@ -112,7 +121,7 @@
 
       <label>
         Message *
-        <textarea name="entry.561330674" rows="4" required></textarea>
+        <textarea name="entry.561330674" rows="4" placeholder="I am interested in this position because..." required></textarea>
       </label>
 
       <button type="submit" id="employment-submit">
@@ -172,8 +181,50 @@
 
 let employmentSubmitted = false;
 let employmentTimeout;
+const employmentForm = document.getElementById("employment-form");
+const employmentPhoneInput = document.getElementById("employment-phone");
 
-document.getElementById("employment-form").addEventListener("submit", function() {
+function normalizeUsPhone(phone) {
+  const digitsOnly = String(phone || "").replace(/\D/g, "");
+
+  if (digitsOnly.length === 11 && digitsOnly.startsWith("1")) {
+    return digitsOnly.slice(1);
+  }
+
+  return digitsOnly.slice(0, 10);
+}
+
+function formatUsPhone(phone) {
+  const digits = normalizeUsPhone(phone);
+
+  if (digits.length < 4) {
+    return digits ? `(${digits}` : "";
+  }
+
+  if (digits.length < 7) {
+    return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  }
+
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+}
+
+employmentPhoneInput.addEventListener("input", function () {
+  this.value = formatUsPhone(this.value);
+});
+
+employmentForm.addEventListener("submit", function(event) {
+  const normalizedPhone = normalizeUsPhone(employmentPhoneInput.value);
+
+  if (normalizedPhone.length !== 10) {
+    document.getElementById("employment-error").textContent = "❌ Please enter a valid 10-digit phone number.";
+    document.getElementById("employment-error").style.display = "block";
+    document.getElementById("employment-success").style.display = "none";
+    employmentPhoneInput.focus();
+    event.preventDefault();
+    return;
+  }
+
+  employmentPhoneInput.value = normalizedPhone;
 
   employmentSubmitted = true;
 
@@ -188,6 +239,7 @@ document.getElementById("employment-form").addEventListener("submit", function()
 
     if (employmentSubmitted) {
 
+      employmentPhoneInput.value = formatUsPhone(normalizedPhone);
       document.getElementById("employment-error").style.display = "block";
 
       btn.disabled = false;
@@ -208,8 +260,9 @@ document.getElementById("employment_iframe").addEventListener("load", function()
     clearTimeout(employmentTimeout);
 
     document.getElementById("employment-success").style.display = "block";
+    document.getElementById("employment-error").textContent = "❌ Something went wrong. Please try again.";
 
-    document.getElementById("employment-form").reset();
+    employmentForm.reset();
 
     const btn = document.getElementById("employment-submit");
     btn.disabled = false;
