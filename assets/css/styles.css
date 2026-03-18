@@ -391,13 +391,22 @@ nav li {
 }
 
 .special-button {
-  background-color: var(--gold);
+  position: relative;
+  background: linear-gradient(180deg, #ffe26a 0%, var(--gold) 100%);
   padding-left: 1em;
   padding-right: 1em;
-  border: none;
-  transition: all 0.3s ease-in-out;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
   overflow: hidden;
   display: inline-block;
+}
+
+.special-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.22);
 }
 
 .button-one,
@@ -410,6 +419,7 @@ nav li {
 }
 
 .button-one::before,
+.button-two::before,
 .special-button::before {
   content: "";
   position: absolute;
@@ -427,6 +437,7 @@ nav li {
 }
 
 .button-one:hover::before,
+.button-two:hover::before,
 .special-button:hover::before {
   animation: sweep 0.7s forwards;
 }
@@ -521,11 +532,19 @@ main button {
   border: none;
   padding: 0.4em 0.8em;
   margin-top: 1em;
-  border-radius: 10px;
+  border-radius: 999px;
   font-size: 1.25em;
   font-weight: 600;
   line-height: 4ch;
   text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
 }
 
 main button:hover {
@@ -541,9 +560,10 @@ main button:hover {
 }
 
 .button-one:hover {
-  transform: scale(1.03);
+  transform: translateY(-2px) scale(1.01);
   color: var(--darkRed);
-  background-color: var(--white);
+  background: var(--white);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.22);
 }
 
 .button-two {
@@ -555,8 +575,9 @@ main button:hover {
 
 .button-two:hover {
   color: var(--darkRed);
-  background-color: var(--white);
-  transform: scale(1.03);
+  background: var(--white);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.22);
   cursor: pointer;
 }
 
@@ -574,16 +595,30 @@ section > div > p {
 
 #services article {
   color: var(--white);
-  background-color: var(--darkRed);
+  background: linear-gradient(
+    180deg,
+    #c61a1a 0%,
+    var(--darkRed) 36%,
+    #830000 100%
+  );
   padding: 1em 1em 1em 1em;
   margin-bottom: 1em;
-  border-radius: 10px;
-  transition: transform 0.3s ease-in-out;
+  border: 1px solid rgba(253, 208, 23, 0.14);
+  border-radius: 18px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
   cursor: default;
+  position: relative;
+  overflow: hidden;
 }
 
 #services article:hover {
-  transform: translateY(-0.5em);
+  transform: translateY(-0.35em);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.22);
+  border-color: rgba(253, 208, 23, 0.28);
 }
 
 .results-container {
@@ -601,6 +636,11 @@ section > div > p {
 }
 
 #services article i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  height: 3.1rem;
   font-size: 2.5em;
   margin-bottom: 0.5em;
   color: var(--white);
@@ -622,25 +662,50 @@ section > div > p {
 }
 
 .membership-grid article {
-  background: var(--darkRed);
+  background: linear-gradient(
+    180deg,
+    #c61a1a 0%,
+    var(--darkRed) 36%,
+    #830000 100%
+  );
   color: var(--white);
   padding: 1.5em;
-  border-radius: 16px;
+  border: 1px solid rgba(253, 208, 23, 0.14);
+  border-radius: 20px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
   text-align: center;
   transform: translateY(20px);
   opacity: 0;
   animation: fadeUp 0.8s ease forwards;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
 }
 
 .membership-grid article.featured {
   transform: scale(1.05);
-  background: var(--darkRed);
+  border-color: rgba(253, 208, 23, 0.3);
+  box-shadow: 0 22px 34px rgba(0, 0, 0, 0.24);
+}
+
+.membership-grid article:hover {
+  transform: translateY(-0.35em);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.22);
+  border-color: rgba(253, 208, 23, 0.28);
+}
+
+.membership-grid article.featured:hover {
+  transform: scale(1.05) translateY(-0.15em);
 }
 
 .price {
   font-size: 2em;
   font-weight: 800;
   margin: 0.5em 0;
+  color: var(--gold);
 }
 
 .membership-grid ul {
@@ -660,7 +725,7 @@ section > div > p {
 
 #faq {
   padding: 60px 16px;
-  background: #111;
+  background: linear-gradient(180deg, #1b0f0f 0%, #111 100%);
   color: #fff;
 }
 
@@ -858,7 +923,7 @@ form button[type="submit"] {
   width: 100%;
   background: var(--darkRed);
   border: 2px solid var(--darkRed);
-  border-radius: 10px;
+  border-radius: 999px;
   color: var(--white);
   font: inherit;
   font-size: 1.1em;
@@ -959,15 +1024,22 @@ footer p {
 
 .construction-banner {
   width: 100%;
-  background: #ffcc00;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0)),
+    repeating-linear-gradient(-45deg, #ffd54a 0 16px, #f2bd15 16px 32px);
   color: #000;
   text-align: center;
-  font-weight: 600;
-  padding: 10px 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 11px 16px;
   font-size: 0.95rem;
   position: relative;
   z-index: 999;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 /* LARGE */
@@ -994,14 +1066,20 @@ footer p {
 }
 
 .card-under-construction::after {
-  content: "🚧 Coming Soon — Pricing & Details Not Yet Available";
+  content: "Coming Soon | Pricing & Details Not Yet Available";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 
-  background: rgba(90, 77, 0, 0.9);
+  background:
+    linear-gradient(rgba(14, 14, 14, 0.8), rgba(14, 14, 14, 0.82)),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(253, 208, 23, 0.16) 0 14px,
+      rgba(253, 208, 23, 0.05) 14px 28px
+    );
   color: #fff;
 
   display: flex;
@@ -1011,23 +1089,24 @@ footer p {
   text-align: center;
   padding: 20px;
 
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.95rem;
   line-height: 1.4;
+  letter-spacing: 0.01em;
 
   z-index: 5;
 }
 
 /* blur content behind */
 .card-under-construction > * {
-  filter: blur(5px);
+  filter: blur(5px) saturate(0.85);
   pointer-events: none;
 }
 
 /* Disable button interaction */
 .disabled-construction {
-  opacity: 0.6;
-  filter: grayscale(30%);
+  opacity: 0.75;
+  filter: grayscale(15%);
   cursor: not-allowed !important;
 }
 
