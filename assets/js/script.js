@@ -92,7 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Disable all buttons site-wide (construction mode)
   // CONSTRUCTION MODE — disable all buttons
   document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll("button");
+    const buttons = document.querySelectorAll(
+      "button:not([data-construction-exempt='true']):not(.menu-toggle):not(.faq-question)",
+    );
 
     buttons.forEach((button) => {
       // true disable
