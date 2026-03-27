@@ -185,6 +185,16 @@
           </label>
 
           <input type="hidden" name="consent_timestamp" id="consent_timestamp">
+          <input type="hidden" name="attribution_src" id="attribution_src">
+          <input type="hidden" name="attribution_sub" id="attribution_sub">
+          <input type="hidden" name="attribution_ref" id="attribution_ref">
+          <input type="hidden" name="attribution_utm_source" id="attribution_utm_source">
+          <input type="hidden" name="attribution_utm_medium" id="attribution_utm_medium">
+          <input type="hidden" name="attribution_utm_campaign" id="attribution_utm_campaign">
+          <input type="hidden" name="attribution_utm_content" id="attribution_utm_content">
+          <input type="hidden" name="attribution_utm_term" id="attribution_utm_term">
+          <input type="hidden" name="attribution_landing_page" id="attribution_landing_page">
+          <input type="hidden" name="attribution_referrer" id="attribution_referrer">
 
           <p style="font-size:0.8rem; margin-top:10px; line-height:1.4; opacity:0.9;">
             Message frequency varies. Message and data rates may apply.
@@ -257,6 +267,18 @@
     const successBox = document.getElementById("freewash-success");
     const errorBox = document.getElementById("freewash-error");
     const consentTimestampInput = document.getElementById("consent_timestamp");
+    const attributionInputs = {
+      src: document.getElementById("attribution_src"),
+      sub: document.getElementById("attribution_sub"),
+      ref: document.getElementById("attribution_ref"),
+      utmSource: document.getElementById("attribution_utm_source"),
+      utmMedium: document.getElementById("attribution_utm_medium"),
+      utmCampaign: document.getElementById("attribution_utm_campaign"),
+      utmContent: document.getElementById("attribution_utm_content"),
+      utmTerm: document.getElementById("attribution_utm_term"),
+      landingPage: document.getElementById("attribution_landing_page"),
+      referrer: document.getElementById("attribution_referrer"),
+    };
 
     consentCheckbox.addEventListener("change", function () {
       freewashButton.disabled = !this.checked;
@@ -290,20 +312,36 @@
       return new URLSearchParams(window.location.search);
     }
 
-    function inferAttribution() {
+    function setInputValue(input, value) {
+      input.value = value || "";
+    }
+
+    function captureAttributionFields() {
       const params = getQueryParams();
-      const referrer = document.referrer || "";
-      const landingPage = window.location.pathname;
 
-      const explicitSrc = params.get("src");
-      const explicitSub = params.get("sub");
-      const explicitRef = params.get("ref");
+      setInputValue(attributionInputs.src, params.get("src"));
+      setInputValue(attributionInputs.sub, params.get("sub"));
+      setInputValue(attributionInputs.ref, params.get("ref"));
+      setInputValue(attributionInputs.utmSource, params.get("utm_source"));
+      setInputValue(attributionInputs.utmMedium, params.get("utm_medium"));
+      setInputValue(attributionInputs.utmCampaign, params.get("utm_campaign"));
+      setInputValue(attributionInputs.utmContent, params.get("utm_content"));
+      setInputValue(attributionInputs.utmTerm, params.get("utm_term"));
+      setInputValue(attributionInputs.landingPage, window.location.pathname);
+      setInputValue(attributionInputs.referrer, document.referrer);
+    }
 
-      const utmSource = params.get("utm_source");
-      const utmMedium = params.get("utm_medium");
-      const utmCampaign = params.get("utm_campaign");
-      const utmContent = params.get("utm_content");
-      const utmTerm = params.get("utm_term");
+    function inferAttribution(attributionValues) {
+      const explicitSrc = attributionValues.explicitSrc;
+      const explicitSub = attributionValues.explicitSub;
+      const explicitRef = attributionValues.explicitRef;
+      const utmSource = attributionValues.utmSource;
+      const utmMedium = attributionValues.utmMedium;
+      const utmCampaign = attributionValues.utmCampaign;
+      const utmContent = attributionValues.utmContent;
+      const utmTerm = attributionValues.utmTerm;
+      const referrer = attributionValues.referrer;
+      const landingPage = attributionValues.landingPage;
 
       let sourceSystem = "website";
       let sourceSubtype = "direct";
@@ -364,6 +402,21 @@
       };
     }
 
+    function getCapturedAttribution() {
+      return inferAttribution({
+        explicitSrc: attributionInputs.src.value.trim() || null,
+        explicitSub: attributionInputs.sub.value.trim() || null,
+        explicitRef: attributionInputs.ref.value.trim() || null,
+        utmSource: attributionInputs.utmSource.value.trim() || null,
+        utmMedium: attributionInputs.utmMedium.value.trim() || null,
+        utmCampaign: attributionInputs.utmCampaign.value.trim() || null,
+        utmContent: attributionInputs.utmContent.value.trim() || null,
+        utmTerm: attributionInputs.utmTerm.value.trim() || null,
+        landingPage: attributionInputs.landingPage.value || window.location.pathname,
+        referrer: attributionInputs.referrer.value.trim() || null,
+      });
+    }
+
     function showSuccess(message) {
       successBox.textContent = message || "🎉 Thank you for subscribing. Your 50% off welcome code will be sent to you by text message shortly.";
       successBox.style.display = "block";
@@ -384,6 +437,8 @@
     document.getElementById("phone").addEventListener("input", function () {
       this.value = formatPhone(this.value);
     });
+
+    captureAttributionFields();
 
     freewashForm.addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -413,7 +468,7 @@
         firstName: firstName || null,
         locationId: DEFAULT_LOCATION_ID,
         campaignKey: CAMPAIGN_KEY,
-        attribution: inferAttribution(),
+        attribution: getCapturedAttribution(),
         consent: {
           type: "sms_marketing",
           status: "opted_in",
@@ -447,6 +502,7 @@
 
         showSuccess("🎉 Thank you! Your 50% off offer has been claimed.");
         freewashForm.reset();
+        captureAttributionFields();
         freewashButton.disabled = true;
       } catch (error) {
         showError(error.message || "❌ Something went wrong. Please try again.");

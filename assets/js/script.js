@@ -1,4 +1,114 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const ATTRIBUTION_QUERY_KEYS = [
+    "src",
+    "sub",
+    "ref",
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+  ];
+
+  function getCurrentAttributionParams() {
+    const currentParams = new URLSearchParams(window.location.search);
+    const attributionParams = new URLSearchParams();
+
+    ATTRIBUTION_QUERY_KEYS.forEach((key) => {
+      const value = currentParams.get(key);
+
+      if (value) {
+        attributionParams.set(key, value);
+      }
+    });
+
+    return attributionParams;
+  }
+
+  function hasAttributionParams(attributionParams) {
+    return ATTRIBUTION_QUERY_KEYS.some((key) => attributionParams.has(key));
+  }
+
+  function applyAttributionParams(url, attributionParams) {
+    ATTRIBUTION_QUERY_KEYS.forEach((key) => {
+      if (attributionParams.has(key)) {
+        url.searchParams.set(key, attributionParams.get(key));
+      } else {
+        url.searchParams.delete(key);
+      }
+    });
+
+    return url;
+  }
+
+  function getRelativeUrl(url) {
+    return `${url.pathname}${url.search}${url.hash}`;
+  }
+
+  function preserveAttributionAcrossInternalLinks() {
+    const attributionParams = getCurrentAttributionParams();
+
+    if (!hasAttributionParams(attributionParams)) {
+      return;
+    }
+
+    document.querySelectorAll("a[href]").forEach((link) => {
+      const href = link.getAttribute("href");
+
+      if (
+        !href ||
+        href.startsWith("#") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:") ||
+        href.startsWith("javascript:")
+      ) {
+        return;
+      }
+
+      let url;
+
+      try {
+        url = new URL(href, window.location.href);
+      } catch (error) {
+        return;
+      }
+
+      if (url.origin !== window.location.origin) {
+        return;
+      }
+
+      link.setAttribute(
+        "href",
+        getRelativeUrl(applyAttributionParams(url, attributionParams)),
+      );
+    });
+  }
+
+  function initializeAttributionButtons() {
+    document.querySelectorAll("[data-attribution-href]").forEach((button) => {
+      const fallbackHref = button.getAttribute("data-attribution-href");
+
+      if (!fallbackHref) {
+        return;
+      }
+
+      button.addEventListener("click", () => {
+        if (button.disabled) {
+          return;
+        }
+
+        const destination = new URL(fallbackHref, window.location.href);
+        const attributionParams = getCurrentAttributionParams();
+
+        if (hasAttributionParams(attributionParams)) {
+          applyAttributionParams(destination, attributionParams);
+        }
+
+        window.location.href = getRelativeUrl(destination);
+      });
+    });
+  }
+
   function setHeaderHeight() {
     const header = document.querySelector("header");
     const height = header.offsetHeight;
@@ -10,6 +120,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("load", setHeaderHeight);
   window.addEventListener("resize", setHeaderHeight);
+  preserveAttributionAcrossInternalLinks();
+  initializeAttributionButtons();
 
   const header = document.querySelector("header");
   const nav = document.querySelector("nav");
