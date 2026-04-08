@@ -108,109 +108,103 @@
   <main class="wash-flow-stage wash-flow-stage--gentle">
     <section id="free">
       <div class="container">
-        <h2>Subscribe For Text Offers &amp; Get 50% Off Your First Wash</h2>
+        <div class="promo-panel">
+          <p class="promo-kicker">Marketing SMS Signup</p>
+          <h2>Text Offers + 50% Off Your First Wash</h2>
 
-        <p>
-          Join Smoky Express Car Wash promotional text alerts and receive a welcome code for
-          <b>50% off your first wash</b>. This signup form is for marketing SMS messages from
-          Smoky Express Car Wash.
-        </p>
-
-        <p>
-          After you opt in, we may send occasional marketing messages including welcome offers,
-          discounts, grand opening announcements, and seasonal promotions.
-        </p>
-
-        <p>
-          Need customer support instead? Please call <a href="tel:+18652869051">865-286-9051</a>
-          or email <a href="mailto:contact@smokyexpresscarwash.com">contact@smokyexpresscarwash.com</a>.
-          This web form is not used to collect customer care consent.
-        </p>
-
-        <div
-          style="background:rgba(255,255,255,0.08); border:1px solid rgba(253,208,23,0.28); border-radius:16px; padding:1rem 1.1rem; margin:1.2rem 0 1.5rem;"
-        >
-          <p style="font-size:1rem; margin-bottom:0.75rem;"><b>SMS program details</b></p>
-          <ul style="list-style:disc; padding-left:1.35rem; margin:0; font-size:0.95rem; line-height:1.6;">
-            <li>Program name: Smoky Express Car Wash promotional text alerts</li>
-            <li>Message types: welcome offers, discounts, grand opening updates, and seasonal promotions</li>
-            <li>Message frequency varies</li>
-            <li>Consent is not a condition of purchase</li>
-          </ul>
-        </div>
-
-        <div
-          id="freewash-success"
-          style="display:none; background:#d4edda; color:#155724; padding:12px; margin-bottom:15px; border-radius:6px;"
-        >
-          🎉 Thank you for subscribing. Your 50% off welcome code will be sent to you by text message shortly.
-        </div>
-
-        <div
-          id="freewash-error"
-          style="display:none; background:#f8d7da; color:#721c24; padding:12px; margin-bottom:15px; border-radius:6px;"
-        >
-          ❌ Something went wrong. Please try again.
-        </div>
-
-        <form id="freewash-form">
-          <label>
-            Phone Number *
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              inputmode="numeric"
-              autocomplete="tel"
-              maxlength="14"
-              placeholder="(800) 123-4567"
-              required
-            >
-          </label>
-
-          <label>
-            Optional Name
-            <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="John">
-          </label>
-
-          <label style="display:flex; align-items:flex-start; gap:0.6rem; margin-top:12px;">
-            <input type="checkbox" id="sms-consent" name="sms_marketing_consent" required>
-
-            <span style="font-size:0.9rem; line-height:1.4;">
-              I agree to receive recurring automated marketing SMS text messages from
-              <b>Smoky Express Car Wash</b> at the mobile number provided, including welcome offers,
-              discounts, grand opening announcements, and seasonal promotions.
-              Consent is not a condition of purchase.
-            </span>
-          </label>
-
-          <input type="hidden" name="consent_timestamp" id="consent_timestamp">
-          <input type="hidden" name="attribution_src" id="attribution_src">
-          <input type="hidden" name="attribution_sub" id="attribution_sub">
-          <input type="hidden" name="attribution_ref" id="attribution_ref">
-          <input type="hidden" name="attribution_utm_source" id="attribution_utm_source">
-          <input type="hidden" name="attribution_utm_medium" id="attribution_utm_medium">
-          <input type="hidden" name="attribution_utm_campaign" id="attribution_utm_campaign">
-          <input type="hidden" name="attribution_utm_content" id="attribution_utm_content">
-          <input type="hidden" name="attribution_utm_term" id="attribution_utm_term">
-          <input type="hidden" name="attribution_landing_page" id="attribution_landing_page">
-          <input type="hidden" name="attribution_referrer" id="attribution_referrer">
-
-          <p style="font-size:0.8rem; margin-top:10px; line-height:1.4; opacity:0.9;">
-            Message frequency varies. Message and data rates may apply.
-            Reply <b>STOP</b> to unsubscribe or <b>HELP</b> for help.
-            For support, call <a href="tel:+18652869051">865-286-9051</a> or email
-            <a href="mailto:contact@smokyexpresscarwash.com">contact@smokyexpresscarwash.com</a>.
-            View our
-            <a href="../privacy-policy/" target="_blank">Privacy Policy</a>
-            and
-            <a href="../terms/" target="_blank">Terms of Service</a>.
+          <p class="promo-lead">
+            Join Smoky Express Car Wash promotional text alerts and receive a welcome code for
+            <b>50% off your first wash</b>. This form is for recurring automated marketing SMS
+            messages from Smoky Express Car Wash.
           </p>
 
-          <button type="submit" id="freewash-submit" data-construction-exempt="true" disabled>
-            Subscribe &amp; Get 50% Off Code
-          </button>
-        </form>
+          <div class="promo-summary" aria-label="SMS program details">
+            <p><b>Program:</b> Smoky Express promotional text alerts</p>
+            <p><b>Texts:</b> welcome offers, discounts, grand opening updates, and seasonal promotions</p>
+            <p><b>Frequency:</b> message frequency varies</p>
+            <p><b>Purchase:</b> consent is not a condition of purchase</p>
+          </div>
+
+          <div
+            id="freewash-success"
+            class="promo-status promo-status--success"
+            role="status"
+            aria-live="polite"
+          >
+            🎉 Thank you for subscribing. Your 50% off welcome code will be sent to you by text message shortly.
+          </div>
+
+          <div
+            id="freewash-error"
+            class="promo-status promo-status--error"
+            role="alert"
+            aria-live="assertive"
+          >
+            ❌ Something went wrong. Please try again.
+          </div>
+
+          <form id="freewash-form" class="promo-form">
+            <label class="promo-form__field">
+              Phone Number *
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                inputmode="numeric"
+                autocomplete="tel"
+                maxlength="14"
+                placeholder="(800) 123-4567"
+                required
+              >
+            </label>
+
+            <label class="promo-form__field">
+              Optional Name
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="John">
+            </label>
+
+            <label class="promo-consent promo-form__full">
+              <input type="checkbox" id="sms-consent" name="sms_marketing_consent" required>
+
+              <span>
+                I agree to receive recurring automated marketing SMS text messages from
+                <b>Smoky Express Car Wash</b> at the mobile number provided, including welcome offers,
+                discounts, grand opening announcements, and seasonal promotions. Consent is not a
+                condition of purchase.
+              </span>
+            </label>
+
+            <input type="hidden" name="consent_timestamp" id="consent_timestamp">
+            <input type="hidden" name="attribution_src" id="attribution_src">
+            <input type="hidden" name="attribution_sub" id="attribution_sub">
+            <input type="hidden" name="attribution_ref" id="attribution_ref">
+            <input type="hidden" name="attribution_utm_source" id="attribution_utm_source">
+            <input type="hidden" name="attribution_utm_medium" id="attribution_utm_medium">
+            <input type="hidden" name="attribution_utm_campaign" id="attribution_utm_campaign">
+            <input type="hidden" name="attribution_utm_content" id="attribution_utm_content">
+            <input type="hidden" name="attribution_utm_term" id="attribution_utm_term">
+            <input type="hidden" name="attribution_landing_page" id="attribution_landing_page">
+            <input type="hidden" name="attribution_referrer" id="attribution_referrer">
+
+            <p class="promo-legal promo-form__full">
+              Message and data rates may apply. Reply <b>STOP</b> to unsubscribe or <b>HELP</b> for help.
+              For support, call <a href="tel:+18652869051">865-286-9051</a> or email
+              <a href="mailto:contact@smokyexpresscarwash.com">contact@smokyexpresscarwash.com</a>.
+              View our <a href="../privacy-policy/" target="_blank">Privacy Policy</a> and
+              <a href="../terms/" target="_blank">Terms of Service</a>.
+            </p>
+
+            <button
+              type="submit"
+              id="freewash-submit"
+              class="promo-form__full"
+              data-construction-exempt="true"
+              disabled
+            >
+              Subscribe &amp; Get 50% Off Code
+            </button>
+          </form>
+        </div>
       </div>
     </section>
   </main>
