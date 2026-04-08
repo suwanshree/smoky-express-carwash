@@ -137,6 +137,10 @@ table {
   --black: #000000;
   --charcoal: #333333;
   --gold: #fdd017;
+  --wash-wave-strong: rgba(178, 0, 0, 0.16);
+  --wash-wave-mid: rgba(214, 52, 52, 0.1);
+  --wash-wave-soft: rgba(255, 116, 116, 0.07);
+  --wash-wave-highlight: rgba(255, 255, 255, 0.14);
   --font-brand: "League Spartan", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --header-height: 65px;
@@ -182,6 +186,91 @@ i {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.wash-flow-stage {
+  --wash-wave-width: clamp(6.25rem, 27vw, 9rem);
+  --wash-wave-offset: 16%;
+  --wash-wave-shape: polygon(
+    0 0,
+    100% 0,
+    82% 8%,
+    97% 18%,
+    78% 30%,
+    92% 41%,
+    70% 53%,
+    90% 64%,
+    74% 75%,
+    96% 86%,
+    80% 94%,
+    100% 100%,
+    0 100%
+  );
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 18%),
+    linear-gradient(180deg, #f6f1f1 0%, var(--white) 26%, #f4eeee 72%, var(--white) 100%);
+}
+
+.wash-flow-stage > * {
+  position: relative;
+  z-index: 1;
+}
+
+.wash-flow-stage::before,
+.wash-flow-stage::after {
+  content: "";
+  position: absolute;
+  top: -1%;
+  bottom: -1%;
+  width: var(--wash-wave-width);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+  background:
+    linear-gradient(
+      90deg,
+      var(--wash-wave-strong) 0%,
+      var(--wash-wave-mid) 34%,
+      var(--wash-wave-soft) 62%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    linear-gradient(
+      180deg,
+      var(--wash-wave-highlight) 0%,
+      rgba(255, 255, 255, 0.03) 44%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+  clip-path: var(--wash-wave-shape);
+}
+
+.wash-flow-stage::before {
+  left: 0;
+  transform: translateX(calc(-1 * var(--wash-wave-offset)));
+}
+
+.wash-flow-stage::after {
+  right: 0;
+  transform: translateX(var(--wash-wave-offset)) scaleX(-1);
+}
+
+.wash-flow-stage--gentle {
+  --wash-wave-width: clamp(5.75rem, 24vw, 8rem);
+  --wash-wave-shape: polygon(
+    0 0,
+    100% 0,
+    91% 10%,
+    96% 24%,
+    88% 39%,
+    94% 54%,
+    89% 69%,
+    95% 84%,
+    91% 94%,
+    100% 100%,
+    0 100%
+  );
 }
 
 #about {
@@ -634,6 +723,16 @@ section > div > p {
   background-color: var(--white);
 }
 
+.wash-flow-stage #expertise,
+.wash-flow-stage #services,
+.wash-flow-stage #membership,
+.wash-flow-stage #team,
+.wash-flow-stage #free,
+.wash-flow-stage #contact,
+.wash-flow-stage #location {
+  background: transparent;
+}
+
 #services article i {
   display: inline-flex;
   align-items: center;
@@ -1019,6 +1118,30 @@ footer p {
   margin-top: 0.25em;
 }
 
+@media screen and (min-width: 700px) {
+  .wash-flow-stage {
+    --wash-wave-width: clamp(9rem, 24vw, 13rem);
+    --wash-wave-offset: 7%;
+  }
+
+  .wash-flow-stage::before,
+  .wash-flow-stage::after {
+    opacity: 0.94;
+  }
+
+  .wash-flow-stage::before {
+    transform: translateX(calc(-1 * var(--wash-wave-offset)));
+  }
+
+  .wash-flow-stage::after {
+    transform: translateX(var(--wash-wave-offset)) scaleX(-1);
+  }
+
+  .wash-flow-stage--gentle {
+    --wash-wave-width: clamp(8rem, 21vw, 11rem);
+  }
+}
+
 /* CONSTRUCTION BANNER */
 
 .construction-banner {
@@ -1150,6 +1273,28 @@ footer p {
 
 /* MEDIA QUERIES (LARGE) */
 @media screen and (min-width: 1180px) {
+  .wash-flow-stage {
+    --wash-wave-width: clamp(13rem, 23vw, 19rem);
+    --wash-wave-offset: 2%;
+  }
+
+  .wash-flow-stage::before,
+  .wash-flow-stage::after {
+    opacity: 0.98;
+  }
+
+  .wash-flow-stage::before {
+    transform: translateX(calc(-1 * var(--wash-wave-offset)));
+  }
+
+  .wash-flow-stage::after {
+    transform: translateX(var(--wash-wave-offset)) scaleX(-1);
+  }
+
+  .wash-flow-stage--gentle {
+    --wash-wave-width: clamp(11rem, 19vw, 15rem);
+  }
+
   h1 {
     font-size: 1.25em;
     margin-left: 0.5em;
