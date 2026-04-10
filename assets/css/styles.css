@@ -194,11 +194,10 @@ i {
 }
 
 #about {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
-    url("/assets/images/smoky-express-hero.png") no-repeat center center/cover;
+  background-color: var(--black);
   height: 90vh;
   position: relative;
+  isolation: isolate;
   display: grid;
   place-items: center;
   text-align: center;
@@ -206,9 +205,52 @@ i {
   overflow: hidden;
 }
 
+#about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.78));
+}
+
+#about .hero-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation-duration: 18s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.hero-slide--1 {
+  background-image: url("/assets/images/smoky-express-hero.jpg");
+  animation-name: heroFade1;
+}
+
+.hero-slide--2 {
+  background-image: url("/assets/images/smoky-express-hero-2.jpg");
+  animation-name: heroFade2;
+}
+
+.hero-slide--3 {
+  background-image: url("/assets/images/smoky-express-hero-3.jpg");
+  animation-name: heroFade3;
+}
+
 #about .container {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   padding: 1rem;
 }
 
@@ -661,7 +703,7 @@ main button:hover {
   left: 0;
   right: 0;
   bottom: -1px;
-  z-index: 1;
+  z-index: 2;
   margin: 0;
   pointer-events: none;
   --wave-layer-1: rgba(235, 128, 128, 0.18);
@@ -735,6 +777,59 @@ main button:hover {
   }
   100% {
     transform: translate3d(85px, 0, 0);
+  }
+}
+
+@keyframes heroFade1 {
+  0%,
+  29% {
+    opacity: 1;
+  }
+  33%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes heroFade2 {
+  0%,
+  29% {
+    opacity: 0;
+  }
+  33%,
+  62% {
+    opacity: 1;
+  }
+  66%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes heroFade3 {
+  0%,
+  62% {
+    opacity: 0;
+  }
+  66%,
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    animation: none;
+  }
+
+  .hero-slide--1 {
+    opacity: 1;
   }
 }
 
