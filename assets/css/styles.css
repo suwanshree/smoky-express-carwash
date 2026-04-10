@@ -197,7 +197,7 @@ i {
   background:
     linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),
     url("/assets/images/smoky-express-hero.png") no-repeat center center/cover;
-  height: 80vh;
+  height: 90vh;
   position: relative;
   display: grid;
   place-items: center;
@@ -483,7 +483,7 @@ nav li {
 
 h2 {
   opacity: 0;
-  font-size: 2.5em;
+  font-size: 2.2em;
   font-weight: 700;
   line-height: 2ch;
   transform: translateY(-20px);
@@ -498,6 +498,7 @@ h2 a {
 
 #about h2 {
   padding-left: 0;
+  padding-bottom: 0.5em;
 }
 
 h3 {
@@ -1434,11 +1435,19 @@ footer p {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
+#about .container {
+  padding-bottom: 4em;
+}
+
 /* MEDIA QUERIES (LARGE) */
 @media screen and (min-width: 1180px) {
   h1 {
     font-size: 1.25em;
     margin-left: 0.5em;
+  }
+
+  h2 {
+    font-size: 2.5em;
   }
 
   nav {
