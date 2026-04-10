@@ -14,12 +14,12 @@
         <meta property="og:description" content="Fast, affordable, and eco-friendly express car wash services in Sevierville, Tennessee with unlimited wash plans and a 50% off first wash offer.">
         <meta property="og:url" content="https://smokyexpresscarwash.com/">
         <meta property="og:site_name" content="Smoky Express Car Wash">
-        <meta property="og:image" content="https://smokyexpresscarwash.com/assets/images/smoky-express-hero.png">
+        <meta property="og:image" content="https://smokyexpresscarwash.com/assets/images/smoky-express-hero.webp">
         <meta property="og:locale" content="en_US">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="Smoky Express Car Wash | Fast & Affordable Express Car Wash">
         <meta name="twitter:description" content="Fast, affordable, and eco-friendly express car wash services in Sevierville, Tennessee.">
-        <meta name="twitter:image" content="https://smokyexpresscarwash.com/assets/images/smoky-express-hero.png">
+        <meta name="twitter:image" content="https://smokyexpresscarwash.com/assets/images/smoky-express-hero.webp">
         <title>Smoky Express Car Wash | Fast & Affordable Express Car Wash</title>
         <script>
             if (
@@ -36,9 +36,14 @@
         </script>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
         <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-        <link rel="stylesheet" href="assets/css/fonts.css">
-        <link rel="stylesheet" href="assets/css/styles.css">
+        <link rel="preload" as="image" href="/assets/images/smoky-express-hero.webp" fetchpriority="high">
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+        <link rel="preload" href="assets/css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" crossorigin onload="this.onload=null;this.rel='stylesheet'">
+        <noscript>
+            <link rel="stylesheet" href="assets/css/styles.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        </noscript>
         <script type="application/ld+json">
             {
                 "@context": "https://schema.org",
@@ -54,7 +59,7 @@
                         "@id": "https://smokyexpresscarwash.com/#business",
                         "name": "Smoky Express Car Wash",
                         "url": "https://smokyexpresscarwash.com/",
-                        "image": "https://smokyexpresscarwash.com/assets/images/smoky-express-hero.png",
+                        "image": "https://smokyexpresscarwash.com/assets/images/smoky-express-hero.webp",
                         "telephone": "+1-865-286-9051",
                         "email": "contact@smokyexpresscarwash.com",
                         "priceRange": "$$",
@@ -109,25 +114,29 @@
         </svg>
         <header>
             <div>
-                <img src="assets/images/smoky-express-logomark.png" alt="Smoky Express Car Wash Logo">
+                <img
+                    src="assets/images/smoky-express-logomark.png"
+                    alt="Smoky Express Car Wash Logo"
+                    decoding="async"
+                >
                 <h1><a href="#">Smoky Express<br class="mobile-br"> Car Wash</a></h1>
             </div>
             <div>
                 <ul class="social-nav desktop-social">
-                    <li><a href="https://www.instagram.com/smokyexpress" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="https://www.tiktok.com/@smoky.express.carwash" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a></li>
-                    <li><a href="https://www.facebook.com/people/Smoky-Express-Car-Wash/61588257995791/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="https://www.instagram.com/smokyexpress" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.tiktok.com/@smoky.express.carwash" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a></li>
+                    <li><a href="https://www.facebook.com/people/Smoky-Express-Car-Wash/61588257995791/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a></li>
                 </ul>
-                <button class="menu-toggle" aria-label="Open menu">
+                <button class="menu-toggle" aria-label="Open menu" aria-controls="site-navigation" aria-expanded="false">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                <nav class="nav-drawer">
+                <nav class="nav-drawer" id="site-navigation" aria-label="Primary">
                     <ul class="social-nav mobile-social">
-                        <li><a href="https://www.instagram.com/smokyexpress" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a></li>
-                        <li><a href="https://www.tiktok.com/@smoky.express.carwash" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a></li>
-                        <li><a href="https://www.facebook.com/people/Smoky-Express-Car-Wash/61588257995791/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li><a href="https://www.instagram.com/smokyexpress" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.tiktok.com/@smoky.express.carwash" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.facebook.com/people/Smoky-Express-Car-Wash/61588257995791/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a></li>
                     </ul>
                     <ul class="nav-links">
                         <li><h2><a href="#location">Location</a></h2></li>
@@ -425,6 +434,8 @@
 
                     <!-- SUCCESS MESSAGE -->
                     <div id="contact-success"
+                        role="status"
+                        aria-live="polite"
                         style="display:none; background:#d4edda; color:#155724;
                                 padding:12px; margin-bottom:15px; border-radius:6px;">
                     ✅ Thank you! Your message has been sent successfully.
@@ -432,6 +443,8 @@
 
                     <!-- ERROR MESSAGE -->
                     <div id="contact-error"
+                        role="alert"
+                        aria-live="assertive"
                         style="display:none; background:#f8d7da; color:#721c24;
                                 padding:12px; margin-bottom:15px; border-radius:6px;">
                     ❌ Something went wrong. Please try again or call us directly.
@@ -477,6 +490,9 @@
                     <!-- HIDDEN IFRAME -->
                     <iframe name="hidden_iframe"
                             id="hidden_iframe"
+                            title="Hidden contact form submission frame"
+                            aria-hidden="true"
+                            tabindex="-1"
                             style="display:none;"></iframe>
 
                 </div>
@@ -490,6 +506,7 @@
                     <div class="map-container">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3233.884647839153!2d-83.57397301174258!3d35.8518319497732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x885bf93345313adb%3A0x48024f86b06e75f6!2sSmoky%20Express%20Car%20Wash!5e0!3m2!1sen!2sus!4v1774367775602!5m2!1sen!2sus"
+                        title="Map showing Smoky Express Car Wash in Sevierville, Tennessee"
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
@@ -502,13 +519,18 @@
             <div class="container footer-grid">
                 <div class="footer-brand">
                     <a href="#">
-                        <img src="assets/images/smoky-express-logo.png" alt="Smoky Express Car Wash Logo">
+                        <img
+                            src="assets/images/smoky-express-logo.png"
+                            alt="Smoky Express Car Wash Logo"
+                            loading="lazy"
+                            decoding="async"
+                        >
                     </a>
                     <p>Fast. Clean. Reliable.</p>
                     <div class="footer-socials">
-                        <a href="https://www.instagram.com/smokyexpress" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@smoky.express.carwash" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="https://www.facebook.com/people/Smoky-Express-Car-Wash/61588257995791/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/smokyexpress" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://www.tiktok.com/@smoky.express.carwash" target="_blank" rel="noopener noreferrer" aria-label="TikTok" title="TikTok"><i class="fa-brands fa-tiktok" aria-hidden="true"></i></a>
+                        <a href="https://www.facebook.com/people/Smoky-Express-Car-Wash/61588257995791/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
                     </div>
                 </div>
 

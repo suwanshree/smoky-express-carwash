@@ -150,39 +150,88 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const menuToggle = document.querySelector(".menu-toggle");
 
-  menuToggle.addEventListener("click", () => {
-    nav.classList.toggle("nav--open");
-    menuToggle.classList.toggle("active");
-
-    document.body.style.overflow = nav.classList.contains("nav--open")
-      ? "hidden"
-      : "";
-  });
-
-  document.querySelectorAll(".nav-links a").forEach((link) => {
-    link.addEventListener("click", () => {
+  if (menuToggle && nav) {
+    const closeMenu = () => {
       nav.classList.remove("nav--open");
       menuToggle.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open menu");
       document.body.style.overflow = "";
+    };
+
+    const openMenu = () => {
+      nav.classList.add("nav--open");
+      menuToggle.classList.add("active");
+      menuToggle.setAttribute("aria-expanded", "true");
+      menuToggle.setAttribute("aria-label", "Close menu");
+      document.body.style.overflow = "hidden";
+    };
+
+    menuToggle.setAttribute("aria-expanded", "false");
+
+    menuToggle.addEventListener("click", () => {
+      if (nav.classList.contains("nav--open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
-  });
+
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && nav.classList.contains("nav--open")) {
+        closeMenu();
+      }
+    });
+  }
 
   const faqItems = document.querySelectorAll(".faq-item");
 
-  faqItems.forEach((item) => {
+  faqItems.forEach((item, index) => {
     const button = item.querySelector(".faq-question");
     const answer = item.querySelector(".faq-answer");
+
+    if (!button || !answer) {
+      return;
+    }
+
+    const questionId = `faq-question-${index + 1}`;
+    const answerId = `faq-answer-${index + 1}`;
+
+    button.id = questionId;
+    button.type = "button";
+    button.setAttribute("aria-controls", answerId);
+    button.setAttribute("aria-expanded", "false");
+
+    answer.id = answerId;
+    answer.setAttribute("role", "region");
+    answer.setAttribute("aria-labelledby", questionId);
+    answer.setAttribute("aria-hidden", "true");
 
     button.addEventListener("click", () => {
       const isOpen = item.classList.contains("active");
 
       faqItems.forEach((i) => {
+        const currentButton = i.querySelector(".faq-question");
+        const currentAnswer = i.querySelector(".faq-answer");
+
         i.classList.remove("active");
-        i.querySelector(".faq-answer").style.maxHeight = null;
+        if (currentButton) {
+          currentButton.setAttribute("aria-expanded", "false");
+        }
+        if (currentAnswer) {
+          currentAnswer.setAttribute("aria-hidden", "true");
+          currentAnswer.style.maxHeight = null;
+        }
       });
 
       if (!isOpen) {
         item.classList.add("active");
+        button.setAttribute("aria-expanded", "true");
+        answer.setAttribute("aria-hidden", "false");
         answer.style.maxHeight = answer.scrollHeight + "px";
       }
     });

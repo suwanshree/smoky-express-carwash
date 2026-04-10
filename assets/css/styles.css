@@ -1,3 +1,29 @@
+@font-face {
+  font-family: "League Spartan";
+  src: url("/public/fonts/LeagueSpartan-VariableFont_wght.woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/public/fonts/Inter-VariableFont_opsz,wght.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/public/fonts/Inter-Italic-VariableFont_opsz,wght.woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* CSS BY SUWANSHREE ACHARYA */
 /* CSS RESET */
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -234,17 +260,17 @@ i {
 }
 
 .hero-slide--1 {
-  background-image: url("/assets/images/smoky-express-hero.jpg");
+  background-image: url("/assets/images/smoky-express-hero.webp");
   animation-name: heroFade1;
 }
 
 .hero-slide--2 {
-  background-image: url("/assets/images/smoky-express-hero-2.jpg");
+  background-image: url("/assets/images/smoky-express-hero-2.webp");
   animation-name: heroFade2;
 }
 
 .hero-slide--3 {
-  background-image: url("/assets/images/smoky-express-hero-3.jpg");
+  background-image: url("/assets/images/smoky-express-hero-3.webp");
   animation-name: heroFade3;
 }
 
@@ -835,6 +861,20 @@ main button:hover {
 
 section {
   padding-bottom: 2.5em;
+}
+
+#expertise,
+#services,
+#membership,
+#faq,
+#contact,
+#location,
+#privacy,
+#terms,
+#team,
+#free {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
 }
 
 section > div > p {
