@@ -109,17 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function setHeaderHeight() {
-    const header = document.querySelector("header");
-    const height = header.offsetHeight;
-    document.documentElement.style.setProperty(
-      "--header-height",
-      height + "px",
-    );
-  }
-
-  window.addEventListener("load", setHeaderHeight);
-  window.addEventListener("resize", setHeaderHeight);
   preserveAttributionAcrossInternalLinks();
   initializeAttributionButtons();
 

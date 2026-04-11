@@ -353,6 +353,7 @@ header div .desktop-social {
 
 header img {
   height: 2rem;
+  width: auto;
   pointer-events: none;
 }
 
@@ -861,20 +862,6 @@ main button:hover {
 
 section {
   padding-bottom: 2.5em;
-}
-
-#expertise,
-#services,
-#membership,
-#faq,
-#contact,
-#location,
-#privacy,
-#terms,
-#team,
-#free {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 900px;
 }
 
 section > div > p {
@@ -1395,6 +1382,7 @@ footer {
 
 .footer-brand img {
   width: 140px;
+  height: auto;
 }
 
 .footer-socials {
