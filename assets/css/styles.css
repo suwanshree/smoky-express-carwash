@@ -1368,6 +1368,29 @@ footer {
   align-items: center;
   padding: 1em 0.5em;
   background-color: var(--darkRed);
+  position: relative;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(92%, 70rem);
+  height: 0.35rem;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    90deg,
+    rgba(253, 208, 23, 0) 0%,
+    rgba(253, 208, 23, 0.6) 14%,
+    rgba(255, 236, 162, 0.95) 50%,
+    rgba(253, 208, 23, 0.6) 86%,
+    rgba(253, 208, 23, 0) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(255, 243, 196, 0.2),
+    0 0.4rem 1rem rgba(0, 0, 0, 0.18);
 }
 
 .copyright {
