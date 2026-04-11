@@ -174,7 +174,7 @@ table {
   --faq-surface-bottom: #111111;
   --font-brand: "League Spartan", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
-  --header-height: 65px;
+  --header-height: 70px;
 }
 
 /* GLOBAL STYLES (MOBILE FIRST - SMALL) */
@@ -285,13 +285,14 @@ header {
   top: 0;
   left: 0;
   width: 100%;
+  height: var(--header-height);
   z-index: 1000;
   transition: transform 0.35s ease-in-out;
   will-change: transform;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5em 0.25em;
+  padding: 0 0.25em;
   background-color: var(--darkRed);
   box-shadow: 0 2px 2px var(--black);
 }
@@ -1657,7 +1658,7 @@ footer p {
 
   header {
     justify-content: space-between;
-    padding: 0.5em 0.5em;
+    padding: 0 0.5em;
   }
 
   .mobile-br {
