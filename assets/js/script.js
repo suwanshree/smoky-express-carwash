@@ -226,38 +226,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* CONSTRUCTION OVERLAY FOR ALL CARDS */
+  const revealItems = document.querySelectorAll(".reveal-up");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
-  function applyConstructionOverlay() {
-    const articles = document.querySelectorAll(
-      "#services article, #membership article",
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    revealItems.forEach((item) => {
+      item.classList.add("is-visible");
+    });
+  } else {
+    const observer = new IntersectionObserver(
+      (entries, activeObserver) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add("is-visible");
+          activeObserver.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.16,
+        rootMargin: "0px 0px -48px 0px",
+      },
     );
 
-    articles.forEach((article) => {
-      article.classList.add("card-under-construction");
+    revealItems.forEach((item, index) => {
+      item.style.setProperty("--reveal-delay", `${(index % 4) * 80}ms`);
+      observer.observe(item);
     });
   }
-
-  window.addEventListener("load", applyConstructionOverlay);
-  // Disable all buttons site-wide (construction mode)
-  // CONSTRUCTION MODE — disable all buttons
-  document.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll(
-      "button:not([data-construction-exempt='true']):not(.menu-toggle):not(.faq-question)",
-    );
-
-    buttons.forEach((button) => {
-      // true disable
-      button.disabled = true;
-
-      // block pointer interaction completely
-      button.style.pointerEvents = "none";
-
-      // show blocked cursor
-      button.style.cursor = "not-allowed";
-
-      // optional styling class
-      button.classList.add("disabled-construction");
-    });
-  });
 });

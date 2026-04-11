@@ -170,6 +170,12 @@ table {
   --wave-soft-red: rgba(235, 128, 128, 0.18);
   --wave-crimson: rgba(198, 26, 26, 0.28);
   --wave-burgundy: rgba(131, 0, 0, 0.58);
+  --surface-expertise-top: #ffffff;
+  --surface-expertise-bottom: #fcf3f3;
+  --surface-services-top: #ffffff;
+  --surface-services-bottom: #f5f6f8;
+  --surface-chemicals-top: #f6f7f9;
+  --surface-chemicals-bottom: #ffffff;
   --faq-surface-top: #1b0f0f;
   --faq-surface-bottom: #111111;
   --font-brand: "League Spartan", system-ui, sans-serif;
@@ -737,7 +743,7 @@ main button:hover {
   --wave-layer-1: rgba(235, 128, 128, 0.18);
   --wave-layer-2: rgba(198, 26, 26, 0.28);
   --wave-layer-3: rgba(108, 0, 0, 0.44);
-  --wave-layer-4: var(--white);
+  --wave-layer-4: var(--surface-expertise-top);
 }
 
 .section-wave--hero-overlay .section-wave__svg {
@@ -745,15 +751,27 @@ main button:hover {
 }
 
 .section-wave--faq-entry {
-  --wave-background: linear-gradient(
-    180deg,
-    var(--white) 0%,
-    rgba(234, 234, 234, 0.96) 100%
-  );
-  --wave-layer-1: rgba(235, 128, 128, 0.14);
-  --wave-layer-2: rgba(198, 26, 26, 0.2);
-  --wave-layer-3: rgba(131, 0, 0, 0.38);
+  position: relative;
+  --wave-background: var(--surface-chemicals-bottom);
+  --wave-layer-1: rgba(255, 255, 255, 0.92);
+  --wave-layer-2: rgba(255, 255, 255, 0.64);
+  --wave-layer-3: rgba(22, 19, 19, 0.44);
   --wave-layer-4: var(--faq-surface-top);
+}
+
+.section-wave--faq-entry .section-wave__svg {
+  margin-bottom: -5px;
+}
+
+.section-wave--faq-entry::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background: var(--faq-surface-top);
+  z-index: 1;
 }
 
 .section-wave--faq-exit {
@@ -859,46 +877,38 @@ main button:hover {
   .hero-slide--1 {
     opacity: 1;
   }
+
+  .reveal-up {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .wash-card,
+  .chemistry-card,
+  .plan-cta {
+    transition: none;
+  }
+
+  .chemistry-card__overlay {
+    transform: translateY(0);
+    transition: none;
+  }
+
+  .chemistry-card__overlay p:last-child {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 section {
-  padding-bottom: 2.5em;
+  padding-top: clamp(3rem, 6vw, 4.25rem);
+  padding-bottom: clamp(3.2rem, 6vw, 4.75rem);
 }
 
 section > div > p {
   padding-bottom: 1em;
-}
-
-#services h2 {
-  padding-bottom: 1em;
-}
-
-#services article {
-  color: var(--white);
-  background: linear-gradient(
-    180deg,
-    #c61a1a 0%,
-    var(--darkRed) 36%,
-    #830000 100%
-  );
-  padding: 1em 1em 1em 1em;
-  margin-bottom: 1em;
-  border: 1px solid rgba(253, 208, 23, 0.14);
-  border-radius: 18px;
-  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
-  transition:
-    transform 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out,
-    border-color 0.3s ease-in-out;
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-}
-
-#services article:hover {
-  transform: translateY(-0.35em);
-  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.22);
-  border-color: rgba(253, 208, 23, 0.28);
 }
 
 .results-container {
@@ -910,90 +920,575 @@ section > div > p {
 #team,
 #free,
 #terms,
-#services {
+#services,
+#chemicals,
+#contact,
+#location {
   color: var(--black);
   background-color: var(--white);
 }
 
-#services article i {
+.section-heading {
+  max-width: 760px;
+  margin-bottom: clamp(1.9rem, 4vw, 3rem);
+}
+
+.section-heading h2 {
+  padding-top: 0.15em;
+  margin-bottom: 0.4rem;
+  line-height: 1.02;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+  padding: 0.46rem 0.96rem 0.42rem;
+  border-radius: 999px;
+  background: rgba(178, 0, 0, 0.08);
+  color: var(--darkRed);
+  font-size: clamp(0.92rem, 2vw, 1.02rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.section-kicker--dark {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 244, 196, 0.96);
+}
+
+.section-lead,
+.benefit-card p,
+.standards-panel p,
+.wash-card__description,
+.wash-note,
+.chemistry-card__overlay p:last-child {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+#expertise {
+  background: linear-gradient(
+    180deg,
+    var(--surface-expertise-top) 0%,
+    var(--surface-expertise-bottom) 100%
+  );
+}
+
+.benefit-grid {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+.benefit-card {
+  position: relative;
+  overflow: hidden;
+  padding: 1.35rem;
+  border: 1px solid rgba(178, 0, 0, 0.1);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 34px rgba(87, 19, 19, 0.1);
+}
+
+.benefit-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(253, 208, 23, 0.98) 0%,
+    rgba(214, 52, 52, 0.92) 100%
+  );
+}
+
+.benefit-card__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3.1rem;
-  height: 3.1rem;
-  font-size: 2.5em;
-  margin-bottom: 0.5em;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.85rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #d63434 0%, #830000 100%);
   color: var(--white);
+  font-size: 1.4rem;
+  box-shadow: 0 16px 24px rgba(131, 0, 0, 0.22);
 }
 
-#services article {
-  text-align: center;
-  animation: fadeUp 0.8s ease forwards;
+.benefit-card h3,
+.standards-panel h3,
+.wash-card h3,
+.chemistry-card h3 {
+  line-height: 1.08;
 }
 
-#membership {
-  background: var(--white);
-  color: var(--black);
+.benefit-card h3 {
+  margin-bottom: 0.45rem;
 }
 
-.membership-grid {
+.standards-panel {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  padding: clamp(1.35rem, 4vw, 2rem);
+  border: 1px solid rgba(253, 208, 23, 0.16);
+  border-radius: 28px;
+  background: linear-gradient(
+    145deg,
+    rgba(198, 26, 26, 0.98) 0%,
+    rgba(131, 0, 0, 0.96) 100%
+  );
+  color: var(--white);
+  box-shadow: 0 28px 44px rgba(82, 8, 8, 0.24);
 }
 
-.membership-grid article {
+.standards-panel__copy p:last-child {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.standards-list {
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+}
+
+.standards-list li {
+  position: relative;
+  padding-left: 1.65rem;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.standards-list li::before {
+  content: "";
+  position: absolute;
+  top: 0.62rem;
+  left: 0;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 5px rgba(253, 208, 23, 0.16);
+}
+
+#services {
+  background: linear-gradient(
+    180deg,
+    var(--surface-services-top) 0%,
+    var(--surface-services-bottom) 100%
+  );
+}
+
+#services h2,
+#chemicals h2 {
+  padding-bottom: 0.15em;
+}
+
+.wash-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.wash-card {
+  --plan-accent: var(--gold);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  padding: 1.45rem;
+  border: 1px solid rgba(253, 208, 23, 0.14);
+  border-radius: 24px;
   background: linear-gradient(
     180deg,
     #c61a1a 0%,
-    var(--darkRed) 36%,
+    var(--darkRed) 38%,
     #830000 100%
   );
   color: var(--white);
-  padding: 1.5em;
-  border: 1px solid rgba(253, 208, 23, 0.14);
-  border-radius: 20px;
-  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
-  text-align: center;
-  transform: translateY(20px);
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards;
-  position: relative;
   overflow: hidden;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
   transition:
-    transform 0.3s ease-in-out,
-    box-shadow 0.3s ease-in-out,
-    border-color 0.3s ease-in-out;
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
 }
 
-.membership-grid article.featured {
-  transform: scale(1.05);
-  border-color: rgba(253, 208, 23, 0.3);
-  box-shadow: 0 22px 34px rgba(0, 0, 0, 0.24);
+.wash-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--plan-accent) 0%,
+    rgba(255, 255, 255, 0.72) 100%
+  );
 }
 
-.membership-grid article:hover {
-  transform: translateY(-0.35em);
-  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.22);
+.wash-card::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -18%;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0) 68%
+  );
+  pointer-events: none;
+}
+
+.wash-card:hover {
+  transform: translateY(-0.35rem);
+  box-shadow: 0 24px 38px rgba(0, 0, 0, 0.22);
   border-color: rgba(253, 208, 23, 0.28);
 }
 
-.membership-grid article.featured:hover {
-  transform: scale(1.05) translateY(-0.15em);
+.wash-card--featured {
+  border-color: rgba(253, 208, 23, 0.32);
+  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.24);
 }
 
-.price {
-  font-size: 2em;
+.wash-card__badge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 0.4rem 0.7rem 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(253, 208, 23, 0.3);
+  background: rgba(253, 208, 23, 0.16);
+  color: #fff3c1;
+  font-size: 0.78rem;
   font-weight: 800;
-  margin: 0.5em 0;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.wash-card__eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.wash-card__header h3 {
+  margin: 0.28rem 0 0.45rem;
+}
+
+.wash-card__description {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.wash-card__pricing {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.wash-price {
+  position: relative;
+  z-index: 1;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(2px);
+}
+
+.wash-price--membership {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+}
+
+.wash-price__label {
+  display: block;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.wash-price__value {
+  display: block;
+  margin-top: 0.22rem;
   color: var(--gold);
+  font-family: var(--font-brand);
+  font-size: clamp(2.15rem, 9vw, 2.8rem);
+  line-height: 0.95;
 }
 
-.membership-grid ul {
-  margin: 1em 0;
+.wash-price__suffix {
+  margin-left: 0.18rem;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
 }
 
-.membership-grid li {
-  margin-bottom: 0.5em;
+.wash-price__promo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+}
+
+.wash-price__promo-label {
+  color: var(--white);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.wash-price__promo-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.32rem 0.68rem 0.24rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe26a 0%, var(--gold) 100%);
+  color: var(--black);
+  font-family: var(--font-brand);
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 12px 20px rgba(0, 0, 0, 0.18);
+}
+
+.wash-card__features {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.wash-card__features li {
+  position: relative;
+  padding-left: 1.55rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.wash-card__features li::before {
+  content: "";
+  position: absolute;
+  top: 0.56rem;
+  left: 0;
+  width: 0.68rem;
+  height: 0.68rem;
+  border-radius: 50%;
+  background: var(--plan-accent);
+  box-shadow: 0 0 0 4px rgba(253, 208, 23, 0.14);
+}
+
+.plan-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding: 0.88rem 1.1rem 0.82rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe26a 0%, var(--gold) 100%);
+  color: var(--black);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+.plan-cta:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(180deg, #f6f6f6 0%, #ffffff 100%);
+  color: var(--darkRed);
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.22);
+}
+
+.plan-cta:focus-visible,
+.chemistry-card:focus-visible {
+  outline: 3px solid rgba(253, 208, 23, 0.55);
+  outline-offset: 4px;
+}
+
+.wash-note {
+  max-width: 60ch;
+  margin-top: 1rem;
+  color: rgba(0, 0, 0, 0.78);
+}
+
+#chemicals {
+  background: linear-gradient(
+    180deg,
+    var(--surface-chemicals-top) 0%,
+    var(--surface-chemicals-bottom) 100%
+  );
+}
+
+.chemistry-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.chemistry-card {
+  position: relative;
+  min-height: 21rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 26px;
+  overflow: hidden;
+  background: #101820;
+  color: var(--white);
+  isolation: isolate;
+  box-shadow: 0 22px 36px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.45s ease,
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+}
+
+.chemistry-card:hover,
+.chemistry-card:focus-within,
+.chemistry-card:focus {
+  transform: translateY(-0.35rem);
+  box-shadow: 0 28px 42px rgba(0, 0, 0, 0.22);
+  border-color: rgba(253, 208, 23, 0.18);
+}
+
+.chemistry-card__media {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 1rem;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.15)),
+    linear-gradient(135deg, #d63434 0%, #101820 58%, #000000 100%);
+  background-position: center;
+  background-size: cover;
+}
+
+.chemistry-card:nth-child(3n + 2) .chemistry-card__media {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.15)),
+    linear-gradient(135deg, #0f7ad2 0%, #10243e 58%, #000000 100%);
+}
+
+.chemistry-card:nth-child(3n + 3) .chemistry-card__media {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.15)),
+    linear-gradient(135deg, #f09f1c 0%, #6b1700 56%, #120f16 100%);
+}
+
+.chemistry-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.34) 46%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+}
+
+.chemistry-card__media span {
+  position: relative;
+  z-index: 1;
+  padding: 0.45rem 0.72rem 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.chemistry-card__overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  padding: 1.25rem;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0) 0%,
+    rgba(10, 10, 10, 0.8) 20%,
+    rgba(10, 10, 10, 0.96) 100%
+  );
+  transform: translateY(calc(100% - 6.25rem));
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.chemistry-card__eyebrow {
+  color: rgba(255, 242, 193, 0.82);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.chemistry-card__overlay h3 {
+  margin: 0.25rem 0 0.35rem;
+}
+
+.chemistry-card__overlay p:last-child {
+  color: rgba(255, 255, 255, 0.84);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.35s ease 0.08s,
+    transform 0.35s ease 0.08s;
+}
+
+.chemistry-card:hover .chemistry-card__overlay,
+.chemistry-card:focus .chemistry-card__overlay,
+.chemistry-card:focus-within .chemistry-card__overlay {
+  transform: translateY(0);
+}
+
+.chemistry-card:hover .chemistry-card__overlay p:last-child,
+.chemistry-card:focus .chemistry-card__overlay p:last-child,
+.chemistry-card:focus-within .chemistry-card__overlay p:last-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s ease var(--reveal-delay, 0ms),
+    transform 0.75s ease var(--reveal-delay, 0ms);
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @keyframes fadeUp {
@@ -1451,6 +1946,11 @@ footer p {
   .promo-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .wash-grid,
+  .chemistry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* CONSTRUCTION BANNER */
@@ -1489,97 +1989,6 @@ footer p {
     font-size: 1.15rem;
     padding: 14px 24px;
   }
-}
-
-/* CARD CONSTRUCTION OVERLAY */
-
-.card-under-construction {
-  position: relative;
-  overflow: hidden;
-}
-
-.card-under-construction::after {
-  content: "Coming Soon | Pricing & Details Not Yet Available";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  background:
-    linear-gradient(rgba(14, 14, 14, 0.8), rgba(14, 14, 14, 0.82)),
-    repeating-linear-gradient(
-      -45deg,
-      rgba(253, 208, 23, 0.16) 0 14px,
-      rgba(253, 208, 23, 0.05) 14px 28px
-    );
-  color: #fff;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  text-align: center;
-  padding: 20px;
-
-  font-weight: 700;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-
-  z-index: 5;
-}
-
-/* blur content behind */
-.card-under-construction > * {
-  filter: blur(5px) saturate(0.85);
-  pointer-events: none;
-}
-
-/* Disable button interaction */
-.disabled-construction {
-  opacity: 0.75;
-  filter: grayscale(15%);
-  cursor: not-allowed !important;
-}
-
-/* Prevent hover effects */
-.disabled-construction:hover {
-  transform: none !important;
-  box-shadow: none !important;
-}
-
-/* CONTENT CONSTRUCTION OVERLAY */
-
-#construction-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 230, 120, 0.35);
-  backdrop-filter: blur(1.5px);
-  z-index: 999;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: not-allowed;
-}
-
-/* message box */
-
-.construction-overlay-message {
-  background: rgba(0, 0, 0, 0.85);
-  color: #fff;
-  padding: 20px 28px;
-  border-radius: 8px;
-
-  font-size: 1.1rem;
-  text-align: center;
-  line-height: 1.5;
-
-  max-width: 380px;
-
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 #about .container {
@@ -1653,6 +2062,9 @@ footer p {
   .nav-links li:nth-child(5) {
     animation-delay: 0.5s;
   }
+  .nav-links li:nth-child(6) {
+    animation-delay: 0.6s;
+  }
 
   @keyframes navFade {
     to {
@@ -1688,22 +2100,21 @@ footer p {
     display: none;
   }
 
-  #services article {
-    margin-bottom: 0;
+  .benefit-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  #services .container {
-    padding-bottom: 1em;
+  .standards-panel {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
   }
 
-  #services .container div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1em;
+  .wash-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .membership-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .chemistry-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .section-wave__svg {
@@ -1793,6 +2204,12 @@ footer p {
   .button-two {
     width: auto;
     margin-left: 1em;
+  }
+
+  #about .button-one,
+  #about .button-two {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
   }
 
   form {
