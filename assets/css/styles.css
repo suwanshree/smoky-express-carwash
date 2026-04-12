@@ -227,7 +227,8 @@ i {
 
 #about {
   background-color: var(--black);
-  height: 90vh;
+  min-height: 90vh;
+  min-height: 90svh;
   position: relative;
   isolation: isolate;
   display: grid;
@@ -283,7 +284,8 @@ i {
 #about .container {
   position: relative;
   z-index: 3;
-  padding: 1rem;
+  max-width: 760px;
+  padding: 1rem 1rem 5.5rem;
 }
 
 header {
@@ -575,6 +577,9 @@ h2 a {
 #about h2 {
   padding-left: 0;
   padding-bottom: 0.5em;
+  max-width: 13ch;
+  margin: 0 auto;
+  line-height: 0.95;
 }
 
 h3 {
@@ -612,6 +617,68 @@ h3 {
 p {
   font-size: 1.2em;
   line-height: 2.2ch;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.95rem 0.44rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 243, 196, 0.96);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.hero-copy {
+  max-width: 36rem;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: grid;
+  gap: 0.8rem;
+  justify-items: center;
+  margin-top: 1.3rem;
+}
+
+.hero-actions .button-one,
+.hero-actions .button-two {
+  margin-top: 0;
+}
+
+.hero-actions .button-two {
+  margin-left: 0;
+}
+
+.hero-trust-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.35rem;
+}
+
+.hero-trust-list li {
+  padding: 0.62rem 0.9rem 0.56rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  backdrop-filter: blur(8px);
 }
 
 main h2 {
@@ -662,6 +729,7 @@ main button:hover {
   width: 80vw;
   color: var(--white);
   background-color: var(--darkRed);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
   transition: all 0.3s ease-in-out;
 }
 
@@ -1090,6 +1158,86 @@ section > div > p {
 .wash-grid {
   display: grid;
   gap: 1.25rem;
+}
+
+.membership-spotlight {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 1.4rem;
+  padding: clamp(1.35rem, 4vw, 2rem);
+  border: 1px solid rgba(178, 0, 0, 0.14);
+  border-radius: 28px;
+  background: linear-gradient(
+    145deg,
+    rgba(16, 24, 32, 0.98) 0%,
+    rgba(131, 0, 0, 0.98) 55%,
+    rgba(178, 0, 0, 0.96) 100%
+  );
+  color: var(--white);
+  box-shadow: 0 24px 40px rgba(48, 12, 12, 0.16);
+}
+
+.membership-spotlight__copy .section-kicker {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 243, 196, 0.96);
+}
+
+.membership-spotlight__copy p:last-child {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.membership-spotlight__list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.membership-spotlight__list li {
+  position: relative;
+  padding-left: 1.65rem;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.membership-spotlight__list li::before {
+  content: "";
+  position: absolute;
+  top: 0.62rem;
+  left: 0;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 5px rgba(253, 208, 23, 0.14);
+}
+
+.membership-spotlight__list strong {
+  color: rgba(255, 243, 196, 0.98);
+}
+
+.membership-spotlight__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.membership-spotlight__secondary {
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.36);
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.membership-spotlight__secondary:hover {
+  color: rgba(255, 243, 196, 0.98);
+  border-color: rgba(255, 243, 196, 0.98);
 }
 
 .wash-card {
@@ -2055,10 +2203,6 @@ footer p {
   }
 }
 
-#about .container {
-  padding-bottom: 4em;
-}
-
 /* MEDIA QUERIES (LARGE) */
 @media screen and (min-width: 1180px) {
   h1 {
@@ -2173,6 +2317,18 @@ footer p {
     align-items: start;
   }
 
+  .membership-spotlight {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .membership-spotlight__actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .wash-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2270,6 +2426,17 @@ footer p {
     margin-left: 1em;
   }
 
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .hero-actions .button-two {
+    margin-left: 0;
+  }
+
   #about .button-one,
   #about .button-two {
     padding-left: 1.5em;
@@ -2281,6 +2448,11 @@ footer p {
     grid-template-columns: 1fr 1fr;
     gap: 1em;
     align-items: start;
+  }
+
+  #contact-form .form-field--full,
+  #contact-form button[type="submit"] {
+    grid-column: 1 / -1;
   }
 }
 
