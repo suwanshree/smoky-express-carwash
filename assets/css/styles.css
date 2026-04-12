@@ -1606,27 +1606,11 @@ section > div > p {
 .chemistry-card__media {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 1rem;
   background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.15)),
-    linear-gradient(135deg, #d63434 0%, #101820 58%, #000000 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.22)),
+    var(--chemistry-image);
   background-position: center;
   background-size: cover;
-}
-
-.chemistry-card:nth-child(3n + 2) .chemistry-card__media {
-  background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.15)),
-    linear-gradient(135deg, #0f7ad2 0%, #10243e 58%, #000000 100%);
-}
-
-.chemistry-card:nth-child(3n + 3) .chemistry-card__media {
-  background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.15)),
-    linear-gradient(135deg, #f09f1c 0%, #6b1700 56%, #120f16 100%);
 }
 
 .chemistry-card__media::after {
@@ -1639,22 +1623,6 @@ section > div > p {
     rgba(0, 0, 0, 0.34) 46%,
     rgba(0, 0, 0, 0.92) 100%
   );
-}
-
-.chemistry-card__media span {
-  position: relative;
-  z-index: 1;
-  padding: 0.45rem 0.72rem 0.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.96);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
-  backdrop-filter: blur(8px);
 }
 
 .chemistry-card__overlay {
@@ -1671,23 +1639,46 @@ section > div > p {
   transform: none;
 }
 
-.chemistry-card__eyebrow {
-  color: rgba(255, 242, 193, 0.82);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1.2;
-  text-transform: uppercase;
-}
-
 .chemistry-card__overlay h3 {
-  margin: 0.25rem 0 0.35rem;
+  margin: 0 0 0.35rem;
 }
 
 .chemistry-card__overlay p:last-child {
   color: rgba(255, 255, 255, 0.84);
   opacity: 1;
   transform: none;
+}
+
+.chemistry-card--bug-remover {
+  --chemistry-image: url("/assets/images/mothers/bug-remover.webp");
+}
+
+.chemistry-card--body-soak {
+  --chemistry-image: url("/assets/images/mothers/body-soak.webp");
+}
+
+.chemistry-card--wheel-clean {
+  --chemistry-image: url("/assets/images/mothers/wheel-clean.webp");
+}
+
+.chemistry-card--ceramic-polish {
+  --chemistry-image: url("/assets/images/mothers/ceramic-polish.webp");
+}
+
+.chemistry-card--hybrid-wax {
+  --chemistry-image: url("/assets/images/mothers/hybrid-wax.webp");
+}
+
+.chemistry-card--nano-shield {
+  --chemistry-image: url("/assets/images/mothers/nano-shield.webp");
+}
+
+.chemistry-card--ceramic-seal {
+  --chemistry-image: url("/assets/images/mothers/ceramic-seal.webp");
+}
+
+.chemistry-card--tire-shine {
+  --chemistry-image: url("/assets/images/mothers/tire-shine.webp");
 }
 
 .reveal-up {
