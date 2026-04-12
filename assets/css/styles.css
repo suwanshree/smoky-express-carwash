@@ -1183,6 +1183,28 @@ section > div > p {
   margin: 0.28rem 0 0.45rem;
 }
 
+.wash-card__highlight {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-bottom: 0.55rem;
+  padding: 0.38rem 0.9rem 0.28rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 226, 106, 0.7) 0%,
+    rgba(255, 215, 85, 0.7) 100%
+  );
+  color: var(--black);
+  font-family: var(--font-brand);
+  font-size: clamp(1.2rem, 4vw, 1.52rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.06),
+    0 12px 22px rgba(0, 0, 0, 0.18);
+  text-transform: uppercase;
+}
+
 .wash-card__description {
   color: rgba(255, 255, 255, 0.84);
 }
@@ -1295,6 +1317,22 @@ section > div > p {
   box-shadow: 0 0 0 4px rgba(253, 208, 23, 0.14);
 }
 
+.wash-card__bonus {
+  margin-top: 0.45rem;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 0.96rem;
+  line-height: 1.4;
+}
+
+.wash-card__bonus strong {
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.wash-card__bonus em {
+  font-style: italic;
+}
+
 .plan-cta {
   display: inline-flex;
   align-items: center;
@@ -1366,12 +1404,55 @@ section > div > p {
     border-color 0.45s ease;
 }
 
+.chemistry-card::before {
+  content: "";
+  position: absolute;
+  top: -12%;
+  left: -36%;
+  z-index: 2;
+  width: 28%;
+  height: 124%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 18%,
+    rgba(255, 255, 255, 0.55) 48%,
+    rgba(255, 255, 255, 0.16) 72%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  opacity: 0;
+  pointer-events: none;
+  transform: skewX(-22deg);
+}
+
 .chemistry-card:hover,
 .chemistry-card:focus-within,
 .chemistry-card:focus {
   transform: translateY(-0.35rem);
   box-shadow: 0 28px 42px rgba(0, 0, 0, 0.22);
   border-color: rgba(253, 208, 23, 0.18);
+}
+
+@media (hover: hover) {
+  .chemistry-card:hover::before,
+  .chemistry-card:focus-visible::before {
+    animation: chemistryStreak 0.75s ease-out forwards;
+  }
+}
+
+@keyframes chemistryStreak {
+  0% {
+    transform: translateX(0) skewX(-22deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(520%) skewX(-22deg);
+    opacity: 0;
+  }
 }
 
 .chemistry-card__media {
@@ -1439,8 +1520,7 @@ section > div > p {
     rgba(10, 10, 10, 0.8) 20%,
     rgba(10, 10, 10, 0.96) 100%
   );
-  transform: translateY(calc(100% - 6.25rem));
-  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transform: none;
 }
 
 .chemistry-card__eyebrow {
@@ -1458,24 +1538,8 @@ section > div > p {
 
 .chemistry-card__overlay p:last-child {
   color: rgba(255, 255, 255, 0.84);
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.35s ease 0.08s,
-    transform 0.35s ease 0.08s;
-}
-
-.chemistry-card:hover .chemistry-card__overlay,
-.chemistry-card:focus .chemistry-card__overlay,
-.chemistry-card:focus-within .chemistry-card__overlay {
-  transform: translateY(0);
-}
-
-.chemistry-card:hover .chemistry-card__overlay p:last-child,
-.chemistry-card:focus .chemistry-card__overlay p:last-child,
-.chemistry-card:focus-within .chemistry-card__overlay p:last-child {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .reveal-up {
