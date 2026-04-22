@@ -2067,9 +2067,9 @@ section > div > p {
   line-height: 1;
 }
 
-.grand-promo-online {
+.grand-promo-availability {
   margin-top: 0.9rem;
-  color: var(--darkRed);
+  color: rgba(27, 17, 0, 0.82);
   font-weight: 900;
 }
 
