@@ -987,7 +987,7 @@ section > div > p {
 #privacy,
 #team,
 #free,
-#grand-opening-promo,
+#grand-opening,
 #terms,
 #services,
 #chemicals,
@@ -1800,12 +1800,12 @@ section > div > p {
   max-width: 760px;
 }
 
-#grand-opening-promo {
+#grand-opening {
   background: linear-gradient(180deg, #ffffff 0%, #fff8df 48%, #f5f6f8 100%);
   color: var(--black);
 }
 
-#grand-opening-promo .container {
+#grand-opening .container {
   max-width: 920px;
 }
 
@@ -1898,7 +1898,7 @@ section > div > p {
   line-height: 0.95;
 }
 
-#grand-opening-promo .grand-promo-panel h2 {
+#grand-opening .grand-promo-panel h2 {
   padding-top: 0.18em;
   margin-bottom: 0.55rem;
   color: var(--darkRed);
@@ -2387,7 +2387,7 @@ footer h3 {
 
 #contact a,
 #free a,
-#grand-opening-promo .grand-promo-phone {
+#grand-opening .grand-promo-phone {
   color: var(--black);
   text-decoration: none;
 }
@@ -2410,7 +2410,7 @@ footer p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #grand-opening-promo .grand-promo-panel h2 {
+  #grand-opening .grand-promo-panel h2 {
     font-size: 3.2rem;
   }
 
@@ -2577,7 +2577,7 @@ footer p {
 
 /* LARGE */
 @media screen and (min-width: 1180px) {
-  #grand-opening-promo .grand-promo-panel h2 {
+  #grand-opening .grand-promo-panel h2 {
     font-size: 4rem;
   }
 
@@ -2814,7 +2814,7 @@ footer p {
     color: var(--darkRed);
   }
 
-  #grand-opening-promo .grand-promo-phone:hover {
+  #grand-opening .grand-promo-phone:hover {
     color: var(--darkRed);
     border-color: rgba(178, 0, 0, 0.72);
   }
