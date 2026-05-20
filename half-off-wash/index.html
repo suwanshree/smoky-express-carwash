@@ -256,6 +256,7 @@
     const BUSINESS_SLUG = "smoky-express-car-wash";
     const CAMPAIGN_KEY = "50_off_coupon";
     const DEFAULT_LOCATION_ID = 1;
+    const GENERIC_CLAIM_ERROR_MESSAGE = "Opps! Something went wrong. Please try again later.";
 
     const consentCheckbox = document.getElementById("sms-consent");
     const freewashButton = document.getElementById("freewash-submit");
@@ -420,7 +421,7 @@
     }
 
     function showError(message) {
-      errorBox.textContent = message || "❌ Something went wrong. Please try again.";
+      errorBox.textContent = message || GENERIC_CLAIM_ERROR_MESSAGE;
       errorBox.style.display = "block";
       successBox.style.display = "none";
     }
@@ -493,7 +494,8 @@
         }
 
         if (!response.ok) {
-          throw new Error(data?.message || data?.error || "❌ Submission failed.");
+          const apiErrorMessage = data?.message || data?.error;
+          throw new Error(response.status >= 500 || !apiErrorMessage ? GENERIC_CLAIM_ERROR_MESSAGE : apiErrorMessage);
         }
 
         showSuccess("🎉 Thank you! Your 50% off offer has been claimed.");
@@ -501,7 +503,8 @@
         captureAttributionFields();
         freewashButton.disabled = true;
       } catch (error) {
-        showError(error.message || "❌ Something went wrong. Please try again.");
+        const message = error instanceof TypeError ? GENERIC_CLAIM_ERROR_MESSAGE : error?.message;
+        showError(message || GENERIC_CLAIM_ERROR_MESSAGE);
       } finally {
         setSubmittingState(false);
       }
