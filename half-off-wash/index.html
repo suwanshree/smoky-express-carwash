@@ -58,6 +58,14 @@
       ]
     }
   </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18000339648"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18000339648');
+  </script>
 </head>
 
 <body>
@@ -313,6 +321,17 @@
       input.value = value || "";
     }
 
+    function trackGoogleAdsConversion() {
+      if (typeof gtag !== "function") {
+        console.warn("Google Ads tag not loaded");
+        return;
+      }
+
+      gtag("event", "conversion", {
+        send_to: "AW-18000339648/bmQDCPL6nMEcEMDFnYdD"
+      });
+    }
+
     function captureAttributionFields() {
       const params = getQueryParams();
 
@@ -499,6 +518,7 @@
         }
 
         showSuccess("🎉 Thank you! Your 50% off offer has been claimed.");
+        trackGoogleAdsConversion();
         freewashForm.reset();
         captureAttributionFields();
         freewashButton.disabled = true;
