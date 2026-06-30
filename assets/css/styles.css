@@ -1745,10 +1745,6 @@ section > div > p {
   transform: none;
 }
 
-.chemistry-card--bug-remover {
-  --chemistry-image: url("/assets/images/mothers/bug-remover.webp");
-}
-
 .chemistry-card--body-soak {
   --chemistry-image: url("/assets/images/mothers/body-soak.webp");
 }
@@ -1765,16 +1761,20 @@ section > div > p {
   --chemistry-image: url("/assets/images/mothers/hybrid-wax.webp");
 }
 
-.chemistry-card--nano-shield {
-  --chemistry-image: url("/assets/images/mothers/nano-shield.webp");
-}
-
 .chemistry-card--ceramic-seal {
   --chemistry-image: url("/assets/images/mothers/ceramic-seal.webp");
 }
 
-.chemistry-card--tire-shine {
-  --chemistry-image: url("/assets/images/mothers/tire-shine.webp");
+.chemistry-card--nano-shield {
+  --chemistry-image: url("/assets/images/mothers/nano-shield.webp");
+}
+
+.chemistry-card--microfiber-towels {
+  --chemistry-image: url("/assets/images/mothers/micro-fiber-towel.webp");
+}
+
+.chemistry-card--air-freshener {
+  --chemistry-image: url("/assets/images/mothers/air-freshener.webp");
 }
 
 .reveal-up {
