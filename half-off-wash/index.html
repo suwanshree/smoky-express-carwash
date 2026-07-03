@@ -325,7 +325,15 @@
       input.value = value || "";
     }
 
-    function trackGoogleAdsConversion() {
+    function isGoogleAdsAttribution(attribution) {
+      return attribution?.utmSource === "google" && attribution?.utmMedium === "paid_search";
+    }
+
+    function trackGoogleAdsConversion(attribution) {
+      if (!isGoogleAdsAttribution(attribution)) {
+        return;
+      }
+
       if (typeof gtag !== "function") {
         console.warn("Google Ads tag not loaded");
         return;
@@ -380,7 +388,7 @@
       } else if (utmSource || utmMedium || utmCampaign) {
         if (utmSource === "facebook" || utmSource === "instagram") {
           sourceSubtype = "paid_social";
-        } else if (utmSource === "google") {
+        } else if (utmSource === "google" && utmMedium === "paid_search") {
           sourceSubtype = "paid_search";
         } else {
           sourceSubtype = utmMedium || utmSource || "campaign";
@@ -482,13 +490,14 @@
         return;
       }
 
+      const attribution = getCapturedAttribution();
       const payload = {
         businessSlug: BUSINESS_SLUG,
         phone,
         firstName: firstName || null,
         locationId: DEFAULT_LOCATION_ID,
         campaignKey: CAMPAIGN_KEY,
-        attribution: getCapturedAttribution(),
+        attribution,
         consent: {
           type: "sms_marketing",
           status: "opted_in",
@@ -522,7 +531,7 @@
         }
 
         showSuccess("Thank you. Your 50% off offer has been claimed.");
-        trackGoogleAdsConversion();
+        trackGoogleAdsConversion(attribution);
         freewashForm.reset();
         captureAttributionFields();
         freewashButton.disabled = true;
