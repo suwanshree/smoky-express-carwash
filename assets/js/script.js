@@ -282,6 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (menuToggle && nav) {
     const closeMenu = () => {
       nav.classList.remove("nav--open");
+      header.classList.remove("header--menu-open");
       menuToggle.classList.remove("active");
       menuToggle.setAttribute("aria-expanded", "false");
       menuToggle.setAttribute("aria-label", "Open menu");
@@ -290,6 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const openMenu = () => {
       nav.classList.add("nav--open");
+      header.classList.add("header--menu-open");
       menuToggle.classList.add("active");
       menuToggle.setAttribute("aria-expanded", "true");
       menuToggle.setAttribute("aria-label", "Close menu");
@@ -306,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    document.querySelectorAll(".nav-links a").forEach((link) => {
+    document.querySelectorAll(".nav-links a, .mobile-menu-home").forEach((link) => {
       link.addEventListener("click", closeMenu);
     });
 
