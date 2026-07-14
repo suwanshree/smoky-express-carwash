@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTextContent("[data-selected-location-address]", selectedAddress);
     setTextContent(
       "[data-selected-location-status]",
-      isComingSoon ? "Coming soon" : "Now open",
+      isComingSoon ? "Coming soon" : "OPEN DAILY - 8 AM TO 8 PM",
     );
 
     const locationTitle = isComingSoon
