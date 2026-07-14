@@ -95,7 +95,25 @@
           <li><a href="https://www.facebook.com/people/Smoky-Express-Car-Wash/61588257995791/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a></li>
         </ul>
         <ul class="nav-links">
-          <li><h2><a href="../#location">Location</a></h2></li>
+          <li class="nav-location-menu">
+            <details>
+              <summary><h2>Locations</h2></summary>
+              <div class="nav-location-menu__list" role="list">
+                <a href="/locations/sevierville/" role="listitem">
+                  <span class="nav-location-menu__name">Sevierville</span>
+                  <span class="nav-location-menu__meta">Now open</span>
+                </a>
+                <a href="/locations/chattanooga/" role="listitem">
+                  <span class="nav-location-menu__name">Chattanooga</span>
+                  <span class="nav-location-menu__meta">Coming soon</span>
+                </a>
+                <a href="/locations/ooltewah/" role="listitem">
+                  <span class="nav-location-menu__name">Ooltewah</span>
+                  <span class="nav-location-menu__meta">Coming soon</span>
+                </a>
+              </div>
+            </details>
+          </li>
           <li><h2><a href="../#services">Wash Menu</a></h2></li>
           <li><h2><a href="../#chemicals">Products</a></h2></li>
           <li><h2><a href="../join-our-team/">Join Our Team</a></h2></li>
@@ -120,7 +138,8 @@
 
           <p class="promo-lead">
             We will text a link to your unique barcode so you can roll into
-            Smoky Express Car Wash in Sevierville ready to scan.
+            Smoky Express Car Wash ready to scan. Sevierville is available now;
+            Chattanooga and Ooltewah are coming soon.
           </p>
 
           <ul class="promo-perks" aria-label="Offer highlights">
@@ -152,6 +171,15 @@
           </div>
 
           <form id="freewash-form" class="promo-form">
+            <label class="promo-form__field promo-form__full">
+              Wash Location *
+              <select id="washLocation" name="locationId" required>
+                <option value="1" selected>Sevierville - Now open</option>
+                <option value="6" disabled>Chattanooga - Coming soon</option>
+                <option value="7" disabled>Ooltewah - Coming soon</option>
+              </select>
+            </label>
+
             <label class="promo-form__field">
               Mobile Number *
               <input
@@ -241,7 +269,7 @@
         <h3>Quick Links</h3>
         <ul>
           <li><a href="../">Home</a></li>
-          <li><a href="../#location">Location</a></li>
+          <li><a href="../#location">Locations</a></li>
           <li><a href="../#services">Wash Menu</a></li>
           <li><a href="../#chemicals">Products</a></li>
           <li><a href="../join-our-team/">Join Our Team</a></li>
@@ -273,6 +301,7 @@
     const consentCheckbox = document.getElementById("sms-consent");
     const freewashButton = document.getElementById("freewash-submit");
     const freewashForm = document.getElementById("freewash-form");
+    const washLocationSelect = document.getElementById("washLocation");
     const successBox = document.getElementById("freewash-success");
     const errorBox = document.getElementById("freewash-error");
     const consentTimestampInput = document.getElementById("consent_timestamp");
@@ -323,6 +352,14 @@
 
     function setInputValue(input, value) {
       input.value = value || "";
+    }
+
+    function getSelectedLocationId() {
+      const selectedValue = Number(washLocationSelect?.value || DEFAULT_LOCATION_ID);
+
+      return Number.isFinite(selectedValue) && selectedValue > 0
+        ? selectedValue
+        : DEFAULT_LOCATION_ID;
     }
 
     function isGoogleAdsAttribution(attribution) {
@@ -495,7 +532,7 @@
         businessSlug: BUSINESS_SLUG,
         phone,
         firstName: firstName || null,
-        locationId: DEFAULT_LOCATION_ID,
+        locationId: getSelectedLocationId(),
         campaignKey: CAMPAIGN_KEY,
         attribution,
         consent: {

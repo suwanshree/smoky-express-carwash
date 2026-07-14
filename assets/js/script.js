@@ -1,4 +1,48 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const SITE_LOCATIONS = {
+    sevierville: {
+      name: "Sevierville",
+      status: "open",
+      address: "994 Parkway",
+      city: "Sevierville",
+      state: "TN",
+      zip: "37862",
+      phone: "865-286-9051",
+      phoneHref: "tel:+18652869051",
+      mapTitle: "Map showing Smoky Express Car Wash in Sevierville, Tennessee",
+      mapSrc:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3233.884647839153!2d-83.57397301174258!3d35.8518319497732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x885bf93345313adb%3A0x48024f86b06e75f6!2sSmoky%20Express%20Car%20Wash!5e0!3m2!1sen!2sus!4v1774367775602!5m2!1sen!2sus",
+    },
+    chattanooga: {
+      name: "Chattanooga",
+      status: "coming-soon",
+      address: "4907 TN-58",
+      city: "Chattanooga",
+      state: "TN",
+      zip: "37416",
+      phone: "",
+      phoneHref: "",
+      mapTitle: "Map showing 4907 TN-58 in Chattanooga, Tennessee",
+      mapSrc:
+        "https://www.google.com/maps?q=4907%20TN-58%2C%20Chattanooga%2C%20TN%2037416&output=embed",
+    },
+    ooltewah: {
+      name: "Ooltewah",
+      status: "coming-soon",
+      address: "9025 Jac Cate Rd",
+      city: "Ooltewah",
+      state: "TN",
+      zip: "37363",
+      phone: "",
+      phoneHref: "",
+      mapTitle: "Map showing 9025 Jac Cate Rd in Ooltewah, Tennessee",
+      mapSrc:
+        "https://www.google.com/maps?q=9025%20Jac%20Cate%20Rd%2C%20Ooltewah%2C%20TN%2037363&output=embed",
+    },
+  };
+
+  const DEFAULT_SITE_LOCATION = "sevierville";
+
   const ATTRIBUTION_QUERY_KEYS = [
     "src",
     "sub",
@@ -109,8 +153,104 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function getLocationByKey(locationKey) {
+    return SITE_LOCATIONS[locationKey] || SITE_LOCATIONS[DEFAULT_SITE_LOCATION];
+  }
+
+  function getLocationAddress(location) {
+    return `${location.address}, ${location.city}, ${location.state} ${location.zip}`;
+  }
+
+  function setTextContent(selector, value) {
+    document.querySelectorAll(selector).forEach((item) => {
+      item.textContent = value;
+    });
+  }
+
+  function setLocationPanel(locationKey) {
+    const selectedLocation = getLocationByKey(locationKey);
+    const isComingSoon = selectedLocation.status !== "open";
+    const selectedAddress = getLocationAddress(selectedLocation);
+
+    document.documentElement.dataset.selectedLocation = locationKey;
+
+    document.querySelectorAll("[data-location-selector]").forEach((group) => {
+      group.querySelectorAll("[data-location-option]").forEach((button) => {
+        const isActive = button.dataset.locationOption === locationKey;
+
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+    });
+
+    document.querySelectorAll("[data-location-dependent]").forEach((panel) => {
+      panel.classList.toggle("is-coming-soon", isComingSoon);
+      panel.dataset.activeLocation = locationKey;
+    });
+
+    setTextContent("[data-selected-location-name]", selectedLocation.name);
+    setTextContent("[data-selected-location-address]", selectedAddress);
+    setTextContent(
+      "[data-selected-location-status]",
+      isComingSoon ? "Coming soon" : "Now open",
+    );
+
+    const locationTitle = isComingSoon
+      ? `Coming Soon In ${selectedLocation.name}`
+      : `Visit Us In ${selectedLocation.name}`;
+    setTextContent("[data-location-title]", locationTitle);
+    setTextContent(
+      "[data-location-note]",
+      isComingSoon
+        ? "This location is not open yet. We will add hours, maps, pricing, and local launch details as opening gets closer."
+        : "Chattanooga and Ooltewah are coming soon. Select either location above to see the planned address.",
+    );
+
+    document.querySelectorAll("[data-selected-location-phone]").forEach((link) => {
+      if (selectedLocation.phone && selectedLocation.phoneHref) {
+        link.hidden = false;
+        link.textContent = selectedLocation.phone;
+        link.setAttribute("href", selectedLocation.phoneHref);
+      } else {
+        link.hidden = true;
+        link.textContent = "";
+        link.removeAttribute("href");
+      }
+    });
+
+    document.querySelectorAll("[data-location-map]").forEach((container) => {
+      const frame = container.querySelector("iframe");
+
+      container.hidden = !selectedLocation.mapSrc;
+
+      if (frame && selectedLocation.mapSrc) {
+        frame.src = selectedLocation.mapSrc;
+        frame.title = selectedLocation.mapTitle || `Map showing ${selectedLocation.name}`;
+      }
+    });
+  }
+
+  function initializeLocationSelectors() {
+    const selectors = document.querySelectorAll("[data-location-selector]");
+
+    if (!selectors.length) {
+      return;
+    }
+
+    selectors.forEach((group) => {
+      group.querySelectorAll("[data-location-option]").forEach((button) => {
+        button.addEventListener("click", () => {
+          setLocationPanel(button.dataset.locationOption || DEFAULT_SITE_LOCATION);
+        });
+      });
+    });
+
+    setLocationPanel(DEFAULT_SITE_LOCATION);
+  }
+
   preserveAttributionAcrossInternalLinks();
   initializeAttributionButtons();
+  initializeLocationSelectors();
 
   const header = document.querySelector("header");
   const nav = document.querySelector("nav");
