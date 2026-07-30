@@ -202,8 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
     setTextContent(
       "[data-location-note]",
       isComingSoon
-        ? "This location is not open yet. We will add hours, maps, pricing, and local launch details as opening gets closer."
-        : "Chattanooga and Ooltewah are coming soon. Select either location above to see the planned address.",
+        ? "Coming soon."
+        : "Chattanooga and Ooltewah are coming soon. Select a location above for the address.",
     );
 
     document.querySelectorAll("[data-selected-location-phone]").forEach((link) => {
