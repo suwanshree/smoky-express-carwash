@@ -1036,6 +1036,10 @@ main button:hover {
   height: clamp(76px, 12vw, 132px);
 }
 
+.section-wave--location-hero {
+  --wave-layer-4: var(--white);
+}
+
 .section-wave--faq-entry {
   position: relative;
   --wave-background: var(--surface-chemicals-bottom);
@@ -1070,6 +1074,18 @@ main button:hover {
   --wave-layer-2: rgba(214, 52, 52, 0.28);
   --wave-layer-3: rgba(234, 234, 234, 0.22);
   --wave-layer-4: var(--white);
+}
+
+.section-wave--location-to-services {
+  --wave-background: var(--white);
+  --wave-layer-1: transparent;
+  --wave-layer-2: transparent;
+  --wave-layer-3: transparent;
+  --wave-layer-4: var(--surface-services-top);
+}
+
+.section-wave--location-to-services .section-wave__parallax:not(.section-wave__parallax--4) {
+  display: none;
 }
 
 .section-wave + section h2 {
@@ -2907,6 +2923,8 @@ form button[type="submit"]:disabled {
 .location-hero {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+  padding-bottom: clamp(6rem, 12vw, 9.5rem);
   background: linear-gradient(135deg, #101820 0%, #830000 56%, #b20000 100%);
   color: var(--white);
 }
@@ -2915,6 +2933,7 @@ form button[type="submit"]:disabled {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 0;
   background:
     linear-gradient(rgba(0, 0, 0, 0.54), rgba(0, 0, 0, 0.62)),
     url("/assets/images/smoky-express-hero-3.webp") center / cover no-repeat;
@@ -2924,7 +2943,7 @@ form button[type="submit"]:disabled {
 
 .location-hero .container {
   position: relative;
-  z-index: 1;
+  z-index: 3;
 }
 
 .location-hero__copy {
