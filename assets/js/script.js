@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     ooltewah: {
       name: "Ooltewah",
-      status: "coming-soon",
+      status: "open",
       address: "9025 Jac Cate Rd",
       city: "Ooltewah",
       state: "TN",
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "[data-location-note]",
       isComingSoon
         ? "Coming soon."
-        : "Chattanooga and Ooltewah are coming soon. Select a location above for the address.",
+        : "Chattanooga is coming soon. Select a location above for the address.",
     );
 
     document.querySelectorAll("[data-selected-location-phone]").forEach((link) => {
