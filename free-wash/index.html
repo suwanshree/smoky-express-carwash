@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Get 50% off your first wash at Smoky Express Car Wash in Sevierville or Ooltewah, Tennessee. Claim your welcome wash barcode by text.">
+  <meta name="description" content="Get a free first wash at Smoky Express Car Wash in Sevierville or Ooltewah, Tennessee. Claim your welcome wash barcode by text.">
   <meta name="author" content="Suwanshree Acharya">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#101820">
-  <link rel="canonical" href="https://smokyexpresscarwash.com/half-off-wash/">
+  <link rel="canonical" href="https://smokyexpresscarwash.com/free-wash/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="50% Off First Wash | Smoky Express Car Wash">
-  <meta property="og:description" content="Get 50% off your first wash at Smoky Express Car Wash in Sevierville or Ooltewah, Tennessee. Claim your welcome wash barcode by text.">
-  <meta property="og:url" content="https://smokyexpresscarwash.com/half-off-wash/">
+  <meta property="og:title" content="Free First Wash | Smoky Express Car Wash">
+  <meta property="og:description" content="Get a free first wash at Smoky Express Car Wash in Sevierville or Ooltewah, Tennessee. Claim your welcome wash barcode by text.">
+  <meta property="og:url" content="https://smokyexpresscarwash.com/free-wash/">
   <meta property="og:site_name" content="Smoky Express Car Wash">
   <meta property="og:image" content="https://smokyexpresscarwash.com/assets/images/smoky-express-hero.webp">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="50% Off First Wash | Smoky Express Car Wash">
-  <meta name="twitter:description" content="Get 50% off your first wash at Smoky Express Car Wash in Sevierville or Ooltewah, Tennessee. Claim your welcome wash barcode by text.">
+  <meta name="twitter:title" content="Free First Wash | Smoky Express Car Wash">
+  <meta name="twitter:description" content="Get a free first wash at Smoky Express Car Wash in Sevierville or Ooltewah, Tennessee. Claim your welcome wash barcode by text.">
   <meta name="twitter:image" content="https://smokyexpresscarwash.com/assets/images/smoky-express-hero.webp">
-  <title>50% Off First Wash | Smoky Express Car Wash</title>
+  <title>Free First Wash | Smoky Express Car Wash</title>
 
   <link rel="icon" href="../assets/favicon.ico">
   <link rel="stylesheet" href="../assets/css/styles.css">
@@ -31,9 +31,9 @@
       "@graph": [
         {
           "@type": "WebPage",
-          "@id": "https://smokyexpresscarwash.com/half-off-wash/#webpage",
-          "url": "https://smokyexpresscarwash.com/half-off-wash/",
-          "name": "50% Off First Wash | Smoky Express Car Wash",
+          "@id": "https://smokyexpresscarwash.com/free-wash/#webpage",
+          "url": "https://smokyexpresscarwash.com/free-wash/",
+          "name": "Free First Wash | Smoky Express Car Wash",
           "isPartOf": {
             "@id": "https://smokyexpresscarwash.com/#website"
           }
@@ -50,8 +50,8 @@
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "50% Off First Wash",
-              "item": "https://smokyexpresscarwash.com/half-off-wash/"
+              "name": "Free First Wash",
+              "item": "https://smokyexpresscarwash.com/free-wash/"
             }
           ]
         }
@@ -138,7 +138,7 @@
       <div class="container promo-shell">
         <div class="promo-offer">
           <p class="promo-kicker">Welcome Wash Offer</p>
-          <h2>Get 50% Off Your First Wash</h2>
+          <h2>Get Your First Wash Free</h2>
 
           <p class="promo-lead">
             We will text a link to your unique barcode so you can roll into
@@ -147,7 +147,7 @@
           </p>
 
           <ul class="promo-perks" aria-label="Offer highlights">
-            <li>50% off your first wash</li>
+            <li>Free first wash</li>
             <li>Works on any wash tier</li>
             <li>Scan barcode at the drive-thru</li>
           </ul>
@@ -162,7 +162,7 @@
             role="status"
             aria-live="polite"
           >
-            Thank you. Your 50% off barcode link will be sent by text message shortly.
+            Thank you. Your free wash barcode link will be sent by text message shortly.
           </div>
 
           <div
@@ -247,7 +247,7 @@
               class="promo-form__full"
               disabled
             >
-              Text My 50% Off Barcode
+              Text My Free Wash Barcode
             </button>
           </form>
         </div>
@@ -298,7 +298,8 @@
   <script>
     const API_BASE_URL = "https://www.sudsconnect.com";
     const BUSINESS_SLUG = "smoky-express-car-wash";
-    const CAMPAIGN_KEY = "50_off_coupon";
+    const CAMPAIGN_KEY = "free_wash";
+    const CLAIM_ENDPOINT = "/public/free-wash-claims";
     const DEFAULT_LOCATION_ID = 1;
     const LOCATION_ID_BY_KEY = {
       sevierville: "1",
@@ -508,7 +509,7 @@
     }
 
     function showSuccess(message) {
-      successBox.textContent = message || "Thank you. Your 50% off barcode link will be sent by text message shortly.";
+      successBox.textContent = message || "Thank you. Your free wash barcode link will be sent by text message shortly.";
       successBox.style.display = "block";
       errorBox.style.display = "none";
     }
@@ -521,7 +522,7 @@
 
     function setSubmittingState(isSubmitting) {
       freewashButton.disabled = isSubmitting || !consentCheckbox.checked;
-      freewashButton.innerText = isSubmitting ? "Sending..." : "Text My 50% Off Barcode";
+      freewashButton.innerText = isSubmitting ? "Sending..." : "Text My Free Wash Barcode";
     }
 
     document.getElementById("phone").addEventListener("input", function () {
@@ -573,7 +574,7 @@
       try {
         setSubmittingState(true);
 
-        const response = await fetch(`${API_BASE_URL}/public/coupon-claims`, {
+        const response = await fetch(`${API_BASE_URL}${CLAIM_ENDPOINT}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -583,8 +584,11 @@
 
         const data = await response.json().catch(() => ({}));
 
-        if (response.status === 409 && data?.code === "COUPON_ALREADY_CLAIMED") {
-          showError("This phone number has already claimed this 50% off offer.");
+        if (
+          response.status === 409 &&
+          (data?.code === "COUPON_ALREADY_CLAIMED" || data?.code === "FREE_WASH_ALREADY_CLAIMED")
+        ) {
+          showError("This phone number has already claimed this free wash offer.");
           return;
         }
 
@@ -593,7 +597,7 @@
           throw new Error(response.status >= 500 || !apiErrorMessage ? GENERIC_CLAIM_ERROR_MESSAGE : apiErrorMessage);
         }
 
-        showSuccess("Thank you. Your 50% off offer has been claimed.");
+        showSuccess("Thank you. Your free wash offer has been claimed.");
         trackGoogleAdsConversion(attribution);
         freewashForm.reset();
         captureAttributionFields();
