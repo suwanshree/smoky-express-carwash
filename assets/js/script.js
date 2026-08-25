@@ -263,6 +263,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  const locationMenuDetails = document.querySelectorAll(
+    ".nav-location-menu details",
+  );
+  const desktopNavQuery = window.matchMedia("(min-width: 1180px)");
+
+  function closeLocationMenus(exceptDetails) {
+    locationMenuDetails.forEach((details) => {
+      if (details !== exceptDetails) {
+        details.open = false;
+      }
+    });
+  }
+
   let lastScrollY = window.scrollY;
   const hideOffset = 80;
 
@@ -273,6 +286,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (currentScrollY > lastScrollY && currentScrollY > hideOffset) {
         header.classList.add("header--hidden");
+
+        if (desktopNavQuery.matches) {
+          closeLocationMenus();
+        }
       } else {
         header.classList.remove("header--hidden");
       }
@@ -284,6 +301,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const menuToggle = document.querySelector(".menu-toggle");
 
+  if (locationMenuDetails.length) {
+    locationMenuDetails.forEach((details) => {
+      details.addEventListener("toggle", () => {
+        if (details.open) {
+          closeLocationMenus(details);
+        }
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const clickedLocationMenu =
+        event.target instanceof Element
+          ? event.target.closest(".nav-location-menu")
+          : null;
+
+      if (!clickedLocationMenu) {
+        closeLocationMenus();
+      }
+    });
+  }
+
   if (menuToggle && nav) {
     const closeMenu = () => {
       nav.classList.remove("nav--open");
@@ -291,6 +329,7 @@ document.addEventListener("DOMContentLoaded", () => {
       menuToggle.classList.remove("active");
       menuToggle.setAttribute("aria-expanded", "false");
       menuToggle.setAttribute("aria-label", "Open menu");
+      closeLocationMenus();
       document.body.style.overflow = "";
     };
 
@@ -320,8 +359,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && nav.classList.contains("nav--open")) {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      if (nav.classList.contains("nav--open")) {
         closeMenu();
+      } else {
+        closeLocationMenus();
+      }
+    });
+  } else if (locationMenuDetails.length) {
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLocationMenus();
       }
     });
   }
