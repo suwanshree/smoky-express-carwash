@@ -253,9 +253,155 @@ document.addEventListener("DOMContentLoaded", () => {
     setLocationPanel(DEFAULT_SITE_LOCATION);
   }
 
+  function initializeLocationCarousels() {
+    document
+      .querySelectorAll("[data-location-carousel]")
+      .forEach((carousel, carouselIndex) => {
+        const viewport = carousel.querySelector("[data-carousel-viewport]");
+        const slides = Array.from(
+          carousel.querySelectorAll("[data-carousel-slide]"),
+        );
+        const previousButton = carousel.querySelector(
+          "[data-carousel-previous]",
+        );
+        const nextButton = carousel.querySelector("[data-carousel-next]");
+        const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
+        const count = carousel.querySelector("[data-carousel-count]");
+        const prefersReducedCarouselMotion = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        if (!viewport || !slides.length) {
+          return;
+        }
+
+        const carouselId = carousel.id || `location-carousel-${carouselIndex + 1}`;
+
+        if (!carousel.id) {
+          carousel.id = carouselId;
+        }
+
+        slides.forEach((slide, index) => {
+          const slideId = slide.id || `${carouselId}-slide-${index + 1}`;
+
+          if (!slide.id) {
+            slide.id = slideId;
+          }
+
+          slide.setAttribute("aria-label", `${index + 1} of ${slides.length}`);
+
+          if (dots[index]) {
+            dots[index].setAttribute("aria-controls", slideId);
+          }
+        });
+
+        function getActiveSlideIndex() {
+          const viewportCenter = viewport.scrollLeft + viewport.clientWidth / 2;
+          let activeIndex = 0;
+          let shortestDistance = Number.POSITIVE_INFINITY;
+
+          slides.forEach((slide, index) => {
+            const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+            const distance = Math.abs(viewportCenter - slideCenter);
+
+            if (distance < shortestDistance) {
+              shortestDistance = distance;
+              activeIndex = index;
+            }
+          });
+
+          return activeIndex;
+        }
+
+        function updateCarouselState() {
+          const activeIndex = getActiveSlideIndex();
+
+          slides.forEach((slide, index) => {
+            slide.classList.toggle("is-active", index === activeIndex);
+          });
+
+          dots.forEach((dot, index) => {
+            const isActive = index === activeIndex;
+
+            dot.classList.toggle("is-active", isActive);
+
+            if (isActive) {
+              dot.setAttribute("aria-current", "true");
+            } else {
+              dot.removeAttribute("aria-current");
+            }
+          });
+
+          if (count) {
+            count.textContent = `${activeIndex + 1} / ${slides.length}`;
+          }
+        }
+
+        function scrollToSlide(index) {
+          const targetIndex = (index + slides.length) % slides.length;
+          const targetSlide = slides[targetIndex];
+
+          viewport.scrollTo({
+            left: targetSlide.offsetLeft,
+            behavior: prefersReducedCarouselMotion ? "auto" : "smooth",
+          });
+        }
+
+        if (slides.length < 2) {
+          carousel.classList.add("location-carousel--single");
+        }
+
+        if (previousButton) {
+          previousButton.addEventListener("click", () => {
+            scrollToSlide(getActiveSlideIndex() - 1);
+          });
+        }
+
+        if (nextButton) {
+          nextButton.addEventListener("click", () => {
+            scrollToSlide(getActiveSlideIndex() + 1);
+          });
+        }
+
+        dots.forEach((dot, index) => {
+          dot.addEventListener("click", () => {
+            scrollToSlide(index);
+          });
+        });
+
+        viewport.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            scrollToSlide(getActiveSlideIndex() - 1);
+          }
+
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            scrollToSlide(getActiveSlideIndex() + 1);
+          }
+        });
+
+        let scrollFrame = 0;
+
+        viewport.addEventListener(
+          "scroll",
+          () => {
+            window.cancelAnimationFrame(scrollFrame);
+            scrollFrame = window.requestAnimationFrame(updateCarouselState);
+          },
+          { passive: true },
+        );
+
+        window.addEventListener("resize", updateCarouselState);
+
+        updateCarouselState();
+      });
+  }
+
   preserveAttributionAcrossInternalLinks();
   initializeAttributionButtons();
   initializeLocationSelectors();
+  initializeLocationCarousels();
 
   const header = document.querySelector("header");
   const nav = document.querySelector("nav");
