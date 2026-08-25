@@ -1,0 +1,40 @@
+# Smoky Express Car Wash
+
+> Tennessee express car wash brand with Sevierville and Ooltewah open daily, Chattanooga coming soon, Unlimited Wash Club memberships, free vacuums, premium Mothers chemistry, and hands-on wash prep on every tier.
+
+Smoky Express Car Wash offers exterior express wash tiers named Base Blast, Soapy Slope, Alpine Shine, and Peak Protection. Every wash tier includes a soap rinse and hand-brushed prep from the team before the vehicle enters the express tunnel. This hands-on prep is a customer differentiator and should be treated as part of the standard wash experience at every location.
+
+Open locations generally operate daily from 8 AM to 8 PM. Holiday hours may vary. Chattanooga is listed as coming soon until local opening details are published on the site.
+
+Service facts:
+- All wash tiers include soap rinse and hand-brushed wash prep before the express tunnel.
+- Open locations include free vacuums and microfiber towels with washes.
+- Washes use Mothers Professional chemistry for cleaning, gloss, and paint-friendly protection.
+- Unlimited Wash Club memberships have no long-term contracts and start with a first-month promotion listed on the site.
+- Family, multi-car, and fleet discounts may be available in person at the wash.
+
+## Core Pages
+
+- [Home](https://smokyexpresscarwash.com/): Brand overview, locations, wash menu, products, membership highlights, FAQs, and contact links.
+- [Sevierville](https://smokyexpresscarwash.com/locations/sevierville/): Open location at 994 Parkway, Sevierville, TN 37862 with local phone, map, wash menu, and offers.
+- [Ooltewah](https://smokyexpresscarwash.com/locations/ooltewah/): Open location at 9025 Jac Cate Rd, Ooltewah, TN 37363 with local phone, map, wash menu, and offers.
+- [Chattanooga](https://smokyexpresscarwash.com/locations/chattanooga/): Coming soon location at 4907 TN-58, Chattanooga, TN 37416 with planned wash menu details.
+
+## Wash Menu
+
+- [Wash menu](https://smokyexpresscarwash.com/#services): Base Blast, Soapy Slope, Alpine Shine, and Peak Protection pricing and Unlimited Wash Club membership rates.
+- [Unlimited Wash Club signup](https://smoky-express-carwash.patheon.app/buy/plans): External membership purchase flow for open locations.
+- [Free first wash](https://smokyexpresscarwash.com/free-wash/): New customer first wash offer.
+- [Sevierville grand opening offer](https://smokyexpresscarwash.com/grand-opening/): Sevierville-specific promotion details.
+
+## Contact And Policies
+
+- [Join Our Team](https://smokyexpresscarwash.com/join-our-team/): Employment interest page.
+- [Privacy Policy](https://smokyexpresscarwash.com/privacy-policy/): Site privacy information.
+- [Terms](https://smokyexpresscarwash.com/terms/): Site terms.
+- [Email Smoky Express](mailto:contact@smokyexpresscarwash.com): General contact email.
+
+## Optional
+
+- [Sitemap](https://smokyexpresscarwash.com/sitemap.xml): XML sitemap for indexable site pages.
+- [Robots](https://smokyexpresscarwash.com/robots.txt): Crawler access and sitemap reference.

@@ -1548,6 +1548,93 @@ section > div > p {
   outline-offset: 4px;
 }
 
+.wash-prep-note {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  padding: clamp(1.15rem, 4vw, 1.6rem);
+  border: 1px solid rgba(178, 0, 0, 0.12);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #ffffff 0%, #fff8df 56%, #f8f9fb 100%);
+  color: var(--black);
+  overflow: hidden;
+  box-shadow: 0 18px 30px rgba(48, 12, 12, 0.1);
+}
+
+.wash-prep-note::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--gold) 0%,
+    rgba(214, 52, 52, 0.9) 100%
+  );
+}
+
+.wash-prep-note__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #d63434 0%, #830000 100%);
+  color: var(--white);
+  font-size: 1.35rem;
+  box-shadow: 0 16px 24px rgba(131, 0, 0, 0.2);
+}
+
+.wash-prep-note__copy .section-kicker {
+  margin-bottom: 0.65rem;
+  background: rgba(178, 0, 0, 0.08);
+  color: var(--darkRed);
+}
+
+.wash-prep-note h3 {
+  margin-bottom: 0.45rem;
+  color: #101820;
+  line-height: 1.08;
+}
+
+.wash-prep-note__copy p:last-child {
+  color: rgba(0, 0, 0, 0.74);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.wash-prep-note__steps {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.wash-prep-note__steps li {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem;
+  border: 1px solid rgba(178, 0, 0, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.wash-prep-note__steps strong {
+  color: var(--darkRed);
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.wash-prep-note__steps span {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
 .location-switcher {
   display: grid;
   gap: 0.85rem;
@@ -1920,6 +2007,10 @@ section > div > p {
   max-width: 60ch;
   margin-top: 1rem;
   color: rgba(0, 0, 0, 0.78);
+}
+
+.wash-note + .member-discount-note {
+  margin-top: 1.1rem;
 }
 
 #chemicals {
@@ -3384,6 +3475,16 @@ footer p {
   .member-discount-note__link {
     grid-column: 2;
   }
+
+  .wash-prep-note {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 1.15rem;
+  }
+
+  .wash-prep-note__steps {
+    grid-column: 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 /* GRAND OPENING PROMO BANNER */
@@ -3699,6 +3800,16 @@ footer p {
   .member-discount-note__link {
     grid-column: auto;
     justify-self: end;
+  }
+
+  .wash-prep-note {
+    grid-template-columns: auto minmax(0, 0.95fr) minmax(22rem, 0.9fr);
+    gap: 1.25rem;
+  }
+
+  .wash-prep-note__steps {
+    grid-column: auto;
+    align-self: stretch;
   }
 
   .wash-grid {
