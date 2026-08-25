@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
       city: "Ooltewah",
       state: "TN",
       zip: "37363",
-      phone: "",
-      phoneHref: "",
+      phone: "423-910-0020",
+      phoneHref: "tel:+14239100020",
       mapTitle: "Map showing 9025 Jac Cate Rd in Ooltewah, Tennessee",
       mapSrc:
         "https://www.google.com/maps?q=9025%20Jac%20Cate%20Rd%2C%20Ooltewah%2C%20TN%2037363&output=embed",
@@ -206,17 +206,19 @@ document.addEventListener("DOMContentLoaded", () => {
         : "Chattanooga is coming soon. Select a location above for the address.",
     );
 
-    document.querySelectorAll("[data-selected-location-phone]").forEach((link) => {
-      if (selectedLocation.phone && selectedLocation.phoneHref) {
-        link.hidden = false;
-        link.textContent = selectedLocation.phone;
-        link.setAttribute("href", selectedLocation.phoneHref);
-      } else {
-        link.hidden = true;
-        link.textContent = "";
-        link.removeAttribute("href");
-      }
-    });
+    document
+      .querySelectorAll("[data-selected-location-phone]")
+      .forEach((link) => {
+        if (selectedLocation.phone && selectedLocation.phoneHref) {
+          link.hidden = false;
+          link.textContent = selectedLocation.phone;
+          link.setAttribute("href", selectedLocation.phoneHref);
+        } else {
+          link.hidden = true;
+          link.textContent = "";
+          link.removeAttribute("href");
+        }
+      });
 
     document.querySelectorAll("[data-location-map]").forEach((container) => {
       const frame = container.querySelector("iframe");
@@ -225,7 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (frame && selectedLocation.mapSrc) {
         frame.src = selectedLocation.mapSrc;
-        frame.title = selectedLocation.mapTitle || `Map showing ${selectedLocation.name}`;
+        frame.title =
+          selectedLocation.mapTitle || `Map showing ${selectedLocation.name}`;
       }
     });
   }
@@ -240,7 +243,9 @@ document.addEventListener("DOMContentLoaded", () => {
     selectors.forEach((group) => {
       group.querySelectorAll("[data-location-option]").forEach((button) => {
         button.addEventListener("click", () => {
-          setLocationPanel(button.dataset.locationOption || DEFAULT_SITE_LOCATION);
+          setLocationPanel(
+            button.dataset.locationOption || DEFAULT_SITE_LOCATION,
+          );
         });
       });
     });
@@ -308,9 +313,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    document.querySelectorAll(".nav-links a, .mobile-menu-home").forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
+    document
+      .querySelectorAll(".nav-links a, .mobile-menu-home")
+      .forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && nav.classList.contains("nav--open")) {
