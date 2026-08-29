@@ -762,19 +762,31 @@
                         method="POST"
                         target="hidden_iframe">
 
+                    <label class="form-honeypot" aria-hidden="true">
+                        Company
+                        <input type="text" name="contact_company" tabindex="-1" autocomplete="off">
+                    </label>
+
                     <label>
                         Full Name *
-                        <input type="text" name="entry.1272025401" placeholder="John Doe" required>
+                        <input type="text" name="entry.1272025401" placeholder="John Doe" autocomplete="name" maxlength="80" required>
                     </label>
 
                     <label>
                         Email Address *
-                        <input type="email" name="entry.1305614757" placeholder="john@doe.com" required>
+                        <input type="email" name="entry.1305614757" placeholder="john@doe.com" autocomplete="email" maxlength="120" required>
                     </label>
 
                     <label class="form-field--full">
                         Message *
-                        <textarea name="entry.527505262" rows="4" placeholder="Tell us what you want to know." required></textarea>
+                        <textarea name="entry.527505262" rows="4" placeholder="Tell us what you want to know." minlength="10" maxlength="1000" required></textarea>
+                    </label>
+
+                    <label>
+                        Human Check *
+                        <span class="form-help">What is <span id="contact-spam-question">3 + 4</span>?</span>
+                        <input id="contact-spam-check" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" required>
+                        <span id="contact-spam-error" class="form-error" role="alert" aria-live="polite"></span>
                     </label>
 
                     <button type="submit" id="contact-submit">
@@ -883,9 +895,42 @@
         <script>
             let contactFormSubmitted = false;
             let contactTimeout;
+            const contactForm = document.getElementById("contact-form");
+            const contactHoneypot = contactForm.querySelector("input[name='contact_company']");
+            const contactSpamQuestion = document.getElementById("contact-spam-question");
+            const contactSpamCheck = document.getElementById("contact-spam-check");
+            const contactSpamError = document.getElementById("contact-spam-error");
+            const contactStartedAt = Date.now();
+            const contactChallengeA = Math.floor(Math.random() * 7) + 2;
+            const contactChallengeB = Math.floor(Math.random() * 6) + 3;
+            const contactChallengeAnswer = contactChallengeA + contactChallengeB;
+
+            contactSpamQuestion.innerText = contactChallengeA + " + " + contactChallengeB;
 
             // When user clicks submit
-            document.getElementById("contact-form").addEventListener("submit", function() {
+            contactForm.addEventListener("submit", function(event) {
+
+            contactSpamError.innerText = "";
+            contactSpamCheck.setCustomValidity("");
+
+            if (contactHoneypot.value.trim() !== "") {
+                event.preventDefault();
+                return;
+            }
+
+            if (Date.now() - contactStartedAt < 3000) {
+                event.preventDefault();
+                contactSpamError.innerText = "Please wait a moment, then try again.";
+                return;
+            }
+
+            if (Number(contactSpamCheck.value.trim()) !== contactChallengeAnswer) {
+                event.preventDefault();
+                contactSpamCheck.setCustomValidity("Please answer the human check correctly.");
+                contactSpamCheck.reportValidity();
+                contactSpamError.innerText = "Please answer the human check correctly.";
+                return;
+            }
 
             contactFormSubmitted = true;
 

@@ -2781,6 +2781,31 @@ form label {
   display: block;
 }
 
+.form-honeypot {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-help,
+.form-error {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.form-help {
+  color: #333;
+}
+
+.form-error {
+  color: #721c24;
+}
+
 form input[type="text"],
 form input[type="email"],
 form input[type="tel"],
