@@ -735,73 +735,16 @@
                     </p>
 
                     <p>
-                    Need help with memberships, wash options, or current offers? Reach out below and we&#8217;ll point you in the right direction.
+                    Sevierville: <a href="tel:+18652869051">865-286-9051</a>
                     </p>
 
-                    <!-- SUCCESS MESSAGE -->
-                    <div id="contact-success"
-                        role="status"
-                        aria-live="polite"
-                        style="display:none; background:#d4edda; color:#155724;
-                                padding:12px; margin-bottom:15px; border-radius:6px;">
-                    ✅ Thank you! Your message has been sent successfully.
-                    </div>
+                    <p>
+                    Ooltewah: <a href="tel:+14239100020">423-910-0020</a>
+                    </p>
 
-                    <!-- ERROR MESSAGE -->
-                    <div id="contact-error"
-                        role="alert"
-                        aria-live="assertive"
-                        style="display:none; background:#f8d7da; color:#721c24;
-                                padding:12px; margin-bottom:15px; border-radius:6px;">
-                    ❌ Something went wrong. Please try again or email us directly.
-                    </div>
-
-                    <!-- FORM -->
-                    <form id="contact-form"
-                        action="https://docs.google.com/forms/d/e/1FAIpQLSfPgkr1xeISla_Wp7J3wBIswmGK06QHaF3lC9_2kI3BrPdByg/formResponse"
-                        method="POST"
-                        target="hidden_iframe">
-
-                    <label class="form-honeypot" aria-hidden="true">
-                        Company
-                        <input type="text" name="contact_company" tabindex="-1" autocomplete="off">
-                    </label>
-
-                    <label>
-                        Full Name *
-                        <input type="text" name="entry.1272025401" placeholder="John Doe" autocomplete="name" maxlength="80" required>
-                    </label>
-
-                    <label>
-                        Email Address *
-                        <input type="email" name="entry.1305614757" placeholder="john@doe.com" autocomplete="email" maxlength="120" required>
-                    </label>
-
-                    <label class="form-field--full">
-                        Message *
-                        <textarea name="entry.527505262" rows="4" placeholder="Tell us what you want to know." minlength="10" maxlength="1000" required></textarea>
-                    </label>
-
-                    <label>
-                        Human Check *
-                        <span class="form-help">What is <span id="contact-spam-question">3 + 4</span>?</span>
-                        <input id="contact-spam-check" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" required>
-                        <span id="contact-spam-error" class="form-error" role="alert" aria-live="polite"></span>
-                    </label>
-
-                    <button type="submit" id="contact-submit">
-                        Contact Us
-                    </button>
-
-                    </form>
-
-                    <!-- HIDDEN IFRAME -->
-                    <iframe name="hidden_iframe"
-                            id="hidden_iframe"
-                            title="Hidden contact form submission frame"
-                            aria-hidden="true"
-                            tabindex="-1"
-                            style="display:none;"></iframe>
+                    <p>
+                    Need help with memberships, wash options, or current offers? Email us or call the location nearest you and we&#8217;ll point you in the right direction.
+                    </p>
 
                 </div>
             </section>
@@ -892,94 +835,6 @@
                 <p>All Rights Reserved. <a href="/privacy-policy/">Privacy Policy</a></p>
             </div>
         </footer>
-        <script>
-            let contactFormSubmitted = false;
-            let contactTimeout;
-            const contactForm = document.getElementById("contact-form");
-            const contactHoneypot = contactForm.querySelector("input[name='contact_company']");
-            const contactSpamQuestion = document.getElementById("contact-spam-question");
-            const contactSpamCheck = document.getElementById("contact-spam-check");
-            const contactSpamError = document.getElementById("contact-spam-error");
-            const contactStartedAt = Date.now();
-            const contactChallengeA = Math.floor(Math.random() * 7) + 2;
-            const contactChallengeB = Math.floor(Math.random() * 6) + 3;
-            const contactChallengeAnswer = contactChallengeA + contactChallengeB;
-
-            contactSpamQuestion.innerText = contactChallengeA + " + " + contactChallengeB;
-
-            // When user clicks submit
-            contactForm.addEventListener("submit", function(event) {
-
-            contactSpamError.innerText = "";
-            contactSpamCheck.setCustomValidity("");
-
-            if (contactHoneypot.value.trim() !== "") {
-                event.preventDefault();
-                return;
-            }
-
-            if (Date.now() - contactStartedAt < 3000) {
-                event.preventDefault();
-                contactSpamError.innerText = "Please wait a moment, then try again.";
-                return;
-            }
-
-            if (Number(contactSpamCheck.value.trim()) !== contactChallengeAnswer) {
-                event.preventDefault();
-                contactSpamCheck.setCustomValidity("Please answer the human check correctly.");
-                contactSpamCheck.reportValidity();
-                contactSpamError.innerText = "Please answer the human check correctly.";
-                return;
-            }
-
-            contactFormSubmitted = true;
-
-            // Hide old messages
-            document.getElementById("contact-success").style.display = "none";
-            document.getElementById("contact-error").style.display = "none";
-
-            // Show loading state
-            const btn = document.getElementById("contact-submit");
-            btn.disabled = true;
-            btn.innerText = "Sending...";
-
-            // Fallback timeout (error if no response in 8 seconds)
-            contactTimeout = setTimeout(function() {
-
-                if (contactFormSubmitted) {
-
-                document.getElementById("contact-error").style.display = "block";
-
-                btn.disabled = false;
-                btn.innerText = "Contact Us";
-
-                contactFormSubmitted = false;
-
-                }
-
-            }, 8000);
-
-            });
-
-            // When Google Form responds
-            document.getElementById("hidden_iframe").addEventListener("load", function() {
-                if (contactFormSubmitted) {
-
-                    clearTimeout(contactTimeout);
-
-                    document.getElementById("contact-success").style.display = "block";
-
-                    document.getElementById("contact-form").reset();
-
-                    const btn = document.getElementById("contact-submit");
-                    btn.disabled = false;
-                    btn.innerText = "Contact Us";
-
-                    contactFormSubmitted = false;
-
-                }
-            });
-            </script>
         <script src="assets/js/script.js"></script>
     </body>
 </html>
