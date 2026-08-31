@@ -2164,6 +2164,10 @@ section > div > p {
   --chemistry-image: url("/assets/images/mothers/wheel-clean.webp");
 }
 
+.chemistry-card--tire-shine {
+  --chemistry-image: url("/assets/images/mothers/tire-shine.webp");
+}
+
 .chemistry-card--ceramic-polish {
   --chemistry-image: url("/assets/images/mothers/ceramic-polish.webp");
 }

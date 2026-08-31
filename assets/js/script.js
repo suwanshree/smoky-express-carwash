@@ -28,7 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     ooltewah: {
       name: "Ooltewah",
-      status: "open",
+      status: "opens-friday",
+      statusLabel: "OPENS FRIDAY",
+      panelTitle: "Ooltewah Opens Friday",
+      panelNote:
+        "Claim your free first wash today, then redeem it in Ooltewah starting Friday.",
       address: "9025 Jac Cate Rd",
       city: "Ooltewah",
       state: "TN",
@@ -169,8 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setLocationPanel(locationKey) {
     const selectedLocation = getLocationByKey(locationKey);
-    const isComingSoon = selectedLocation.status !== "open";
+    const isComingSoon = selectedLocation.status === "coming-soon";
     const selectedAddress = getLocationAddress(selectedLocation);
+    const selectedStatus =
+      selectedLocation.statusLabel ||
+      (isComingSoon ? "Coming soon" : "OPEN DAILY - 8 AM TO 8 PM");
 
     document.documentElement.dataset.selectedLocation = locationKey;
 
@@ -190,20 +197,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTextContent("[data-selected-location-name]", selectedLocation.name);
     setTextContent("[data-selected-location-address]", selectedAddress);
-    setTextContent(
-      "[data-selected-location-status]",
-      isComingSoon ? "Coming soon" : "OPEN DAILY - 8 AM TO 8 PM",
-    );
+    setTextContent("[data-selected-location-status]", selectedStatus);
 
-    const locationTitle = isComingSoon
-      ? `Coming Soon In ${selectedLocation.name}`
-      : `Visit Us In ${selectedLocation.name}`;
+    const locationTitle =
+      selectedLocation.panelTitle ||
+      (isComingSoon
+        ? `Coming Soon In ${selectedLocation.name}`
+        : `Visit Us In ${selectedLocation.name}`);
     setTextContent("[data-location-title]", locationTitle);
     setTextContent(
       "[data-location-note]",
-      isComingSoon
-        ? "Coming soon."
-        : "Chattanooga is coming soon. Select a location above for the address.",
+      selectedLocation.panelNote ||
+        (isComingSoon
+          ? "Coming soon."
+          : "Chattanooga is coming soon. Select a location above for the address."),
     );
 
     document
