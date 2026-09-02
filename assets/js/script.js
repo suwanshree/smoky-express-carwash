@@ -28,11 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     ooltewah: {
       name: "Ooltewah",
-      status: "opens-friday",
-      statusLabel: "OPENS FRIDAY",
-      panelTitle: "Ooltewah Opens Friday",
-      panelNote:
-        "Claim your free first wash today, then redeem it in Ooltewah starting Friday.",
+      status: "open",
       address: "9025 Jac Cate Rd",
       city: "Ooltewah",
       state: "TN",
@@ -57,8 +53,25 @@ document.addEventListener("DOMContentLoaded", () => {
     "utm_content",
     "utm_term",
   ];
+  const INTERNAL_ATTRIBUTION_SUB_VALUES = new Set([
+    "nav",
+    "site_banner",
+    "homepage_banner",
+    "location_page",
+  ]);
+  const INTERNAL_ATTRIBUTION_REF_VALUES = new Set([
+    "site_nav",
+    "homepage_banner",
+    "sevierville",
+    "ooltewah",
+    "chattanooga",
+  ]);
 
   function getCurrentAttributionParams() {
+    if (window.SmokyAttribution?.getOriginalParams) {
+      return window.SmokyAttribution.getOriginalParams();
+    }
+
     const currentParams = new URLSearchParams(window.location.search);
     const attributionParams = new URLSearchParams();
 
@@ -74,7 +87,54 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function hasAttributionParams(attributionParams) {
+    if (window.SmokyAttribution?.hasAttributionParams) {
+      return window.SmokyAttribution.hasAttributionParams(attributionParams);
+    }
+
     return ATTRIBUTION_QUERY_KEYS.some((key) => attributionParams.has(key));
+  }
+
+  function getNormalizedAttributionParam(attributionParams, key) {
+    return String(attributionParams.get(key) || "")
+      .trim()
+      .toLowerCase();
+  }
+
+  function isInternalOnlyAttribution(attributionParams) {
+    if (window.SmokyAttribution?.isInternalOnlyAttribution) {
+      return window.SmokyAttribution.isInternalOnlyAttribution(
+        attributionParams,
+      );
+    }
+
+    const hasUtmParams = ATTRIBUTION_QUERY_KEYS.some((key) => {
+      return key.startsWith("utm_") && attributionParams.has(key);
+    });
+
+    if (!hasAttributionParams(attributionParams) || hasUtmParams) {
+      return false;
+    }
+
+    const src = getNormalizedAttributionParam(attributionParams, "src");
+    const sub = getNormalizedAttributionParam(attributionParams, "sub");
+    const ref = getNormalizedAttributionParam(attributionParams, "ref");
+
+    if (!src && !sub && ref && INTERNAL_ATTRIBUTION_REF_VALUES.has(ref)) {
+      return true;
+    }
+
+    if (src !== "website") {
+      return false;
+    }
+
+    if (!sub && !ref) {
+      return true;
+    }
+
+    return (
+      (!sub || INTERNAL_ATTRIBUTION_SUB_VALUES.has(sub)) &&
+      (!ref || INTERNAL_ATTRIBUTION_REF_VALUES.has(ref))
+    );
   }
 
   function applyAttributionParams(url, attributionParams) {
@@ -89,16 +149,54 @@ document.addEventListener("DOMContentLoaded", () => {
     return url;
   }
 
+  function getAttributionParamsFromUrl(url) {
+    if (window.SmokyAttribution?.getAttributionParamsFromSearch) {
+      return window.SmokyAttribution.getAttributionParamsFromSearch(url.search);
+    }
+
+    const params = new URLSearchParams();
+
+    ATTRIBUTION_QUERY_KEYS.forEach((key) => {
+      const value = url.searchParams.get(key);
+
+      if (value) {
+        params.set(key, value);
+      }
+    });
+
+    return params;
+  }
+
+  function stripAttributionParams(url) {
+    ATTRIBUTION_QUERY_KEYS.forEach((key) => {
+      url.searchParams.delete(key);
+    });
+
+    return url;
+  }
+
+  function applySessionAttributionToUrl(url, attributionParams) {
+    if (window.SmokyAttribution?.applyOriginalToUrl) {
+      return window.SmokyAttribution.applyOriginalToUrl(url);
+    }
+
+    if (hasAttributionParams(attributionParams)) {
+      return applyAttributionParams(url, attributionParams);
+    }
+
+    if (isInternalOnlyAttribution(getAttributionParamsFromUrl(url))) {
+      return stripAttributionParams(url);
+    }
+
+    return url;
+  }
+
   function getRelativeUrl(url) {
     return `${url.pathname}${url.search}${url.hash}`;
   }
 
   function preserveAttributionAcrossInternalLinks() {
     const attributionParams = getCurrentAttributionParams();
-
-    if (!hasAttributionParams(attributionParams)) {
-      return;
-    }
 
     document.querySelectorAll("a[href]").forEach((link) => {
       const href = link.getAttribute("href");
@@ -127,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       link.setAttribute(
         "href",
-        getRelativeUrl(applyAttributionParams(url, attributionParams)),
+        getRelativeUrl(applySessionAttributionToUrl(url, attributionParams)),
       );
     });
   }
@@ -148,11 +246,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const destination = new URL(fallbackHref, window.location.href);
         const attributionParams = getCurrentAttributionParams();
 
-        if (hasAttributionParams(attributionParams)) {
-          applyAttributionParams(destination, attributionParams);
-        }
-
-        window.location.href = getRelativeUrl(destination);
+        window.location.href = getRelativeUrl(
+          applySessionAttributionToUrl(destination, attributionParams),
+        );
       });
     });
   }
@@ -173,11 +269,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function setLocationPanel(locationKey) {
     const selectedLocation = getLocationByKey(locationKey);
-    const isComingSoon = selectedLocation.status === "coming-soon";
+    const isComingSoon = selectedLocation.status !== "open";
     const selectedAddress = getLocationAddress(selectedLocation);
-    const selectedStatus =
-      selectedLocation.statusLabel ||
-      (isComingSoon ? "Coming soon" : "OPEN DAILY - 8 AM TO 8 PM");
 
     document.documentElement.dataset.selectedLocation = locationKey;
 
@@ -197,20 +290,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTextContent("[data-selected-location-name]", selectedLocation.name);
     setTextContent("[data-selected-location-address]", selectedAddress);
-    setTextContent("[data-selected-location-status]", selectedStatus);
+    setTextContent(
+      "[data-selected-location-status]",
+      isComingSoon ? "Coming soon" : "OPEN DAILY - 8 AM TO 8 PM",
+    );
 
-    const locationTitle =
-      selectedLocation.panelTitle ||
-      (isComingSoon
-        ? `Coming Soon In ${selectedLocation.name}`
-        : `Visit Us In ${selectedLocation.name}`);
+    const locationTitle = isComingSoon
+      ? `Coming Soon In ${selectedLocation.name}`
+      : `Visit Us In ${selectedLocation.name}`;
     setTextContent("[data-location-title]", locationTitle);
     setTextContent(
       "[data-location-note]",
-      selectedLocation.panelNote ||
-        (isComingSoon
-          ? "Coming soon."
-          : "Chattanooga is coming soon. Select a location above for the address."),
+      isComingSoon
+        ? "Coming soon."
+        : "Chattanooga is coming soon. Select a location above for the address.",
     );
 
     document
