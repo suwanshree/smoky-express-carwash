@@ -407,15 +407,7 @@
       }
     }
 
-    function isGoogleAdsAttribution(attribution) {
-      return attribution?.utmSource === "google" && attribution?.utmMedium === "paid_search";
-    }
-
-    function trackGoogleAdsConversion(attribution) {
-      if (!isGoogleAdsAttribution(attribution)) {
-        return;
-      }
-
+    function reportSeviervilleGoogleAdsConversion() {
       if (typeof gtag !== "function") {
         console.warn("Google Ads tag not loaded");
         return;
@@ -424,6 +416,41 @@
       gtag("event", "conversion", {
         send_to: "AW-18000339648/bmQDCPL6nMEcEMDFnYdD"
       });
+    }
+
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof url !== "undefined") {
+          window.location = url;
+        }
+      };
+
+      if (typeof gtag !== "function") {
+        console.warn("Google Ads tag not loaded");
+        return false;
+      }
+
+      gtag("event", "conversion", {
+        send_to: "AW-18412513296/rKkJCLWFs-scEJDQ4stE",
+        value: 1.0,
+        currency: "USD",
+        event_callback: callback,
+      });
+
+      return false;
+    }
+
+    function trackGoogleAdsConversion(locationId) {
+      const selectedLocationId = String(locationId || "");
+
+      if (selectedLocationId === LOCATION_ID_BY_KEY.sevierville) {
+        reportSeviervilleGoogleAdsConversion();
+        return;
+      }
+
+      if (selectedLocationId === LOCATION_ID_BY_KEY.ooltewah) {
+        gtag_report_conversion();
+      }
     }
 
     function captureAttributionFields() {
@@ -617,7 +644,7 @@
         }
 
         showSuccess("Thank you. Your free wash offer has been claimed.");
-        trackGoogleAdsConversion(attribution);
+        trackGoogleAdsConversion(payload.locationId);
         freewashForm.reset();
         captureAttributionFields();
         applyLocationSelectionFromParams();
