@@ -13,19 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
       mapSrc:
         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3233.884647839153!2d-83.57397301174258!3d35.8518319497732!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x885bf93345313adb%3A0x48024f86b06e75f6!2sSmoky%20Express%20Car%20Wash!5e0!3m2!1sen!2sus!4v1774367775602!5m2!1sen!2sus",
     },
-    chattanooga: {
-      name: "Chattanooga",
-      status: "coming-soon",
-      address: "4907 TN-58",
-      city: "Chattanooga",
-      state: "TN",
-      zip: "37416",
-      phone: "",
-      phoneHref: "",
-      mapTitle: "Map showing 4907 TN-58 in Chattanooga, Tennessee",
-      mapSrc:
-        "https://www.google.com/maps?q=4907%20TN-58%2C%20Chattanooga%2C%20TN%2037416&output=embed",
-    },
     ooltewah: {
       name: "Ooltewah",
       status: "open",
@@ -38,6 +25,19 @@ document.addEventListener("DOMContentLoaded", () => {
       mapTitle: "Map showing 9025 Jac Cate Rd in Ooltewah, Tennessee",
       mapSrc:
         "https://www.google.com/maps?q=9025%20Jac%20Cate%20Rd%2C%20Ooltewah%2C%20TN%2037363&output=embed",
+    },
+    chattanooga: {
+      name: "Chattanooga",
+      status: "coming-soon",
+      address: "4907 TN-58",
+      city: "Chattanooga",
+      state: "TN",
+      zip: "37416",
+      phone: "",
+      phoneHref: "",
+      mapTitle: "Map showing 4907 TN-58 in Chattanooga, Tennessee",
+      mapSrc:
+        "https://www.google.com/maps?q=4907%20TN-58%2C%20Chattanooga%2C%20TN%2037416&output=embed",
     },
   };
 
