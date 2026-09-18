@@ -20,11 +20,16 @@ Service facts:
 - [Ooltewah](https://smokyexpresscarwash.com/locations/ooltewah/): Open location at 9025 Jac Cate Rd, Ooltewah, TN 37363 with local phone, map, wash menu, and offers.
 - [Chattanooga](https://smokyexpresscarwash.com/locations/chattanooga/): Coming soon location at 4907 TN-58, Chattanooga, TN 37416 with planned wash menu details.
 - [Sevierville Local Partners](https://smokyexpresscarwash.com/locations/sevierville/#partners): Local partner cards with reusable offer summaries for the Sevierville location.
+- [Sevierville Local Fundraisers](https://smokyexpresscarwash.com/locations/sevierville/#fundraisers): Current and upcoming fundraiser cards for the Sevierville location.
 
 ## Local Partners
 
 - [Workout Anytime 24/7 - Sevierville](https://smokyexpresscarwash.com/partners/workout-anytime-sevierville/): Active Fitness Partner page with member-to-member offer summaries, Workout Anytime Sevierville details, staffed hours, and map.
 - Hometown Hero's Subs: Sandwich Partner coming soon. Offer details and redemption instructions are intentionally hidden until onboarding is complete.
+
+## Local Fundraisers
+
+- [GPHS Lady Highlanders Lacrosse Fundraiser](https://smokyexpresscarwash.com/fundraisers/gphs-lady-highlanders-lacrosse/): Current Sevierville fundraiser on Saturday, September 26, 2026 from 10 AM to 4 PM. Half of all Sevierville sales that day go to the team.
 
 ## Wash Menu
 
