@@ -3467,6 +3467,35 @@ footer::before {
   padding-left: 0.7em;
 }
 
+.footer-trust {
+  margin: -0.25rem auto 1.75rem;
+}
+
+.footer-trust__badges {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.footer-chamber-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(18rem, 78vw);
+  height: clamp(6rem, 30vw, 9rem);
+}
+
+.footer-chamber-badge img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: clamp(6rem, 30vw, 9rem);
+  object-fit: contain;
+}
+
 footer h3 {
   font-weight: 700;
   margin-bottom: 0.5em;
@@ -3490,6 +3519,10 @@ footer li {
 
 footer p {
   margin-top: 0.25em;
+}
+
+.footer-grid p a {
+  overflow-wrap: anywhere;
 }
 
 @media screen and (min-width: 700px) {
@@ -3999,6 +4032,11 @@ footer p {
 
   .footer-grid .footer-brand div {
     padding-left: 2.7em;
+  }
+
+  .footer-trust__badges {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .footer-grid .footer-brand a img {
