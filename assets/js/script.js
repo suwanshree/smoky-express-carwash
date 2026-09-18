@@ -15,13 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     ooltewah: {
       name: "Ooltewah",
-      status: "coming-soon",
+      status: "open",
       address: "9025 Jac Cate Rd",
       city: "Ooltewah",
       state: "TN",
       zip: "37363",
-      phone: "",
-      phoneHref: "",
+      phone: "423-910-0020",
+      phoneHref: "tel:+14239100020",
       mapTitle: "Map showing 9025 Jac Cate Rd in Ooltewah, Tennessee",
       mapSrc:
         "https://www.google.com/maps?q=9025%20Jac%20Cate%20Rd%2C%20Ooltewah%2C%20TN%2037363&output=embed",
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "[data-location-note]",
       isComingSoon
         ? "Coming soon."
-        : "Ooltewah and Chattanooga are coming soon. Select a location above for the address.",
+        : "Chattanooga is coming soon. Select a location above for the address.",
     );
 
     document
