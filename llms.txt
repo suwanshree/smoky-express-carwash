@@ -23,8 +23,8 @@ Service facts:
 
 ## Local Partners
 
-- [Small Town Bistro](https://smokyexpresscarwash.com/partners/small-town-bistro/): Partner page for Small Town Bistro with the current Smoky Express Local Partner Special, business summary, contact links, hours, and map.
-- [Hometown Hero's Subs](https://smokyexpresscarwash.com/partners/hometown-heros-subs/): Partner page for Hometown Hero's Subs with the current Smoky Express Local Partner Special, business summary, contact links, hours, and map.
+- [Workout Anytime 24/7 - Sevierville](https://smokyexpresscarwash.com/partners/workout-anytime-sevierville/): Active Fitness Partner page with member-to-member offer summaries, Workout Anytime Sevierville details, staffed hours, and map.
+- Hometown Hero's Subs: Sandwich Partner coming soon. Offer details and redemption instructions are intentionally hidden until onboarding is complete.
 
 ## Wash Menu
 
