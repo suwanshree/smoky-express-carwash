@@ -19,6 +19,12 @@ Service facts:
 - [Sevierville](https://smokyexpresscarwash.com/locations/sevierville/): Open location at 994 Parkway, Sevierville, TN 37862 with local phone, map, wash menu, and offers.
 - [Ooltewah](https://smokyexpresscarwash.com/locations/ooltewah/): Coming soon location at 9025 Jac Cate Rd, Ooltewah, TN 37363 with planned wash menu details.
 - [Chattanooga](https://smokyexpresscarwash.com/locations/chattanooga/): Coming soon location at 4907 TN-58, Chattanooga, TN 37416 with planned wash menu details.
+- [Sevierville Local Partners](https://smokyexpresscarwash.com/locations/sevierville/#partners): Local partner cards with reusable offer summaries for the Sevierville location.
+
+## Local Partners
+
+- [Small Town Bistro](https://smokyexpresscarwash.com/partners/small-town-bistro/): Partner page for Small Town Bistro with the current Smoky Express Local Partner Special, business summary, contact links, hours, and map.
+- [Hometown Hero's Subs](https://smokyexpresscarwash.com/partners/hometown-heros-subs/): Partner page for Hometown Hero's Subs with the current Smoky Express Local Partner Special, business summary, contact links, hours, and map.
 
 ## Wash Menu
 
