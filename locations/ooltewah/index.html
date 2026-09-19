@@ -326,14 +326,21 @@
       </svg>
     </div>
 
-    <section id="services">
+    <section id="services" class="location-collapsible-section" data-location-collapsible-section>
       <div class="container">
-        <div class="section-heading reveal-up">
-          <p class="section-kicker">Wash Menu</p>
-          <h2>Ooltewah wash menu</h2>
-          <p class="section-lead">These prices apply at the Ooltewah location.</p>
+        <div class="section-heading section-heading--collapsible reveal-up">
+          <div class="section-heading__content">
+            <p class="section-kicker">Wash Menu</p>
+            <h2>Ooltewah wash menu</h2>
+            <p class="section-lead">These prices apply at the Ooltewah location.</p>
+          </div>
+          <button class="section-toggle" type="button" data-section-toggle data-section-toggle-target-label="Ooltewah wash menu" aria-controls="ooltewah-services-panel" aria-expanded="false" aria-label="Show Ooltewah wash menu">
+            <span data-section-toggle-label>Show</span>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
         </div>
 
+        <div class="location-collapsible-panel" id="ooltewah-services-panel" data-section-panel>
         <div class="membership-spotlight reveal-up">
           <div class="membership-spotlight__copy">
             <p class="section-kicker section-kicker--dark">Unlimited Wash Club</p>
@@ -528,17 +535,25 @@
 
           <a class="member-discount-note__link" href="#location">Visit Ooltewah At 9025 Jac Cate Rd</a>
         </aside>
+        </div>
       </div>
     </section>
 
-    <section id="chemicals">
+    <section id="chemicals" class="location-collapsible-section" data-location-collapsible-section>
       <div class="container">
-        <div class="section-heading reveal-up">
-          <p class="section-kicker">Mothers Automated Solutions</p>
-          <h2>Give your car the premium treatment it deserves</h2>
-          <p class="section-lead">Every wash is powered by Mothers Professional chemistry selected for deep cleaning, strong gloss, and paint-friendly protection.</p>
+        <div class="section-heading section-heading--collapsible reveal-up">
+          <div class="section-heading__content">
+            <p class="section-kicker">Mothers Automated Solutions</p>
+            <h2>Give your car the premium treatment it deserves</h2>
+            <p class="section-lead">Every wash is powered by Mothers Professional chemistry selected for deep cleaning, strong gloss, and paint-friendly protection.</p>
+          </div>
+          <button class="section-toggle" type="button" data-section-toggle data-section-toggle-target-label="Mothers Automated Solutions products" aria-controls="ooltewah-chemicals-panel" aria-expanded="false" aria-label="Show Mothers Automated Solutions products">
+            <span data-section-toggle-label>Show</span>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
         </div>
 
+        <div class="location-collapsible-panel" id="ooltewah-chemicals-panel" data-section-panel>
         <div class="chemistry-grid">
           <article class="chemistry-card chemistry-card--body-soak reveal-up" tabindex="0">
             <div class="chemistry-card__media" role="img" aria-label="Body Soak product spotlight">
@@ -620,6 +635,7 @@
               <p>Free air fresheners are included with our top two wash tiers, adding a fresh cabin touch after your premium exterior clean.</p>
             </div>
           </article>
+        </div>
         </div>
       </div>
     </section>

@@ -498,10 +498,221 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
+  function getHashTarget(hash = window.location.hash) {
+    if (!hash || hash === "#") {
+      return null;
+    }
+
+    let targetId = hash.slice(1);
+
+    try {
+      targetId = decodeURIComponent(targetId);
+    } catch (error) {
+      return null;
+    }
+
+    return document.getElementById(targetId);
+  }
+
+  function getComparablePath(pathname) {
+    return pathname.replace(/\/index\.html$/, "/");
+  }
+
+  function initializeLocationCollapsibleSections() {
+    const sections = Array.from(
+      document.querySelectorAll("[data-location-collapsible-section]"),
+    );
+
+    if (!sections.length) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const currentPath = getComparablePath(window.location.pathname);
+    const sectionById = new Map();
+
+    function getSectionLabel(section, button) {
+      return (
+        button?.dataset.sectionToggleTargetLabel ||
+        section.querySelector("h2")?.textContent.trim() ||
+        "section"
+      );
+    }
+
+    function setSectionExpanded(section, isExpanded) {
+      const button = section.querySelector("[data-section-toggle]");
+      const panel = section.querySelector("[data-section-panel]");
+      const label = button?.querySelector("[data-section-toggle-label]");
+      const actionLabel = isExpanded ? "Hide" : "Show";
+
+      section.classList.add("location-collapsible-section--ready");
+      section.classList.toggle("is-expanded", isExpanded);
+      section.classList.toggle("is-collapsed", !isExpanded);
+
+      if (panel) {
+        panel.hidden = !isExpanded;
+        panel.setAttribute("aria-hidden", isExpanded ? "false" : "true");
+
+        if (isExpanded) {
+          panel.querySelectorAll(".reveal-up").forEach((item) => {
+            item.classList.add("is-visible");
+          });
+        }
+      }
+
+      if (button) {
+        button.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+        button.setAttribute(
+          "aria-label",
+          `${actionLabel} ${getSectionLabel(section, button)}`,
+        );
+
+        if (label) {
+          label.textContent = actionLabel;
+        }
+      }
+    }
+
+    function getControlledSectionFromTarget(target) {
+      if (!target) {
+        return null;
+      }
+
+      if (sectionById.has(target.id)) {
+        return sectionById.get(target.id);
+      }
+
+      const parentSection = target.closest(
+        "[data-location-collapsible-section]",
+      );
+
+      if (parentSection && sectionById.has(parentSection.id)) {
+        return parentSection;
+      }
+
+      return null;
+    }
+
+    function scrollToHashTarget(target, behavior = "smooth") {
+      window.requestAnimationFrame(() => {
+        target.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : behavior,
+          block: "start",
+        });
+      });
+    }
+
+    function revealHashTarget({ shouldScroll = false, behavior = "smooth" } = {}) {
+      const target = getHashTarget();
+      const section = getControlledSectionFromTarget(target);
+
+      if (!target || !section) {
+        return;
+      }
+
+      setSectionExpanded(section, true);
+
+      if (shouldScroll) {
+        scrollToHashTarget(target, behavior);
+      }
+    }
+
+    function getSamePageHashTarget(link) {
+      const href = link.getAttribute("href");
+
+      if (!href) {
+        return null;
+      }
+
+      let url;
+
+      try {
+        url = new URL(href, window.location.href);
+      } catch (error) {
+        return null;
+      }
+
+      if (
+        url.origin !== window.location.origin ||
+        getComparablePath(url.pathname) !== currentPath
+      ) {
+        return null;
+      }
+
+      return getHashTarget(url.hash);
+    }
+
+    sections.forEach((section) => {
+      const button = section.querySelector("[data-section-toggle]");
+
+      if (section.id) {
+        sectionById.set(section.id, section);
+      }
+
+      if (button) {
+        button.addEventListener("click", () => {
+          setSectionExpanded(
+            section,
+            !section.classList.contains("is-expanded"),
+          );
+        });
+      }
+    });
+
+    const initialSection = getControlledSectionFromTarget(getHashTarget());
+
+    sections.forEach((section) => {
+      setSectionExpanded(section, section === initialSection);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        event.defaultPrevented ||
+        (event instanceof MouseEvent &&
+          (event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey))
+      ) {
+        return;
+      }
+
+      const link =
+        event.target instanceof Element ? event.target.closest("a[href]") : null;
+      const target = link ? getSamePageHashTarget(link) : null;
+      const section = getControlledSectionFromTarget(target);
+
+      if (!target || !section) {
+        return;
+      }
+
+      event.preventDefault();
+      setSectionExpanded(section, true);
+
+      if (window.location.hash !== `#${target.id}`) {
+        history.pushState(null, "", `#${target.id}`);
+      }
+
+      scrollToHashTarget(target);
+    });
+
+    revealHashTarget({ shouldScroll: Boolean(initialSection), behavior: "auto" });
+    window.addEventListener("hashchange", () => {
+      revealHashTarget({ shouldScroll: true });
+    });
+    window.addEventListener("popstate", () => {
+      revealHashTarget();
+    });
+  }
+
   preserveAttributionAcrossInternalLinks();
   initializeAttributionButtons();
   initializeLocationSelectors();
   initializeLocationCarousels();
+  initializeLocationCollapsibleSections();
 
   const header = document.querySelector("header");
   const nav = document.querySelector("nav");
