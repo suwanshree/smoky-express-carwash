@@ -1032,6 +1032,10 @@ main button:hover {
 }
 
 .section-wave--location-hero {
+  --wave-layer-4: var(--white);
+}
+
+.section-wave--white-hero {
   --wave-layer-4: #ffffff;
 }
 
