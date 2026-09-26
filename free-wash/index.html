@@ -163,8 +163,8 @@
 
           <p class="promo-lead">
             We will text a link to your unique barcode so you can roll into
-            Smoky Express Car Wash ready to scan. Choose your location below;
-            Chattanooga is coming soon.
+            Smoky Express Car Wash ready to scan. Sevierville and Ooltewah are
+            available now; Chattanooga is coming soon.
           </p>
 
           <ul class="promo-perks" aria-label="Offer highlights">
@@ -198,16 +198,12 @@
           <form id="freewash-form" class="promo-form">
             <label class="promo-form__field promo-form__full">
               Wash Location *
-              <select id="washLocation" name="locationId" aria-describedby="freewash-location-pause" required>
-                <option value="1" disabled>Sevierville - Paused for Saturday fundraiser</option>
-                <option value="7" selected>Ooltewah - Now open</option>
+              <select id="washLocation" name="locationId" required>
+                <option value="1" selected>Sevierville - Now open</option>
+                <option value="7">Ooltewah - Now open</option>
                 <option value="6" disabled>Chattanooga - Coming soon</option>
               </select>
             </label>
-            <p id="freewash-location-pause" class="promo-location-note promo-form__full">
-              <strong>Sevierville free wash requests are paused through Saturday.</strong>
-              We are getting ready for the GPHS Lady Highlanders Lacrosse fundraiser. Ooltewah requests are still open.
-            </p>
 
             <label class="promo-form__field">
               Mobile Number *
@@ -328,8 +324,6 @@
       sevierville: "1",
       ooltewah: "7",
     };
-    const PAUSED_FREE_WASH_LOCATION_IDS = new Set([LOCATION_ID_BY_KEY.sevierville]);
-    const PAUSED_FREE_WASH_MESSAGE = "Sevierville free wash requests are paused through Saturday while we get ready for the GPHS Lady Highlanders Lacrosse fundraiser. Ooltewah requests are still open.";
     const GENERIC_CLAIM_ERROR_MESSAGE = "Oops! Something went wrong. Please try again later.";
 
     const consentCheckbox = document.getElementById("sms-consent");
@@ -353,7 +347,7 @@
     };
 
     consentCheckbox.addEventListener("change", function () {
-      setSubmittingState(false);
+      freewashButton.disabled = !this.checked;
     });
 
     function normalizePhone(phone) {
@@ -388,25 +382,12 @@
       input.value = value || "";
     }
 
-    function getEnabledLocationFallbackId() {
-      const enabledOption = Array.from(washLocationSelect?.options || []).find((option) => {
-        return option.value && !option.disabled;
-      });
-
-      return Number(enabledOption?.value || DEFAULT_LOCATION_ID);
-    }
-
-    function isFreeWashLocationPaused(locationId) {
-      return PAUSED_FREE_WASH_LOCATION_IDS.has(String(locationId || ""));
-    }
-
     function getSelectedLocationId() {
-      const selectedOption = washLocationSelect?.selectedOptions?.[0];
-      const selectedValue = Number(washLocationSelect?.value || getEnabledLocationFallbackId());
+      const selectedValue = Number(washLocationSelect?.value || DEFAULT_LOCATION_ID);
 
-      return Number.isFinite(selectedValue) && selectedValue > 0 && !selectedOption?.disabled
+      return Number.isFinite(selectedValue) && selectedValue > 0
         ? selectedValue
-        : getEnabledLocationFallbackId();
+        : DEFAULT_LOCATION_ID;
     }
 
     function applyLocationSelectionFromParams() {
@@ -606,17 +587,12 @@
       freewashButton.innerText = isSubmitting ? "Sending..." : "Text My Free Wash Barcode";
     }
 
-    washLocationSelect.addEventListener("change", function () {
-      setSubmittingState(false);
-    });
-
     document.getElementById("phone").addEventListener("input", function () {
       this.value = formatPhone(this.value);
     });
 
     captureAttributionFields();
     applyLocationSelectionFromParams();
-    setSubmittingState(false);
 
     freewashForm.addEventListener("submit", async function (event) {
       event.preventDefault();
@@ -641,19 +617,11 @@
       }
 
       const attribution = getCapturedAttribution();
-      const selectedLocationId = getSelectedLocationId();
-
-      if (isFreeWashLocationPaused(selectedLocationId)) {
-        showError(PAUSED_FREE_WASH_MESSAGE);
-        setSubmittingState(false);
-        return;
-      }
-
       const payload = {
         businessSlug: BUSINESS_SLUG,
         phone,
         firstName: firstName || null,
-        locationId: selectedLocationId,
+        locationId: getSelectedLocationId(),
         campaignKey: CAMPAIGN_KEY,
         attribution,
         consent: {
