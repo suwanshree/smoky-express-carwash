@@ -5369,3 +5369,268 @@ footer p {
     padding: 0 24px 24px 24px;
   }
 }
+
+/* Compact homepage and location menus, using the existing colors and effects. */
+html:has(.home-page, .location-page-refresh) {
+  min-width: 320px;
+}
+
+.home-page #about {
+  min-height: min(48rem, 85svh);
+}
+
+.home-page #about .container {
+  max-width: 960px;
+  padding: clamp(2rem, 5vw, 3.5rem) 1rem 6rem;
+}
+
+.home-page #about h2 {
+  max-width: 22ch;
+  padding-top: 0;
+  padding-bottom: 0.4em;
+  font-size: clamp(2.1rem, 5.5vw, 4rem);
+  line-height: 1.02;
+}
+
+.home-page .hero-price {
+  display: block;
+  margin-top: 0.18em;
+  color: var(--gold);
+  font-size: 1.4em;
+}
+
+.home-page .hero-price > span {
+  font-size: 0.38em;
+}
+
+.home-page .hero-lifetime {
+  display: block;
+  margin-top: 0.22em;
+  font-size: 0.55em;
+}
+
+.home-page .hero-kicker {
+  padding-bottom: 0.44rem;
+}
+
+.home-page .hero-actions .button-one,
+.home-page .hero-actions .button-two {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 24rem);
+  min-height: 3.25rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.home-page .hero-actions a:focus-visible,
+.home-page .hero-actions button:focus-visible,
+.home-page .home-product-details summary:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.home-page .hero-locations {
+  margin-top: 1.1rem;
+  padding-bottom: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.home-page .hero-locations a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+.home-page .hero-trust-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  max-width: 36rem;
+  margin: 1.4rem auto 0;
+}
+
+.home-page .hero-trust-list li {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.55rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  backdrop-filter: none;
+}
+
+.home-page .hero-trust-list svg {
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-page main > section:not(#about) {
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+:is(.home-page, .location-page-refresh) .section-heading:not(.section-heading--collapsible) {
+  margin-bottom: 1.5rem;
+}
+
+:is(.home-page, .location-page-refresh) .section-kicker {
+  margin-bottom: 0.6rem;
+}
+
+:is(.home-page, .location-page-refresh) .benefit-card {
+  padding: 1.1rem;
+}
+
+:is(.home-page, .location-page-refresh) .standards-panel,
+:is(.home-page, .location-page-refresh) .membership-spotlight {
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+:is(.home-page, .location-page-refresh) .standards-list,
+:is(.home-page, .location-page-refresh) .membership-spotlight__list {
+  gap: 0.5rem;
+}
+
+:is(.home-page, .location-page-refresh) .wash-prep-note,
+:is(.home-page, .location-page-refresh) .member-discount-note {
+  padding: 1.15rem;
+}
+
+:is(.home-page, .location-page-refresh) .wash-card {
+  gap: 0.9rem;
+  padding: 1.2rem;
+}
+
+:is(.home-page, .location-page-refresh) .wash-card__features {
+  gap: 0.4rem;
+}
+
+:is(.home-page, .location-page-refresh) .wash-card > .plan-cta {
+  margin-top: auto;
+}
+
+:is(.home-page, .location-page-refresh) .wash-menu-shell + .membership-spotlight {
+  margin-top: 1.4rem;
+}
+
+:is(.home-page, .location-page-refresh) .wash-note a {
+  color: var(--darkRed);
+  text-underline-offset: 3px;
+}
+
+.home-page .home-product-details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(178, 0, 0, 0.16);
+  border-radius: 18px;
+  color: var(--darkRed);
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.home-page .home-product-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.home-page .home-product-details summary i {
+  transition: transform 0.3s ease;
+}
+
+.home-page .home-product-details[open] summary i {
+  transform: rotate(180deg);
+}
+
+.home-page .home-product-details .chemistry-grid {
+  margin-top: 1.25rem;
+}
+
+.home-page .chemistry-card {
+  min-height: 18rem;
+}
+
+@media (min-width: 700px) {
+  .home-page .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .home-page .hero-actions .button-one,
+  .home-page .hero-actions .button-two {
+    width: auto;
+  }
+
+  :is(.home-page, .location-page-refresh) .benefit-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  :is(.home-page, .location-page-refresh) .standards-panel,
+  :is(.home-page, .location-page-refresh) .membership-spotlight {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  :is(.home-page, .location-page-refresh) .membership-spotlight__actions {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  :is(.home-page, .location-page-refresh) .wash-prep-note {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  :is(.home-page, .location-page-refresh) .wash-card__pricing {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  :is(.home-page, .location-page-refresh) .wash-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  :is(.home-page, .location-page-refresh) .wash-card__pricing {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  :is(.home-page, .location-page-refresh) .wash-card__header {
+    min-height: 13.5rem;
+  }
+}
+
+:is(.home-page, .location-page-refresh) .menu-footer,
+.home-page #contact a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.location-page-refresh #expertise,
+.location-page-refresh #services.is-expanded {
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
