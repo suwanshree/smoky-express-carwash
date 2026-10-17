@@ -849,6 +849,12 @@ p {
   line-height: 1.6;
 }
 
+@media screen and (max-width: 699px) {
+  .home-page .hero-copy__rate {
+    display: block;
+  }
+}
+
 .hero-actions {
   display: grid;
   gap: 0.8rem;
@@ -2537,6 +2543,19 @@ section > div > p {
   text-shadow: 0 3px 16px rgba(0, 0, 0, 0.36);
 }
 
+.promo-title__line {
+  display: block;
+  white-space: nowrap;
+}
+
+.promo-title__suffix {
+  position: relative;
+  top: -0.65em;
+  font-size: 0.45em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+
 .promo-panel h3 {
   margin-bottom: 0.15rem;
   color: var(--darkRed);
@@ -2566,6 +2585,17 @@ section > div > p {
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.08rem;
   line-height: 1.62;
+}
+
+#free .promo-offer .promo-lead a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+#free .promo-offer .promo-lead a:hover,
+#free .promo-offer .promo-lead a:focus-visible {
+  color: var(--white);
 }
 
 .grand-promo-lead,
@@ -2768,6 +2798,10 @@ section > div > p {
   font-size: 0.98rem;
   font-weight: 800;
   line-height: 1.35;
+}
+
+.promo-offer .promo-perks + .promo-lead {
+  margin-top: 1.5rem;
 }
 
 .promo-perks li {

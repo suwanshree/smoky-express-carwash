@@ -35,8 +35,10 @@ Service facts:
 
 - [Wash menu](https://smokyexpresscarwash.com/#services): Base Blast, Soapy Slope, Alpine Shine, and Peak Protection pricing and Unlimited Wash Club membership rates.
 - [Unlimited Wash Club signup](https://smoky-express-carwash.patheon.app/buy/plans): External membership purchase flow for open locations.
-- [Free first wash](https://smokyexpresscarwash.com/free-wash/): New customer first wash offer.
-- [Sevierville grand opening offer](https://smokyexpresscarwash.com/grand-opening/): Sevierville-specific promotion details.
+- [Free first wash in Ooltewah](https://smokyexpresscarwash.com/free-wash/): New customer free first wash offer, redeemable at Ooltewah only (9025 Jac Cate Rd). No location selection; claims use the Ooltewah location.
+- [50% off first wash in Sevierville](https://smokyexpresscarwash.com/half-off-wash/): New customer first wash offer, redeemable at Sevierville only (994 Parkway). Sevierville does not participate in the free first wash offer.
+- Chattanooga is coming soon and is not currently eligible for either first wash offer.
+- [Grand opening membership offer](https://smokyexpresscarwash.com/grand-opening/): Peak Protection Unlimited membership promotion for Sevierville and Ooltewah, separate from the location-specific first wash offers.
 
 ## Contact And Policies
 
