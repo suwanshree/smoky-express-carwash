@@ -1,3 +1,11 @@
+// TEMPORARY CLOSURES: change a location to true, then back to false after reopening.
+// Presentation only: metadata, structured data, and regular business hours stay intact.
+const TEMPORARY_LOCATION_CLOSURES = {
+  sevierville: true,
+  ooltewah: false,
+  chattanooga: false,
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const SITE_LOCATIONS = {
     sevierville: {
@@ -42,6 +50,67 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const DEFAULT_SITE_LOCATION = "sevierville";
+
+  const TEMPORARY_CLOSURE_MESSAGE =
+    "Closed today for a mechanical repair. We expect to reopen tomorrow, once repairs are complete.";
+
+  function isLocationTemporarilyClosed(locationKey) {
+    return TEMPORARY_LOCATION_CLOSURES[locationKey] === true;
+  }
+
+  function initializeTemporaryClosures() {
+    const closedLocations = Object.keys(SITE_LOCATIONS).filter(
+      isLocationTemporarilyClosed,
+    );
+
+    if (!closedLocations.length) return;
+
+    // Only explicitly marked body content is changed; never touch head or JSON-LD.
+    document.querySelectorAll("[data-location-status]").forEach((item) => {
+      if (isLocationTemporarilyClosed(item.dataset.locationStatus)) {
+        item.textContent = "Closed today · Reopening soon";
+        item.classList.add("is-temporarily-closed");
+      }
+    });
+
+    document.querySelectorAll("[data-location-closure]").forEach((item) => {
+      if (isLocationTemporarilyClosed(item.dataset.locationClosure)) {
+        item.textContent =
+          item.dataset.closureCopy || TEMPORARY_CLOSURE_MESSAGE;
+      }
+    });
+
+    document.querySelectorAll("[data-location-hours]").forEach((item) => {
+      const keys = item.dataset.locationHours.split(" ");
+      if (!keys.some(isLocationTemporarilyClosed)) return;
+
+      item.textContent = keys
+        .map((key) => {
+          const location = getLocationByKey(key);
+          return isLocationTemporarilyClosed(key)
+            ? `${location.name}: closed today · Reopening soon`
+            : `${location.name}: open daily, 8am – 8pm`;
+        })
+        .join(". ");
+    });
+
+    const notice = document.createElement("aside");
+    notice.className = "temporary-closure-notice";
+    notice.setAttribute("role", "status");
+    notice.setAttribute("aria-label", "Temporary location closure");
+
+    closedLocations.forEach((key) => {
+      const message = document.createElement("p");
+      const label = document.createElement("strong");
+      label.textContent = `${SITE_LOCATIONS[key].name} · Closed today`;
+      const detail = document.createElement("span");
+      detail.textContent = TEMPORARY_CLOSURE_MESSAGE;
+      message.append(label, detail);
+      notice.append(message);
+    });
+
+    document.querySelector(".grand-opening-banner, main")?.before(notice);
+  }
 
   const ATTRIBUTION_QUERY_KEYS = [
     "src",
@@ -270,6 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function setLocationPanel(locationKey) {
     const selectedLocation = getLocationByKey(locationKey);
     const isComingSoon = selectedLocation.status !== "open";
+    const isTemporarilyClosed = isLocationTemporarilyClosed(locationKey);
     const selectedAddress = getLocationAddress(selectedLocation);
 
     document.documentElement.dataset.selectedLocation = locationKey;
@@ -285,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll("[data-location-dependent]").forEach((panel) => {
       panel.classList.toggle("is-coming-soon", isComingSoon);
+      panel.classList.toggle("is-temporarily-closed", isTemporarilyClosed);
       panel.dataset.activeLocation = locationKey;
     });
 
@@ -292,18 +363,31 @@ document.addEventListener("DOMContentLoaded", () => {
     setTextContent("[data-selected-location-address]", selectedAddress);
     setTextContent(
       "[data-selected-location-status]",
-      isComingSoon ? "Coming soon" : "OPEN DAILY - 8 AM TO 8 PM",
+      isTemporarilyClosed
+        ? "Closed today · Reopening soon"
+        : isComingSoon
+          ? "Coming soon"
+          : "OPEN DAILY - 8 AM TO 8 PM",
     );
+    document
+      .querySelectorAll("[data-selected-location-status]")
+      .forEach((item) => {
+        item.classList.toggle("is-temporarily-closed", isTemporarilyClosed);
+      });
 
-    const locationTitle = isComingSoon
-      ? `Coming Soon In ${selectedLocation.name}`
-      : `Visit Us In ${selectedLocation.name}`;
+    const locationTitle = isTemporarilyClosed
+      ? `${selectedLocation.name} · Back soon`
+      : isComingSoon
+        ? `Coming Soon In ${selectedLocation.name}`
+        : `Visit Us In ${selectedLocation.name}`;
     setTextContent("[data-location-title]", locationTitle);
     setTextContent(
       "[data-location-note]",
-      isComingSoon
-        ? "Coming soon."
-        : "Chattanooga is coming soon. Select a location above for the address.",
+      isTemporarilyClosed
+        ? TEMPORARY_CLOSURE_MESSAGE
+        : isComingSoon
+          ? "Coming soon."
+          : "Chattanooga is coming soon. Select a location above for the address.",
     );
 
     document
@@ -365,7 +449,9 @@ document.addEventListener("DOMContentLoaded", () => {
           "[data-carousel-previous]",
         );
         const nextButton = carousel.querySelector("[data-carousel-next]");
-        const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
+        const dots = Array.from(
+          carousel.querySelectorAll("[data-carousel-dot]"),
+        );
         const count = carousel.querySelector("[data-carousel-count]");
         const prefersReducedCarouselMotion = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
@@ -375,7 +461,8 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        const carouselId = carousel.id || `location-carousel-${carouselIndex + 1}`;
+        const carouselId =
+          carousel.id || `location-carousel-${carouselIndex + 1}`;
 
         if (!carousel.id) {
           carousel.id = carouselId;
@@ -604,7 +691,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    function revealHashTarget({ shouldScroll = false, behavior = "smooth" } = {}) {
+    function revealHashTarget({
+      shouldScroll = false,
+      behavior = "smooth",
+    } = {}) {
       const target = getHashTarget();
       const section = getControlledSectionFromTarget(target);
 
@@ -681,7 +771,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const link =
-        event.target instanceof Element ? event.target.closest("a[href]") : null;
+        event.target instanceof Element
+          ? event.target.closest("a[href]")
+          : null;
       const target = link ? getSamePageHashTarget(link) : null;
       const section = getControlledSectionFromTarget(target);
 
@@ -699,7 +791,10 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollToHashTarget(target);
     });
 
-    revealHashTarget({ shouldScroll: Boolean(initialSection), behavior: "auto" });
+    revealHashTarget({
+      shouldScroll: Boolean(initialSection),
+      behavior: "auto",
+    });
     window.addEventListener("hashchange", () => {
       revealHashTarget({ shouldScroll: true });
     });
@@ -710,6 +805,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   preserveAttributionAcrossInternalLinks();
   initializeAttributionButtons();
+  initializeTemporaryClosures();
   initializeLocationSelectors();
   initializeLocationCarousels();
   initializeLocationCollapsibleSections();

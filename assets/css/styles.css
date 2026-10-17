@@ -4856,6 +4856,48 @@ footer p {
 
 /* GRAND OPENING PROMO BANNER */
 
+.temporary-closure-notice {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  padding: 1rem max(1rem, calc((100% - 1120px) / 2));
+  border-block: 1px solid #e6c781;
+  background: #fff6df;
+  color: #624209;
+  font-family: var(--font-body);
+  text-align: center;
+}
+
+.temporary-closure-notice p {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.temporary-closure-notice p + p {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #e6c781;
+}
+
+.temporary-closure-notice strong {
+  font-weight: 800;
+}
+
+.nav-location-menu__meta.is-temporarily-closed,
+.location-switcher__status.is-temporarily-closed {
+  color: #805100;
+}
+
+.location-summary__status.is-temporarily-closed {
+  background: #fff0c7;
+  color: #624209;
+  line-height: 1.4;
+}
+
 .grand-opening-banner {
   display: flex;
   flex-direction: column;
