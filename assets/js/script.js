@@ -1,7 +1,7 @@
 // TEMPORARY CLOSURES: change a location to true, then back to false after reopening.
 // Presentation only: metadata, structured data, and regular business hours stay intact.
 const TEMPORARY_LOCATION_CLOSURES = {
-  sevierville: true,
+  sevierville: false,
   ooltewah: false,
   chattanooga: false,
 };
