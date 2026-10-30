@@ -58,6 +58,110 @@ document.addEventListener("DOMContentLoaded", () => {
     return TEMPORARY_LOCATION_CLOSURES[locationKey] === true;
   }
 
+  // Use the locations' Eastern calendar date, regardless of the visitor's timezone.
+  // This exception is only for Halloween 2026, not every future October 31.
+  const easternDateFormatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  function isHalloweenDate() {
+    const parts = easternDateFormatter.formatToParts(new Date());
+    const part = (type) => parts.find((item) => item.type === type)?.value;
+    return (
+      part("year") === "2026" &&
+      part("month") === "10" &&
+      part("day") === "31"
+    );
+  }
+
+  let halloweenHoursActive = isHalloweenDate();
+
+  function hasHalloweenHours(locationKey) {
+    return halloweenHoursActive && SITE_LOCATIONS[locationKey]?.status === "open";
+  }
+
+  function getLocationStatus(locationKey) {
+    if (isLocationTemporarilyClosed(locationKey)) {
+      return "Closed today · Reopening soon";
+    }
+    if (getLocationByKey(locationKey).status !== "open") return "Coming soon";
+    return hasHalloweenHours(locationKey)
+      ? "HALLOWEEN HOURS - 8 AM TO 6 PM"
+      : "OPEN DAILY - 8 AM TO 8 PM";
+  }
+
+  function getLocationHoursSummary(locationKey) {
+    const location = getLocationByKey(locationKey);
+    if (isLocationTemporarilyClosed(locationKey)) {
+      return `${location.name}: closed today · Reopening soon`;
+    }
+    return hasHalloweenHours(locationKey)
+      ? `${location.name}: Halloween hours today, 8am – 6pm (closing 2 hours early)`
+      : `${location.name}: open daily, 8am – 8pm`;
+  }
+
+  function initializeHalloweenHours() {
+    const hoursItems = Array.from(
+      document.querySelectorAll("[data-location-hours]"),
+      (item) => ({ item, originalHTML: item.innerHTML }),
+    );
+    const holidayItems = Array.from(
+      document.querySelectorAll("[data-location-holiday-hours]"),
+      (item) => ({ item, originalHTML: item.innerHTML }),
+    );
+
+    function renderHours() {
+      document.querySelectorAll("[data-location-status]").forEach((item) => {
+        const key = item.dataset.locationStatus;
+        if (SITE_LOCATIONS[key]?.status === "open") {
+          item.textContent = getLocationStatus(key);
+        }
+      });
+
+      hoursItems.forEach(({ item, originalHTML }) => {
+        const keys = item.dataset.locationHours.split(" ");
+        if (
+          keys.some((key) => hasHalloweenHours(key) || isLocationTemporarilyClosed(key))
+        ) {
+          item.textContent = keys.map(getLocationHoursSummary).join(". ");
+        } else {
+          item.innerHTML = originalHTML;
+        }
+      });
+
+      holidayItems.forEach(({ item, originalHTML }) => {
+        if (hasHalloweenHours(item.dataset.locationHolidayHours)) {
+          item.textContent =
+            "Halloween (Oct 31): 8 AM–6 PM. Closing 2 hours early today.";
+        } else {
+          item.innerHTML = originalHTML;
+        }
+      });
+
+      setTextContent(
+        "[data-selected-location-status]",
+        getLocationStatus(
+          document.documentElement.dataset.selectedLocation || DEFAULT_SITE_LOCATION,
+        ),
+      );
+    }
+
+    if (halloweenHoursActive) renderHours();
+
+    // Also update tabs left open across midnight or resumed after being suspended.
+    function refreshHours() {
+      const active = isHalloweenDate();
+      if (active === halloweenHoursActive) return;
+      halloweenHoursActive = active;
+      renderHours();
+    }
+    window.setInterval(refreshHours, 60 * 1000);
+    document.addEventListener("visibilitychange", refreshHours);
+  }
+
   function initializeTemporaryClosures() {
     const closedLocations = Object.keys(SITE_LOCATIONS).filter(
       isLocationTemporarilyClosed,
@@ -85,12 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!keys.some(isLocationTemporarilyClosed)) return;
 
       item.textContent = keys
-        .map((key) => {
-          const location = getLocationByKey(key);
-          return isLocationTemporarilyClosed(key)
-            ? `${location.name}: closed today · Reopening soon`
-            : `${location.name}: open daily, 8am – 8pm`;
-        })
+        .map(getLocationHoursSummary)
         .join(". ");
     });
 
@@ -363,11 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTextContent("[data-selected-location-address]", selectedAddress);
     setTextContent(
       "[data-selected-location-status]",
-      isTemporarilyClosed
-        ? "Closed today · Reopening soon"
-        : isComingSoon
-          ? "Coming soon"
-          : "OPEN DAILY - 8 AM TO 8 PM",
+      getLocationStatus(locationKey),
     );
     document
       .querySelectorAll("[data-selected-location-status]")
@@ -805,6 +900,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   preserveAttributionAcrossInternalLinks();
   initializeAttributionButtons();
+  initializeHalloweenHours();
   initializeTemporaryClosures();
   initializeLocationSelectors();
   initializeLocationCarousels();
