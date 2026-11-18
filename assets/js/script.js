@@ -51,6 +51,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const DEFAULT_SITE_LOCATION = "sevierville";
 
+  const THANKSGIVING_DATE = "2026-11-26";
+  // Both open locations use Eastern Time, regardless of the visitor's time zone.
+  const siteDate = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+  const THANKSGIVING_HOURS = {
+    sevierville: "Closed for Thanksgiving",
+    ooltewah: "Thanksgiving hours: 9 AM–5 PM",
+  };
+
+  function getThanksgivingHours(locationKey) {
+    return siteDate === THANKSGIVING_DATE
+      ? THANKSGIVING_HOURS[locationKey]
+      : undefined;
+  }
+
+  function getLocationStatusText(locationKey) {
+    if (isLocationTemporarilyClosed(locationKey)) {
+      return "Closed today · Reopening soon";
+    }
+    return (
+      getThanksgivingHours(locationKey) ||
+      (getLocationByKey(locationKey).status === "open"
+        ? "OPEN DAILY - 8 AM TO 8 PM"
+        : "Coming soon")
+    );
+  }
+
+  function initializeThanksgivingHours() {
+    if (siteDate < "2026-11-18" || siteDate > THANKSGIVING_DATE) return;
+
+    const notice = document.createElement("aside");
+    notice.className = "holiday-hours-notice";
+    notice.setAttribute("aria-label", "Thanksgiving hours");
+    const heading = document.createElement("strong");
+    heading.textContent = "Thanksgiving Day · Thursday, November 26, 2026";
+    const detail = document.createElement("p");
+    detail.textContent =
+      "Sevierville: closed for the day. Ooltewah: open 9 AM–5 PM. Regular hours resume Friday, November 27.";
+    notice.append(heading, detail);
+    document.querySelector(".grand-opening-banner, main")?.before(notice);
+
+    if (siteDate !== THANKSGIVING_DATE) return;
+
+    document.querySelectorAll("[data-location-status]").forEach((item) => {
+      const key = item.dataset.locationStatus;
+      if (getThanksgivingHours(key)) {
+        item.textContent = getLocationStatusText(key);
+        item.classList.toggle("is-temporarily-closed", key === "sevierville");
+      }
+    });
+    document.querySelectorAll("[data-location-hours]").forEach((item) => {
+      const keys = item.dataset.locationHours.split(" ");
+      if (!keys.some(getThanksgivingHours)) return;
+      item.textContent = keys
+        .map((key) => `${getLocationByKey(key).name}: ${getLocationStatusText(key)}`)
+        .join(". ");
+    });
+  }
+
   const TEMPORARY_CLOSURE_MESSAGE =
     "Closed today for a mechanical repair. We expect to reopen tomorrow, once repairs are complete.";
 
@@ -89,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const location = getLocationByKey(key);
           return isLocationTemporarilyClosed(key)
             ? `${location.name}: closed today · Reopening soon`
-            : `${location.name}: open daily, 8am – 8pm`;
+            : `${location.name}: ${getLocationStatusText(key)}`;
         })
         .join(". ");
     });
@@ -340,6 +403,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedLocation = getLocationByKey(locationKey);
     const isComingSoon = selectedLocation.status !== "open";
     const isTemporarilyClosed = isLocationTemporarilyClosed(locationKey);
+    const isThanksgivingClosed =
+      locationKey === "sevierville" && Boolean(getThanksgivingHours(locationKey));
     const selectedAddress = getLocationAddress(selectedLocation);
 
     document.documentElement.dataset.selectedLocation = locationKey;
@@ -355,7 +420,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll("[data-location-dependent]").forEach((panel) => {
       panel.classList.toggle("is-coming-soon", isComingSoon);
-      panel.classList.toggle("is-temporarily-closed", isTemporarilyClosed);
+      panel.classList.toggle(
+        "is-temporarily-closed",
+        isTemporarilyClosed || isThanksgivingClosed,
+      );
       panel.dataset.activeLocation = locationKey;
     });
 
@@ -363,31 +431,34 @@ document.addEventListener("DOMContentLoaded", () => {
     setTextContent("[data-selected-location-address]", selectedAddress);
     setTextContent(
       "[data-selected-location-status]",
-      isTemporarilyClosed
-        ? "Closed today · Reopening soon"
-        : isComingSoon
-          ? "Coming soon"
-          : "OPEN DAILY - 8 AM TO 8 PM",
+      getLocationStatusText(locationKey),
     );
     document
       .querySelectorAll("[data-selected-location-status]")
       .forEach((item) => {
-        item.classList.toggle("is-temporarily-closed", isTemporarilyClosed);
+        item.classList.toggle(
+          "is-temporarily-closed",
+          isTemporarilyClosed || isThanksgivingClosed,
+        );
       });
 
     const locationTitle = isTemporarilyClosed
       ? `${selectedLocation.name} · Back soon`
-      : isComingSoon
-        ? `Coming Soon In ${selectedLocation.name}`
-        : `Visit Us In ${selectedLocation.name}`;
+      : isThanksgivingClosed
+        ? `${selectedLocation.name} · Closed for Thanksgiving`
+        : isComingSoon
+          ? `Coming Soon In ${selectedLocation.name}`
+          : `Visit Us In ${selectedLocation.name}`;
     setTextContent("[data-location-title]", locationTitle);
     setTextContent(
       "[data-location-note]",
       isTemporarilyClosed
         ? TEMPORARY_CLOSURE_MESSAGE
-        : isComingSoon
-          ? "Coming soon."
-          : "Chattanooga is coming soon. Select a location above for the address.",
+        : getThanksgivingHours(locationKey)
+          ? `${getThanksgivingHours(locationKey)}. Regular hours resume Friday, November 27.`
+          : isComingSoon
+            ? "Coming soon."
+            : "Chattanooga is coming soon. Select a location above for the address.",
     );
 
     document
@@ -805,6 +876,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   preserveAttributionAcrossInternalLinks();
   initializeAttributionButtons();
+  initializeThanksgivingHours();
   initializeTemporaryClosures();
   initializeLocationSelectors();
   initializeLocationCarousels();

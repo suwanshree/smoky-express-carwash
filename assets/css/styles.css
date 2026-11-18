@@ -4995,7 +4995,8 @@ footer p {
 
 /* GRAND OPENING PROMO BANNER */
 
-.temporary-closure-notice {
+.temporary-closure-notice,
+.holiday-hours-notice {
   position: relative;
   width: 100%;
   max-width: 100vw;
@@ -5024,6 +5025,12 @@ footer p {
 
 .temporary-closure-notice strong {
   font-weight: 800;
+}
+
+.holiday-hours-notice p {
+  margin: 0.3rem 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .nav-location-menu__meta.is-temporarily-closed,
