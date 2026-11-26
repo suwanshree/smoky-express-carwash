@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }).format(new Date());
   const THANKSGIVING_HOURS = {
     sevierville: "Closed for Thanksgiving",
-    ooltewah: "Thanksgiving hours: 9 AM–5 PM",
+    ooltewah: "Closed for Thanksgiving",
   };
 
   function getThanksgivingHours(locationKey) {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     heading.textContent = "Thanksgiving Day · Thursday, November 26, 2026";
     const detail = document.createElement("p");
     detail.textContent =
-      "Sevierville: closed for the day. Ooltewah: open 9 AM–5 PM. Regular hours resume Friday, November 27.";
+      "Sevierville and Ooltewah are closed for the day. Regular hours resume Friday, November 27.";
     notice.append(heading, detail);
     document.querySelector(".grand-opening-banner, main")?.before(notice);
 
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const key = item.dataset.locationStatus;
       if (getThanksgivingHours(key)) {
         item.textContent = getLocationStatusText(key);
-        item.classList.toggle("is-temporarily-closed", key === "sevierville");
+        item.classList.add("is-temporarily-closed");
       }
     });
     document.querySelectorAll("[data-location-hours]").forEach((item) => {
@@ -403,8 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedLocation = getLocationByKey(locationKey);
     const isComingSoon = selectedLocation.status !== "open";
     const isTemporarilyClosed = isLocationTemporarilyClosed(locationKey);
-    const isThanksgivingClosed =
-      locationKey === "sevierville" && Boolean(getThanksgivingHours(locationKey));
+    const isThanksgivingClosed = Boolean(getThanksgivingHours(locationKey));
     const selectedAddress = getLocationAddress(selectedLocation);
 
     document.documentElement.dataset.selectedLocation = locationKey;

@@ -36,8 +36,8 @@ structured data remain unchanged. Multiple locations can be flagged independentl
 
 ### Thanksgiving 2026 hours
 
-On Thursday, November 26, 2026, Sevierville is closed and Ooltewah is open
-9 AM–5 PM. The shared script shows a holiday notice November 18–26 and applies
+On Thursday, November 26, 2026, Sevierville and Ooltewah are closed for the day.
+The shared script shows a holiday notice November 18–26 and applies
 the holiday hours to navigation, hours summaries, and the homepage location
 selector on November 26, using America/New_York time. These displays return to
 regular hours on November 27; no temporary mechanical closure flag is needed.
